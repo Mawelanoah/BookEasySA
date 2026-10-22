@@ -9,32 +9,19 @@
   <link rel="stylesheet" href="../css/mobile-fix.css" />
   <style>
     .svc-cards { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
-    .svc-card {
-      background: #fff;
-      border: 1px solid var(--gray-200);
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: var(--shadow);
-    }
-    .svc-card .top {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.5rem;
-      align-items: flex-start;
-    }
+    .svc-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 12px; padding: 1rem; box-shadow: var(--shadow); }
+    .svc-card .top { display: flex; gap: 0.75rem; align-items: flex-start; }
+    .svc-card .thumb { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; background: var(--purple-100); flex-shrink: 0; }
     .svc-card .name { font-weight: 700; word-break: break-word; }
-    .svc-card .price { font-weight: 700; color: var(--purple-600); flex-shrink: 0; }
-    .svc-card .meta { font-size: 0.88rem; color: var(--gray-500); margin-top: 0.25rem; }
+    .svc-card .price { font-weight: 700; color: var(--purple-600); }
+    .svc-card .meta { font-size: 0.88rem; color: var(--gray-500); margin-top: 0.2rem; }
     .svc-card .actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
     .svc-card .actions .btn { flex: 1 1 auto; }
-    .add-form {
-      background: #fff;
-      border: 1px solid var(--gray-200);
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 1.25rem;
-    }
+    .add-form { background: #fff; border: 1px solid var(--gray-200); border-radius: 12px; padding: 1rem; margin-bottom: 1.25rem; }
     .add-form h2 { font-size: 1.05rem; margin-bottom: 0.85rem; }
+    .photo-preview { width: 96px; height: 96px; border-radius: 12px; object-fit: cover; background: var(--purple-100); display: none; margin-top: 0.5rem; }
+    .photo-preview.show { display: block; }
+    .hint { font-size: 0.8rem; color: var(--gray-500); margin-top: 0.35rem; }
   </style>
 </head>
 <body>
@@ -51,7 +38,6 @@
       </nav>
     </div>
   </header>
-
   <div class="dashboard-layout">
     <aside class="sidebar">
       <nav class="sidebar-nav">
@@ -62,108 +48,94 @@
         <a href="../index.html">← Site</a>
       </nav>
     </aside>
-
     <main class="main-content">
-      <div class="page-header">
-        <h1>Services &amp; prices</h1>
-      </div>
-
-      <div class="demo-note">
-        Changes appear on the public booking page in this browser. Demo only.
-      </div>
-
+      <div class="page-header"><h1>Services &amp; prices</h1></div>
+      <div class="demo-note">Photo preview works in this browser only. Permanent storage needs database setup.</div>
       <div class="add-form">
         <h2>Add a service</h2>
-        <div class="form-group">
-          <label for="svc-name">Name</label>
-          <input type="text" id="svc-name" class="form-control" placeholder="e.g. Gel Manicure" />
+        <div class="form-group"><label for="svc-name">Service name</label><input type="text" id="svc-name" class="form-control" placeholder="e.g. Gel Manicure" /></div>
+        <div class="form-group"><label for="svc-desc">Description (optional)</label><textarea id="svc-desc" class="form-control" rows="2"></textarea></div>
+        <div class="form-group"><label for="svc-duration">Duration (minutes)</label><input type="number" id="svc-duration" class="form-control" min="5" step="5" value="45" /></div>
+        <div class="form-group"><label for="svc-price">Price (ZAR)</label><input type="number" id="svc-price" class="form-control" min="0" step="10" value="250" /></div>
+        <div class="form-group"><label for="svc-active">Status</label>
+          <select id="svc-active" class="form-control"><option value="active">Active</option><option value="inactive">Inactive</option></select>
         </div>
         <div class="form-group">
-          <label for="svc-duration">Duration (minutes)</label>
-          <input type="number" id="svc-duration" class="form-control" min="5" step="5" value="45" />
-        </div>
-        <div class="form-group">
-          <label for="svc-price">Price (R)</label>
-          <input type="number" id="svc-price" class="form-control" min="0" step="10" value="250" />
+          <label for="svc-photo">Service photograph</label>
+          <input type="file" id="svc-photo" class="form-control" accept="image/*" />
+          <p class="hint">Preview only — not uploaded to a server yet.</p>
+          <img id="photo-preview" class="photo-preview" alt="Service photo preview" />
+          <button type="button" class="btn btn-outline btn-sm" id="clear-photo" style="margin-top:0.5rem;display:none;">Remove photo</button>
         </div>
         <button type="button" class="btn btn-primary" id="add-svc" style="width:100%;">Add service</button>
         <p id="svc-msg" style="margin-top:0.5rem;font-size:0.85rem;color:var(--gray-500);"></p>
       </div>
-
       <div class="svc-cards" id="svc-list"></div>
     </main>
   </div>
-
   <script src="../js/app.js"></script>
   <script>
+    var pendingPhoto = "";
+    document.getElementById("svc-photo").addEventListener("change", function (e) {
+      var file = e.target.files && e.target.files[0];
+      var img = document.getElementById("photo-preview");
+      var clear = document.getElementById("clear-photo");
+      if (!file) return;
+      if (file.size > 2 * 1024 * 1024) { alert("Please choose an image under 2 MB."); e.target.value = ""; return; }
+      var reader = new FileReader();
+      reader.onload = function () {
+        pendingPhoto = reader.result;
+        img.src = pendingPhoto; img.classList.add("show"); clear.style.display = "inline-flex";
+      };
+      reader.readAsDataURL(file);
+    });
+    document.getElementById("clear-photo").addEventListener("click", function () {
+      pendingPhoto = ""; document.getElementById("svc-photo").value = "";
+      var img = document.getElementById("photo-preview"); img.src = ""; img.classList.remove("show"); this.style.display = "none";
+    });
     function render() {
       var services = DemoStore.get("services", DEFAULT_SERVICES);
-      var list = document.getElementById("svc-list");
-      list.innerHTML = "";
-      if (!services.length) {
-        list.innerHTML = '<div class="svc-card"><p class="meta">No services yet.</p></div>';
-        return;
-      }
+      var list = document.getElementById("svc-list"); list.innerHTML = "";
+      if (!services.length) { list.innerHTML = '<div class="svc-card"><p class="meta">You have not added any services yet.</p></div>'; return; }
       services.forEach(function (s, idx) {
-        var card = document.createElement("div");
-        card.className = "svc-card";
-        card.innerHTML =
-          '<div class="top">' +
-            '<span class="name">' + s.name + '</span>' +
-            '<span class="price">' + formatZAR(s.price) + '</span>' +
-          '</div>' +
-          '<div class="meta">' + s.duration + ' minutes</div>' +
-          '<div class="actions">' +
-            '<button type="button" class="btn btn-outline btn-sm" data-edit="' + idx + '">Edit price</button>' +
-            '<button type="button" class="btn btn-danger btn-sm" data-del="' + idx + '">Remove</button>' +
-          '</div>';
+        var card = document.createElement("div"); card.className = "svc-card";
+        var thumb = s.photo ? '<img class="thumb" src="' + s.photo + '" alt="" />' : '<div class="thumb" style="display:grid;place-items:center;font-size:0.7rem;color:var(--gray-500);">No photo</div>';
+        card.innerHTML = '<div class="top">' + thumb + '<div style="min-width:0;flex:1;"><div class="name">' + s.name + '</div><div class="price">' + formatZAR(s.price) + '</div><div class="meta">' + s.duration + ' min' + (s.description ? ' · ' + s.description : '') + '</div></div></div><div class="actions"><button type="button" class="btn btn-outline btn-sm" data-edit="' + idx + '">Edit price</button><button type="button" class="btn btn-danger btn-sm" data-del="' + idx + '">Remove</button></div>';
         list.appendChild(card);
       });
-
       list.querySelectorAll("[data-edit]").forEach(function (btn) {
         btn.addEventListener("click", function () {
-          var services = DemoStore.get("services", []);
-          var i = Number(btn.dataset.edit);
+          var services = DemoStore.get("services", []); var i = Number(btn.dataset.edit);
           var next = prompt("New price in Rand for " + services[i].name + ":", services[i].price);
-          if (next === null) return;
-          var n = Number(next);
+          if (next === null) return; var n = Number(next);
           if (isNaN(n) || n < 0) { alert("Enter a valid number."); return; }
-          services[i].price = n;
-          DemoStore.set("services", services);
-          render();
+          services[i].price = n; DemoStore.set("services", services); render();
         });
       });
-
       list.querySelectorAll("[data-del]").forEach(function (btn) {
         btn.addEventListener("click", function () {
           if (!confirm("Remove this service?")) return;
-          var services = DemoStore.get("services", []);
-          services.splice(Number(btn.dataset.del), 1);
-          DemoStore.set("services", services);
-          render();
+          var services = DemoStore.get("services", []); services.splice(Number(btn.dataset.del), 1);
+          DemoStore.set("services", services); render();
         });
       });
     }
-
     document.getElementById("add-svc").addEventListener("click", function () {
       var name = document.getElementById("svc-name").value.trim();
+      var description = document.getElementById("svc-desc").value.trim();
       var duration = Number(document.getElementById("svc-duration").value);
       var price = Number(document.getElementById("svc-price").value);
+      var active = document.getElementById("svc-active").value === "active";
       var msg = document.getElementById("svc-msg");
-      if (!name || !duration || isNaN(price)) {
-        msg.style.color = "#dc2626";
-        msg.textContent = "Please fill name, duration and price.";
-        return;
-      }
+      if (!name || !duration || isNaN(price)) { msg.style.color = "#dc2626"; msg.textContent = "Please fill name, duration and price."; return; }
       var services = DemoStore.get("services", DEFAULT_SERVICES);
-      services.push({ id: "s" + Date.now(), name: name, duration: duration, price: price });
+      services.push({ id: "s" + Date.now(), name: name, description: description, duration: duration, price: price, active: active, photo: pendingPhoto || "" });
       DemoStore.set("services", services);
-      document.getElementById("svc-name").value = "";
-      msg.style.color = "#059669";
-      msg.textContent = "Service added.";
+      document.getElementById("svc-name").value = ""; document.getElementById("svc-desc").value = "";
+      document.getElementById("clear-photo").click();
+      msg.style.color = "#059669"; msg.textContent = "Service added (this browser only).";
       render();
     });
-
     render();
   </script>
 </body>
