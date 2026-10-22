@@ -6,20 +6,44 @@
   <title>Explore Businesses – BookEasy SA</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/mobile-fix.css" />
+  <style>
+    .filters { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+    .filter-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .filter-chip {
+      padding: 0.45rem 0.85rem; border-radius: 999px; border: 1.5px solid var(--gray-200);
+      background: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: var(--gray-700);
+    }
+    .filter-chip.active { background: var(--purple-600); color: #fff; border-color: var(--purple-600); }
+    .search-box { width: 100%; max-width: 420px; }
+    .empty-state {
+      text-align: center; padding: 2.5rem 1.25rem; background: #fff;
+      border: 1px solid var(--gray-200); border-radius: 14px; color: var(--gray-500);
+    }
+    .biz-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 640px) { .biz-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 960px) { .biz-grid { grid-template-columns: repeat(3, 1fr); } }
+    .biz-card { display: block; }
+    .biz-card .cover { height: 140px; overflow: hidden; background: var(--purple-100); }
+    .biz-card .cover img { width: 100%; height: 140px; object-fit: cover; }
+    .badge-demo {
+      display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.45rem;
+      border-radius: 999px; background: var(--purple-100); color: var(--purple-700); margin-left: 0.35rem;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo" aria-label="BookEasy SA home">
         <span class="logo-mark" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="10" fill="#7c3aed"/><rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/><rect x="8" y="10" width="24" height="6" rx="2" fill="#6d28d9"/><circle cx="14" cy="13" r="1.2" fill="white"/><circle cx="26" cy="13" r="1.2" fill="white"/><path d="M15 24.5l3.2 3.2 6.8-7" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#5125A8"/><rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/><rect x="8" y="10" width="24" height="6" rx="2" fill="#32145F"/><path d="M15 24.5l3.2 3.2 6.8-7" stroke="#5125A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
         <span class="logo-text">BookEasy <span>SA</span></span>
       </a>
       <nav class="nav">
-        <a href="directory.html" class="nav-link">Explore businesses</a>
-        <a href="index.html#for-owners" class="nav-link">For owners</a>
-        <a href="dashboard/index.html" class="btn btn-primary btn-sm">Owner demo</a>
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="owner-signin.html" class="btn btn-primary btn-sm">Owner Sign In</a>
       </nav>
     </div>
   </header>
@@ -27,68 +51,149 @@
   <section class="section">
     <div class="container">
       <h1 class="section-title">Explore businesses</h1>
-      <p class="section-sub">
-        Demo profiles only. Only Kuja’s Nails has a full booking page you can try. Others are placeholders.
-      </p>
+      <p class="section-sub">Find appointment-based businesses. Demo listings are clearly marked.</p>
 
-      <div class="grid-3">
-        <a href="kujas-nails.html" class="card business-card">
-          <div class="cover">
-            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="Manicure and nail polish bottles" width="600" height="140" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
-            <div class="img-fallback" style="display:none;" aria-hidden="true">💅</div>
-          </div>
-          <div class="card-body">
-            <h3>Kuja’s Nails</h3>
-            <p class="meta">Nail technician · Johannesburg · Demo</p>
-            <p class="card-p" style="margin-bottom:0.85rem;">Classic and gel manicures, acrylics, pedicures, and nail art.</p>
-            <span class="btn btn-primary btn-sm">View services &amp; book</span>
-          </div>
-        </a>
-
-        <div class="card business-card" style="opacity:0.75;cursor:default;">
-          <div class="cover">
-            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80" alt="Hair salon styling" width="600" height="140" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
-            <div class="img-fallback" style="display:none;" aria-hidden="true">💇</div>
-          </div>
-          <div class="card-body">
-            <h3>Glow Hair Studio</h3>
-            <p class="meta">Hair salon · Pretoria · Coming soon</p>
-            <p class="card-p" style="margin-bottom:0.85rem;">Cuts, colour, and styling — page not ready yet.</p>
-            <span class="btn btn-outline btn-sm" style="pointer-events:none;">Coming soon</span>
-          </div>
+      <div class="filters">
+        <input type="search" id="search" class="form-control search-box" placeholder="Search by business name…" autocomplete="off" />
+        <div class="filter-row" id="cat-filters" role="group" aria-label="Category filters">
+          <button type="button" class="filter-chip active" data-cat="all">All</button>
+          <button type="button" class="filter-chip" data-cat="nails">Nails</button>
+          <button type="button" class="filter-chip" data-cat="hair">Hair</button>
+          <button type="button" class="filter-chip" data-cat="lashes">Lashes &amp; brows</button>
+          <button type="button" class="filter-chip" data-cat="spa">Spa</button>
+          <button type="button" class="filter-chip" data-cat="barber">Barbers</button>
         </div>
+      </div>
 
-        <div class="card business-card" style="opacity:0.75;cursor:default;">
-          <div class="cover">
-            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&q=80" alt="Eyelash extensions close-up" width="600" height="140" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
-            <div class="img-fallback" style="display:none;" aria-hidden="true">✨</div>
-          </div>
-          <div class="card-body">
-            <h3>Lash &amp; Brow Co.</h3>
-            <p class="meta">Lash technician · Cape Town · Coming soon</p>
-            <p class="card-p" style="margin-bottom:0.85rem;">Lash extensions and brow shaping — demo placeholder.</p>
-            <span class="btn btn-outline btn-sm" style="pointer-events:none;">Coming soon</span>
-          </div>
-        </div>
-
-        <div class="card business-card" style="opacity:0.75;cursor:default;">
-          <div class="cover">
-            <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80" alt="Barber cutting hair" width="600" height="140" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
-            <div class="img-fallback" style="display:none;" aria-hidden="true">💈</div>
-          </div>
-          <div class="card-body">
-            <h3>Sharp Cuts Barbers</h3>
-            <p class="meta">Barbershop · Durban · Coming soon</p>
-            <p class="card-p" style="margin-bottom:0.85rem;">Fades, beard trims, and grooming — not live yet.</p>
-            <span class="btn btn-outline btn-sm" style="pointer-events:none;">Coming soon</span>
-          </div>
-        </div>
+      <div class="biz-grid" id="biz-grid"></div>
+      <div class="empty-state" id="empty" style="display:none;">
+        <p style="margin:0;font-weight:600;color:var(--charcoal);">No businesses listed in this category yet.</p>
+        <p style="margin:0.5rem 0 0;">Check back soon or explore another category.</p>
       </div>
     </div>
   </section>
 
   <footer class="site-footer">
-    <div class="container">BookEasy SA — Demo only. Images are stock photographs for illustration, not real business photos.</div>
+    <div class="container">
+      <a href="index.html">Home</a> ·
+      <a href="directory.html">Explore</a> ·
+      <a href="index.html#for-owners">For owners</a> ·
+      <a href="index.html#support">Support</a>
+      <p style="margin-top:0.65rem;">BookEasy SA — demonstration. Stock photos are illustrative only.</p>
+    </div>
   </footer>
+
+  <script>
+    var BUSINESSES = [
+      {
+        id: "kujas",
+        name: "Kuja's Nails",
+        category: "nails",
+        categoryLabel: "Nail technician",
+        location: "Johannesburg",
+        description: "Classic and gel manicures, acrylics, pedicures, and nail art.",
+        href: "kujas-nails.html",
+        image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=280&fit=crop&q=80",
+        demo: true,
+        live: true
+      },
+      {
+        id: "glow",
+        name: "Glow Hair Studio",
+        category: "hair",
+        categoryLabel: "Hair salon",
+        location: "Pretoria",
+        description: "Cuts, colour, and styling — profile not ready yet.",
+        href: null,
+        image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=280&fit=crop&q=80",
+        demo: true,
+        live: false
+      },
+      {
+        id: "lash",
+        name: "Lash & Brow Co.",
+        category: "lashes",
+        categoryLabel: "Lash technician",
+        location: "Cape Town",
+        description: "Lash extensions and brow shaping — coming soon.",
+        href: null,
+        image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&h=280&fit=crop&q=80",
+        demo: true,
+        live: false
+      },
+      {
+        id: "sharp",
+        name: "Sharp Cuts Barbers",
+        category: "barber",
+        categoryLabel: "Barbershop",
+        location: "Durban",
+        description: "Fades, beard trims, and grooming — not live yet.",
+        href: null,
+        image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&h=280&fit=crop&q=80",
+        demo: true,
+        live: false
+      }
+    ];
+
+    var activeCat = "all";
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("cat")) activeCat = params.get("cat");
+
+    function render() {
+      var q = (document.getElementById("search").value || "").toLowerCase().trim();
+      var grid = document.getElementById("biz-grid");
+      var empty = document.getElementById("empty");
+      grid.innerHTML = "";
+
+      var filtered = BUSINESSES.filter(function (b) {
+        if (activeCat !== "all" && b.category !== activeCat) return false;
+        if (q && b.name.toLowerCase().indexOf(q) === -1) return false;
+        return true;
+      });
+
+      document.querySelectorAll(".filter-chip").forEach(function (c) {
+        c.classList.toggle("active", c.dataset.cat === activeCat);
+      });
+
+      if (!filtered.length) {
+        empty.style.display = "block";
+        return;
+      }
+      empty.style.display = "none";
+
+      filtered.forEach(function (b) {
+        var el = document.createElement(b.live ? "a" : "div");
+        if (b.live) el.href = b.href;
+        el.className = "card business-card biz-card" + (b.live ? "" : "");
+        if (!b.live) el.style.opacity = "0.75";
+        el.innerHTML =
+          '<div class="cover">' +
+            '<img src="' + b.image + '" alt="" width="600" height="140" loading="lazy" onerror="this.style.opacity=0.3" />' +
+          '</div>' +
+          '<div class="card-body">' +
+            '<h3>' + b.name + (b.demo ? ' <span class="badge-demo">Demo</span>' : '') + '</h3>' +
+            '<p class="meta">' + b.categoryLabel + ' · ' + b.location + '</p>' +
+            '<p class="card-p" style="margin-bottom:0.85rem;">' + b.description + '</p>' +
+            (b.live
+              ? '<span class="btn btn-primary btn-sm">View profile &amp; book</span>'
+              : '<span class="btn btn-outline btn-sm" style="pointer-events:none;">Coming soon</span>') +
+          '</div>';
+        grid.appendChild(el);
+      });
+    }
+
+    document.getElementById("search").addEventListener("input", render);
+    document.querySelectorAll(".filter-chip").forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        activeCat = chip.dataset.cat;
+        var url = new URL(window.location.href);
+        if (activeCat === "all") url.searchParams.delete("cat");
+        else url.searchParams.set("cat", activeCat);
+        history.replaceState({}, "", url);
+        render();
+      });
+    });
+    render();
+  </script>
 </body>
 </html>
