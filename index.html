@@ -13,25 +13,18 @@
     <div class="container header-inner">
       <a href="index.html" class="logo" aria-label="BookEasy SA home">
         <span class="logo-mark" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="10" fill="#7c3aed"/>
-            <rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/>
-            <rect x="8" y="10" width="24" height="6" rx="2" fill="#6d28d9"/>
-            <circle cx="14" cy="13" r="1.2" fill="white"/>
-            <circle cx="26" cy="13" r="1.2" fill="white"/>
-            <path d="M15 24.5l3.2 3.2 6.8-7" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="10" fill="#7c3aed"/><rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/><rect x="8" y="10" width="24" height="6" rx="2" fill="#6d28d9"/><circle cx="14" cy="13" r="1.2" fill="white"/><circle cx="26" cy="13" r="1.2" fill="white"/><path d="M15 24.5l3.2 3.2 6.8-7" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
         <span class="logo-text">BookEasy <span>SA</span></span>
       </a>
       <nav class="nav" aria-label="Main">
         <a href="directory.html" class="nav-link">Explore businesses</a>
-        <a href="dashboard/index.html" class="btn btn-primary btn-sm">For business owners</a>
+        <a href="#for-owners" class="nav-link">For owners</a>
+        <a href="dashboard/index.html" class="btn btn-primary btn-sm">Owner demo</a>
       </nav>
     </div>
   </header>
 
-  <!-- Premium hero -->
   <section class="hero">
     <div class="hero-float hero-float-1" aria-hidden="true">📅 Tue 10:00 · Gel Manicure</div>
     <div class="hero-float hero-float-2" aria-hidden="true">✓ Confirmed</div>
@@ -39,17 +32,14 @@
     <div class="container">
       <span class="demo-badge">Frontend demonstration · No real bookings</span>
       <h1>Your Next Appointment, Made Easy.</h1>
-      <p class="lead">
-        Discover local businesses, book appointments online, and manage your schedule with less hassle.
-      </p>
+      <p class="lead">Discover local businesses, book appointments online, and manage your schedule with less hassle.</p>
       <div class="hero-actions">
         <a href="directory.html" class="btn btn-primary">Explore Businesses</a>
-        <a href="dashboard/index.html" class="btn btn-ghost">For Business Owners</a>
+        <a href="#for-owners" class="btn btn-ghost">For Business Owners</a>
       </div>
     </div>
   </section>
 
-  <!-- Categories -->
   <section class="section" style="padding-bottom:0;">
     <div class="container" style="text-align:center;">
       <div class="cat-pills">
@@ -62,98 +52,107 @@
     </div>
   </section>
 
-  <!-- How it works -->
   <section class="section">
     <div class="container">
-      <h2 class="section-title">How it works</h2>
-      <p class="section-sub">A simple flow for both the business and their customers.</p>
+      <h2 class="section-title">How customers book</h2>
+      <p class="section-sub">No app download. Open a link, pick a service, request a time.</p>
       <div class="grid-3">
-        <div class="card">
-          <div class="card-body">
-            <div class="step-num">1</div>
-            <h3 style="font-size:1.05rem;margin-bottom:0.4rem;">Business sets up profile</h3>
-            <p style="color:var(--gray-500);font-size:0.92rem;">
-              Add services, prices and hours. Share a unique booking link on WhatsApp or social media.
-            </p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="step-num">2</div>
-            <h3 style="font-size:1.05rem;margin-bottom:0.4rem;">Customer books online</h3>
-            <p style="color:var(--gray-500);font-size:0.92rem;">
-              Opens the link, chooses a service, date and time, then submits contact details — no app required.
-            </p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="step-num">3</div>
-            <h3 style="font-size:1.05rem;margin-bottom:0.4rem;">Owner manages requests</h3>
-            <p style="color:var(--gray-500);font-size:0.92rem;">
-              View, confirm or cancel appointments from a private dashboard. Track basic income later.
-            </p>
-          </div>
-        </div>
+        <div class="card"><div class="card-body">
+          <div class="step-num">1</div>
+          <h3 class="card-h">Open the booking page</h3>
+          <p class="card-p">Customer taps the business link from WhatsApp, Instagram, or Facebook.</p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="step-num">2</div>
+          <h3 class="card-h">Choose service, date &amp; time</h3>
+          <p class="card-p">See prices and durations, then pick an available slot that suits them.</p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="step-num">3</div>
+          <h3 class="card-h">Send a request</h3>
+          <p class="card-p">They leave their name and WhatsApp number. The owner confirms from the dashboard.</p>
+        </div></div>
       </div>
     </div>
   </section>
 
-  <!-- Benefits -->
-  <section class="section section-alt">
+  <section class="section section-alt" id="for-owners">
     <div class="container">
-      <h2 class="section-title">Why businesses need this</h2>
-      <p class="section-sub">Designed for South African small beauty businesses that cannot afford complex systems.</p>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-body">
-            <div class="feature-icon">📱</div>
-            <h3 style="font-size:1.05rem;margin-bottom:0.35rem;">WhatsApp-friendly sharing</h3>
-            <p style="color:var(--gray-500);font-size:0.92rem;">
-              One clean link that customers can open on any phone. No downloads, no complicated forms.
-            </p>
+      <h2 class="section-title">For business owners</h2>
+      <p class="section-sub">Present your services online, share one link, and manage requests in one place.</p>
+
+      <div class="grid-2" style="margin-bottom:2rem;">
+        <div class="card"><div class="card-body">
+          <div class="feature-icon">1️⃣</div>
+          <h3 class="card-h">Create your business page</h3>
+          <p class="card-p">Add your name, logo, description, services, prices, photos, and opening hours. No coding required.</p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="feature-icon">2️⃣</div>
+          <h3 class="card-h">Get your booking link</h3>
+          <p class="card-p">Each business will get a unique public URL (example shape: bookeasy.co.za/your-business). Demo only for now.</p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="feature-icon">3️⃣</div>
+          <h3 class="card-h">Share your link</h3>
+          <p class="card-p">Post it on WhatsApp, Status, Instagram, Facebook, or your existing website so customers can book anytime.</p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="feature-icon">4️⃣</div>
+          <h3 class="card-h">Manage appointments</h3>
+          <p class="card-p">Review pending requests, confirm or cancel, and keep services up to date from your dashboard.</p>
+        </div></div>
+      </div>
+
+      <div class="share-demo card">
+        <div class="card-body">
+          <h3 class="card-h" style="margin-bottom:0.75rem;">How owners share on WhatsApp</h3>
+          <p class="card-p" style="margin-bottom:1rem;">Example message you could send to customers or post on Status (demo text only):</p>
+          <div class="whatsapp-bubble" id="wa-message">
+            Hi everyone! 💅 You can now view our services, check our prices, and request an appointment online. Tap our booking link below to get started!
+            <br /><br />
+            <strong id="demo-link-text">https://mawelanoah.github.io/BookEasySA/kujas-nails.html</strong>
           </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="feature-icon">💅</div>
-            <h3 style="font-size:1.05rem;margin-bottom:0.35rem;">Look professional</h3>
-            <p style="color:var(--gray-500);font-size:0.92rem;">
-              Dedicated booking page with services, prices and availability — even without a full website.
-            </p>
+          <div class="share-actions">
+            <button type="button" class="btn btn-primary btn-sm" id="copy-message-btn">Copy message</button>
+            <button type="button" class="btn btn-outline btn-sm" id="copy-link-btn">Copy link only</button>
+            <a class="btn btn-outline btn-sm" id="wa-share-btn"
+               href="https://wa.me/?text=Hi%20everyone!%20%F0%9F%92%85%20You%20can%20now%20view%20our%20services%20and%20request%20an%20appointment%20online.%20https%3A%2F%2Fmawelanoah.github.io%2FBookEasySA%2Fkujas-nails.html"
+               target="_blank" rel="noopener">Open WhatsApp (demo)</a>
           </div>
+          <p id="copy-feedback" class="copy-feedback" aria-live="polite"></p>
+          <p class="card-p" style="margin-top:0.75rem;font-size:0.85rem;">
+            This uses the live demo page for Kuja’s Nails. Customers open the link on their phone — no account needed in this prototype.
+          </p>
         </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="feature-icon">📋</div>
-            <h3 style="font-size:1.05rem;margin-bottom:0.35rem;">Organised appointments</h3>
-            <p style="color:var(--gray-500);font-size:0.92rem;">
-              Stop hunting through chat messages. See pending requests and confirmed bookings in one place.
-            </p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="feature-icon">💰</div>
-            <h3 style="font-size:1.05rem;margin-bottom:0.35rem;">Affordable by design</h3>
-            <p style="color:var(--gray-500);font-size:0.92rem;">
-              Built for small operators. Future free plan for starters and low-cost paid plans when ready.
-            </p>
-          </div>
-        </div>
+      </div>
+
+      <div style="margin-top:1.75rem;text-align:center;">
+        <a href="dashboard/index.html" class="btn btn-primary">Get Started as a Business Owner (demo dashboard)</a>
+        <p class="card-p" style="margin-top:0.65rem;">Opens the demonstration owner dashboard. Real registration and private accounts need a secure backend (not built yet).</p>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="section">
+    <div class="container">
+      <h2 class="section-title">Why small businesses need this</h2>
+      <p class="section-sub">Built for operators who currently run everything on WhatsApp.</p>
+      <div class="grid-2">
+        <div class="card"><div class="card-body"><div class="feature-icon">📱</div><h3 class="card-h">WhatsApp-friendly</h3><p class="card-p">One clean link customers open on any phone. No app install.</p></div></div>
+        <div class="card"><div class="card-body"><div class="feature-icon">💅</div><h3 class="card-h">Look professional</h3><p class="card-p">Services, prices, and availability on a dedicated page — even without a full website.</p></div></div>
+        <div class="card"><div class="card-body"><div class="feature-icon">📋</div><h3 class="card-h">Organised requests</h3><p class="card-p">Stop hunting through chats. See pending and confirmed bookings in one place.</p></div></div>
+        <div class="card"><div class="card-body"><div class="feature-icon">💰</div><h3 class="card-h">Affordable by design</h3><p class="card-p">Aimed at small South African operators. Pricing plans come after validation.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
     <div class="container">
       <div class="cta-band">
         <div>
-          <h3 style="margin-bottom:0.3rem;font-size:1.15rem;">Explore the full demo</h3>
-          <p style="color:var(--gray-500);margin:0;font-size:0.95rem;">
-            Start with “Kuja’s Nails” or open the owner dashboard. All data is fictional.
-          </p>
+          <h3 style="margin-bottom:0.3rem;font-size:1.15rem;">Try the full demo</h3>
+          <p style="color:var(--gray-500);margin:0;font-size:0.95rem;">Book as a customer on Kuja’s Nails, or manage requests in the owner dashboard.</p>
         </div>
         <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
           <a href="kujas-nails.html" class="btn btn-primary">Open Kuja’s Nails</a>
@@ -166,8 +165,43 @@
   <footer class="site-footer">
     <div class="container">
       <strong style="color:var(--purple-700);">BookEasy SA</strong> — Front-end demonstration only.<br />
-      No real bookings, payments or accounts. Built for South African small beauty businesses.
+      No real bookings, payments, or secure accounts yet. Built for South African small beauty businesses.
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var msgEl = document.getElementById("wa-message");
+      var msg = msgEl.innerText.trim();
+      var link = document.getElementById("demo-link-text").textContent.trim();
+      var feedback = document.getElementById("copy-feedback");
+      function showFeedback(text) {
+        feedback.textContent = text;
+        setTimeout(function () { feedback.textContent = ""; }, 2500);
+      }
+      document.getElementById("copy-message-btn").addEventListener("click", function () {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(msg).then(function () {
+            showFeedback("Message copied — paste it into WhatsApp.");
+          }).catch(function () {
+            showFeedback("Select the message and copy manually.");
+          });
+        } else {
+          showFeedback("Select the message and copy manually.");
+        }
+      });
+      document.getElementById("copy-link-btn").addEventListener("click", function () {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(link).then(function () {
+            showFeedback("Link copied.");
+          }).catch(function () {
+            showFeedback("Select the link and copy manually.");
+          });
+        } else {
+          showFeedback("Select the link and copy manually.");
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
