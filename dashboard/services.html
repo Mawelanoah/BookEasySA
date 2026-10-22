@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services – Demo Dashboard</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-mark">B</span> BookEasy SA
+      </a>
+      <nav class="nav">
+        <a href="../kujas-nails.html">Public booking page</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <a href="index.html">Overview</a>
+        <a href="appointments.html">Appointments</a>
+        <a href="services.html" class="active">Services & prices</a>
+        <a href="finances.html">Income & expenses</a>
+        <a href="../index.html">← Back to site</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <h1>Services & prices</h1>
+        <button type="button" class="btn btn-primary btn-sm" id="add-btn">Add service</button>
+      </div>
+
+      <div class="demo-note">
+        Changes are saved only in this browser (localStorage). The public booking page will reflect the updated list after a refresh.
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Duration</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="services-body"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/app.js"></script>
+  <script>
+    function render() {
+      const services = DemoStore.get("services", []);
+      const tbody = document.getElementById("services-body");
+      tbody.innerHTML = "";
+
+      if (services.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--gray-500);padding:1.5rem;">No services yet. Add one above.</td></tr>';
+        return;
+      }
+
+      services.forEach((s, idx) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${s.name}</td>
+          <td>${s.duration} min</td>
+          <td>${formatZAR(s.price)}</td>
+          <td style="display:flex;gap:0.3rem;flex-wrap:wrap;">
+            <button type="button" class="btn btn-outline btn-sm" data-action="edit" data-idx="${idx}">Edit price</button>
+            <button type="button" class="btn btn-danger btn-sm" data-action="remove" data-idx="${idx}">Remove</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      tbody.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const list = DemoStore.get("services", []);
+          const i = Number(btn.dataset.idx);
+          if (btn.dataset.action === "remove") {
+            if (confirm("Remove this service from the demo list?")) {
+              list.splice(i, 1);
+              DemoStore.set("services", list);
+              render();
+            }
+          }
+          if (btn.dataset.action === "edit") {
+            const newPrice = prompt("New price in Rand:", list[i].price);
+            if (newPrice !== null && !isNaN(Number(newPrice))) {
+              list[i].price = Number(newPrice);
+              DemoStore.set("services", list);
+              render();
+            }
+          }
+        });
+      });
+    }
+
+    document.getElementById("add-btn").addEventListener("click", () => {
+      const name = prompt("Service name:");
+      if (!name || !name.trim()) return;
+      const duration = prompt("Duration in minutes:", "60");
+      const price = prompt("Price in Rand:", "300");
+      const list = DemoStore.get("services", []);
+      list.push({
+        id: "s" + Date.now(),
+        name: name.trim(),
+        duration: Number(duration) || 60,
+        price: Number(price) || 0
+      });
+      DemoStore.set("services", list);
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
