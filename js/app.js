@@ -1,8 +1,10 @@
 /**
- * BookEasy SA – Shared demo helpers
- * All data is fictional and stored only in the browser (localStorage).
- * This is NOT a real multi-user system.
+ * BookEasy SA – Demo helpers (Phase 1)
+ * Data lives in localStorage only. NOT multi-tenant. NOT secure auth.
+ * Time zone: Africa/Johannesburg
  */
+
+const TZ = "Africa/Johannesburg";
 
 const DemoStore = {
   get(key, fallback) {
@@ -18,7 +20,6 @@ const DemoStore = {
   }
 };
 
-/** Default services for Kuja's Nails (demo only) */
 const DEFAULT_SERVICES = [
   { id: "s1", name: "Classic Manicure", duration: 45, price: 250 },
   { id: "s2", name: "Gel Manicure", duration: 60, price: 350 },
@@ -27,71 +28,106 @@ const DEFAULT_SERVICES = [
   { id: "s5", name: "Nail Art (per nail)", duration: 15, price: 40 }
 ];
 
-/** Sample appointments (fictional) */
 const DEFAULT_APPOINTMENTS = [
   {
     id: "a1",
-    customer: "Thandi M.",
+    customer: "Sample Customer A",
     service: "Gel Manicure",
-    date: "2026-10-23",
+    date: null,
     time: "10:00",
     status: "confirmed",
-    phone: "082 555 0101"
+    phone: "082 000 0001",
+    isDemoSeed: true
   },
   {
     id: "a2",
-    customer: "Lerato K.",
+    customer: "Sample Customer B",
     service: "Acrylic Full Set",
-    date: "2026-10-23",
+    date: null,
     time: "14:00",
     status: "pending",
-    phone: "073 555 0202"
-  },
-  {
-    id: "a3",
-    customer: "Nomsa D.",
-    service: "Classic Manicure",
-    date: "2026-10-24",
-    time: "11:30",
-    status: "confirmed",
-    phone: "084 555 0303"
+    phone: "073 000 0002",
+    isDemoSeed: true
   }
 ];
 
-/* Seed demo data once */
-if (!DemoStore.get("services")) {
-  DemoStore.set("services", DEFAULT_SERVICES);
-}
-if (!DemoStore.get("appointments")) {
-  DemoStore.set("appointments", DEFAULT_APPOINTMENTS);
+function todayISO() {
+  return new Date().toLocaleDateString("en-CA", { timeZone: TZ });
 }
 
-/** Next N calendar days starting from today */
-function getNextDays(count = 7) {
+function nowMinutesInSA() {
+  const parts = new Date().toLocaleTimeString("en-GB", {
+    timeZone: TZ,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).split(":");
+  return Number(parts[0]) * 60 + Number(parts[1]);
+}
+
+function timeToMinutes(hhmm) {
+  const p = hhmm.split(":");
+  return Number(p[0]) * 60 + Number(p[1]);
+}
+
+function getNextDays(count) {
+  count = count || 7;
   const days = [];
-  const today = new Date();
+  const base = new Date();
   for (let i = 0; i < count; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i);
-    days.push({
-      iso: d.toISOString().slice(0, 10),
-      day: d.getDate(),
-      weekday: d.toLocaleDateString("en-ZA", { weekday: "short" }),
-      label: d.toLocaleDateString("en-ZA", { day: "numeric", month: "short" })
+    const d = new Date(base.getTime());
+    d.setDate(base.getDate() + i);
+    const iso = d.toLocaleDateString("en-CA", { timeZone: TZ });
+    const label = d.toLocaleDateString("en-ZA", {
+      timeZone: TZ,
+      day: "numeric",
+      month: "short"
     });
+    const weekday = d.toLocaleDateString("en-ZA", {
+      timeZone: TZ,
+      weekday: "short"
+    });
+    const dayNum = d.toLocaleDateString("en-ZA", {
+      timeZone: TZ,
+      day: "numeric"
+    });
+    days.push({ iso: iso, day: dayNum, weekday: weekday, label: label });
   }
   return days;
 }
 
-/** Format amount as South African Rand */
 function formatZAR(amount) {
   return "R" + Number(amount).toLocaleString("en-ZA");
 }
 
-/** Return times already taken on a given ISO date (from current demo appointments) */
 function getBookedTimes(isoDate) {
   const appointments = DemoStore.get("appointments", []);
   return appointments
-    .filter(a => a.date === isoDate && a.status !== "cancelled")
-    .map(a => a.time);
+    .filter(function (a) {
+      return a.date === isoDate && a.status !== "cancelled";
+    })
+    .map(function (a) {
+      return a.time;
+    });
+}
+
+function isSlotInPast(isoDate, hhmm) {
+  if (isoDate > todayISO()) return false;
+  if (isoDate < todayISO()) return true;
+  return timeToMinutes(hhmm) <= nowMinutesInSA();
+}
+
+function generateRef() {
+  return "BE-" + Date.now().toString(36).toUpperCase().slice(-8);
+}
+
+if (!DemoStore.get("services")) {
+  DemoStore.set("services", DEFAULT_SERVICES);
+}
+if (!DemoStore.get("appointments")) {
+  const days = getNextDays(3);
+  const seeded = DEFAULT_APPOINTMENTS.map(function (a, i) {
+    return Object.assign({}, a, { date: days[Math.min(i, days.length - 1)].iso });
+  });
+  DemoStore.set("appointments", seeded);
 }
