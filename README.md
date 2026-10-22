@@ -1,76 +1,72 @@
-# BookEasy SA — Frontend Demonstration
+# BookEasy SA — Professional Frontend Demo (Upgraded)
 
-Professional online booking demo for small South African beauty businesses (nail technicians, salons, lash artists, barbers, spas).
+Premium static prototype for an online booking platform aimed at South African beauty businesses.
 
-**This is a static frontend prototype only.**  
-No real bookings, payments, authentication or multi-tenant data. All sample data is fictional and stored in the browser (localStorage).
+**Live demo structure works on GitHub Pages. All data is fictional.**
 
-## Live demo structure
+## What's new in this upgrade
 
-| Page | Purpose |
-|------|---------|
-| `index.html` | Public homepage |
-| `directory.html` | Example businesses list |
-| `kujas-nails.html` | Customer booking flow (Kuja’s Nails) |
-| `confirmation.html` | Simulated booking confirmation |
-| `dashboard/` | Business-owner demonstration screens |
+- Distinctive BookEasy SA brand (calendar + checkmark logo, favicon)
+- Premium deep-purple hero: “Your Next Appointment, Made Easy.”
+- Explore Businesses / For Business Owners entry points
+- Stronger visual consistency (cards, buttons, dashboard)
+- Mobile layout fixes (no horizontal page scroll)
+- Tasteful hover states and floating hero accents
+- Same working booking flow, prices, and dashboard actions
 
-## Features in this demo
+## File structure
 
-- Responsive, mobile-first design (purple / white / neutral palette)
-- Multi-step customer booking: service → date → time → details → confirmation
-- Form validation (required name & phone)
-- Occupied time slots are disabled based on existing demo appointments
-- Owner dashboard: overview stats, appointments (confirm/cancel), services (add/edit price/remove)
-- Income & expenses preview (clearly labelled as fictional)
-- Changes persist in the browser via localStorage
+```
+BookEasy-SA-Upgrade/
+├── index.html
+├── directory.html
+├── kujas-nails.html
+├── confirmation.html
+├── css/styles.css
+├── js/app.js
+├── assets/
+│   ├── logo.svg
+│   └── favicon.svg
+├── dashboard/
+│   ├── index.html
+│   ├── appointments.html
+│   ├── services.html
+│   └── finances.html
+└── README.md
+```
 
-## How to run locally
+## Preserve existing behaviour
 
-1. Download or clone this repository.
-2. Open `index.html` in any modern browser  
-   **or** serve the folder with any static file server.
+- Kuja’s Nails services and prices unchanged (R250–R450 range)
+- Multi-step booking with validation
+- Occupied times disabled via localStorage
+- Dashboard: confirm/cancel, add/edit/remove services
+- Demo-only labels everywhere
 
-Because the site uses relative paths, it also works perfectly on **GitHub Pages**.
+## Deploy to GitHub Pages
 
-## Deploy to GitHub Pages (free)
+1. Upload **all** files from this folder into your `BookEasySA` repo (replace existing files).
+2. Settings → Pages → Deploy from branch → `main` → `/ (root)` → Save.
+3. Open: `https://mawelanoah.github.io/BookEasySA/`
 
-1. Create a new public repository named e.g. `BookEasy-SA`.
-2. Upload all files and folders exactly as they appear here (keep the structure).
-3. Go to **Settings → Pages**.
-4. Source: **Deploy from a branch** → `main` → `/ (root)` → Save.
-5. After a minute your site will be live at:  
-   `https://YOUR-USERNAME.github.io/BookEasy-SA/`
+## Test checklist
 
-## Important limitations (by design)
+**Phone (320–430px)**  
+- No sideways scrolling  
+- Hero buttons usable  
+- Date/time grids readable  
+- Forms fit the screen  
 
-- No real user accounts or login.
-- No server-side validation or database.
-- No WhatsApp / email notifications.
-- Double-booking prevention only works within the current browser session.
-- Financial figures are static demonstration data.
+**Desktop**  
+- Full booking flow works  
+- Dashboard status changes persist after refresh  
+- Service price edits appear on the public booking page  
 
-These will be addressed in later stages (Supabase + proper backend + Row Level Security).
+## Limitations (by design)
 
-## Future roadmap (high level)
+- No real login or multi-tenant security  
+- localStorage only (browser demo)  
+- No WhatsApp/email notifications  
+- Financial figures are static demo data  
 
-1. **Phase 1** — This polished frontend demo (current)
-2. **Phase 2** — Test & polish UX
-3. **Phase 3** — Real database, authentication, multi-business support
-4. **Phase 4** — Pilot with a few willing businesses
-5. **Phase 5** — Notifications + basic financial tools
-6. **Phase 6** — Subscriptions & production hosting
-
-## Tech stack (current)
-
-- HTML5
-- CSS3 (custom, no framework)
-- Vanilla JavaScript
-- localStorage for demo persistence
-- GitHub + GitHub Pages for free hosting
-
-No Node.js, no build step, no paid services required.
-
----
-
-Built as a serious prototype for a future affordable booking platform focused on South African small businesses.
+Next stages: Supabase auth, real database, Row Level Security.

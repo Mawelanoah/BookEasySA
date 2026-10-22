@@ -3,35 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BookEasy SA – Simple booking for South African beauty businesses</title>
-  <meta name="description" content="Professional online booking pages for nail technicians, salons, lash artists and barbers in South Africa. Demo only." />
+  <title>BookEasy SA – Your Next Appointment, Made Easy</title>
+  <meta name="description" content="Discover local beauty businesses, book appointments online, and manage your schedule. Built for South African nail technicians, salons, and barbers. Demo only." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="logo">
-        <span class="logo-mark">B</span> BookEasy SA
+      <a href="index.html" class="logo" aria-label="BookEasy SA home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="#7c3aed"/>
+            <rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/>
+            <rect x="8" y="10" width="24" height="6" rx="2" fill="#6d28d9"/>
+            <circle cx="14" cy="13" r="1.2" fill="white"/>
+            <circle cx="26" cy="13" r="1.2" fill="white"/>
+            <path d="M15 24.5l3.2 3.2 6.8-7" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="logo-text">BookEasy <span>SA</span></span>
       </a>
-      <nav class="nav">
-        <a href="directory.html">Example businesses</a>
-        <a href="dashboard/index.html" class="btn btn-primary btn-sm">Owner demo</a>
+      <nav class="nav" aria-label="Main">
+        <a href="directory.html" class="nav-link">Explore businesses</a>
+        <a href="dashboard/index.html" class="btn btn-primary btn-sm">For business owners</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- Premium hero -->
   <section class="hero">
+    <div class="hero-float hero-float-1" aria-hidden="true">📅 Tue 10:00 · Gel Manicure</div>
+    <div class="hero-float hero-float-2" aria-hidden="true">✓ Confirmed</div>
+    <div class="hero-float hero-float-3" aria-hidden="true">💅 Pedicure · R280</div>
     <div class="container">
       <span class="demo-badge">Frontend demonstration · No real bookings</span>
-      <h1>Professional bookings without expensive software</h1>
+      <h1>Your Next Appointment, Made Easy.</h1>
       <p class="lead">
-        Built for nail technicians, beauty salons, lash artists and barbers who currently run everything on WhatsApp.
-        Give customers a clean booking page and manage appointments in one place.
+        Discover local businesses, book appointments online, and manage your schedule with less hassle.
       </p>
       <div class="hero-actions">
-        <a href="kujas-nails.html" class="btn btn-primary">Try the demo booking page</a>
-        <a href="directory.html" class="btn btn-outline">Explore example businesses</a>
+        <a href="directory.html" class="btn btn-primary">Explore Businesses</a>
+        <a href="dashboard/index.html" class="btn btn-ghost">For Business Owners</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section" style="padding-bottom:0;">
+    <div class="container" style="text-align:center;">
+      <div class="cat-pills">
+        <span class="cat-pill">💅 Nails</span>
+        <span class="cat-pill">💇 Hair</span>
+        <span class="cat-pill">✨ Lashes &amp; brows</span>
+        <span class="cat-pill">🌿 Spa</span>
+        <span class="cat-pill">💈 Barbers</span>
       </div>
     </div>
   </section>
@@ -47,7 +73,7 @@
             <div class="step-num">1</div>
             <h3 style="font-size:1.05rem;margin-bottom:0.4rem;">Business sets up profile</h3>
             <p style="color:var(--gray-500);font-size:0.92rem;">
-              Add services, prices, hours and photos. Share a unique booking link on WhatsApp or social media.
+              Add services, prices and hours. Share a unique booking link on WhatsApp or social media.
             </p>
           </div>
         </div>
@@ -65,7 +91,7 @@
             <div class="step-num">3</div>
             <h3 style="font-size:1.05rem;margin-bottom:0.4rem;">Owner manages requests</h3>
             <p style="color:var(--gray-500);font-size:0.92rem;">
-              View, confirm or reschedule appointments from a private dashboard. Track basic income later.
+              View, confirm or cancel appointments from a private dashboard. Track basic income later.
             </p>
           </div>
         </div>
@@ -74,7 +100,7 @@
   </section>
 
   <!-- Benefits -->
-  <section class="section" style="padding-top:0;">
+  <section class="section section-alt">
     <div class="container">
       <h2 class="section-title">Why businesses need this</h2>
       <p class="section-sub">Designed for South African small beauty businesses that cannot afford complex systems.</p>
@@ -93,7 +119,7 @@
             <div class="feature-icon">💅</div>
             <h3 style="font-size:1.05rem;margin-bottom:0.35rem;">Look professional</h3>
             <p style="color:var(--gray-500);font-size:0.92rem;">
-              Dedicated booking page with services, prices and availability — even if the business has no website.
+              Dedicated booking page with services, prices and availability — even without a full website.
             </p>
           </div>
         </div>
@@ -119,21 +145,19 @@
     </div>
   </section>
 
-  <!-- Example business CTA -->
-  <section class="section" style="padding-top:0;">
+  <!-- CTA -->
+  <section class="section">
     <div class="container">
-      <div class="card" style="background:var(--purple-50);border-color:var(--purple-100);">
-        <div class="card-body" style="display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;justify-content:space-between;">
-          <div>
-            <h3 style="margin-bottom:0.3rem;">Explore the full demo</h3>
-            <p style="color:var(--gray-500);margin:0;font-size:0.95rem;">
-              Start with the example business “Kuja’s Nails” or jump into the owner dashboard. All data is fictional.
-            </p>
-          </div>
-          <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
-            <a href="kujas-nails.html" class="btn btn-primary">Open Kuja’s Nails</a>
-            <a href="dashboard/index.html" class="btn btn-outline">Owner dashboard</a>
-          </div>
+      <div class="cta-band">
+        <div>
+          <h3 style="margin-bottom:0.3rem;font-size:1.15rem;">Explore the full demo</h3>
+          <p style="color:var(--gray-500);margin:0;font-size:0.95rem;">
+            Start with “Kuja’s Nails” or open the owner dashboard. All data is fictional.
+          </p>
+        </div>
+        <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
+          <a href="kujas-nails.html" class="btn btn-primary">Open Kuja’s Nails</a>
+          <a href="dashboard/index.html" class="btn btn-outline">Owner dashboard</a>
         </div>
       </div>
     </div>
@@ -141,8 +165,8 @@
 
   <footer class="site-footer">
     <div class="container">
-      BookEasy SA — Front-end demonstration only. No real bookings, payments or accounts.<br />
-      Built as a prototype for South African small beauty businesses.
+      <strong style="color:var(--purple-700);">BookEasy SA</strong> — Front-end demonstration only.<br />
+      No real bookings, payments or accounts. Built for South African small beauty businesses.
     </div>
   </footer>
 </body>
