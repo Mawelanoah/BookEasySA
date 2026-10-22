@@ -5,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Explore Businesses – BookEasy SA</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/mobile-fix.css" />
+  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/mobile-fix.css?v=3" />
   <style>
     .filters { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+    .filter-fields { display: grid; grid-template-columns: 1fr; gap: 0.65rem; }
+    @media (min-width: 640px) { .filter-fields { grid-template-columns: 1fr 1fr auto auto; align-items: end; } }
     .filter-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
     .filter-chip {
       padding: 0.45rem 0.85rem; border-radius: 999px; border: 1.5px solid var(--gray-200);
       background: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: var(--gray-700);
     }
     .filter-chip.active { background: var(--purple-600); color: #fff; border-color: var(--purple-600); }
-    .search-box { width: 100%; max-width: 420px; }
     .empty-state {
       text-align: center; padding: 2.5rem 1.25rem; background: #fff;
       border: 1px solid var(--gray-200); border-radius: 14px; color: var(--gray-500);
     }
     .biz-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-    @media (min-width: 640px) { .biz-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 960px) { .biz-grid { grid-template-columns: repeat(3, 1fr); } }
-    .biz-card { display: block; }
+    @media (min-width: 640px) { .biz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (min-width: 960px) { .biz-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     .biz-card .cover { height: 140px; overflow: hidden; background: var(--purple-100); }
     .biz-card .cover img { width: 100%; height: 140px; object-fit: cover; }
     .badge-demo {
@@ -51,10 +51,21 @@
   <section class="section">
     <div class="container">
       <h1 class="section-title">Explore businesses</h1>
-      <p class="section-sub">Find appointment-based businesses. Demo listings are clearly marked.</p>
+      <p class="section-sub">Search by name, city or suburb, and category. Demo listings are marked.</p>
 
       <div class="filters">
-        <input type="search" id="search" class="form-control search-box" placeholder="Search by business name…" autocomplete="off" />
+        <div class="filter-fields">
+          <div class="form-group" style="margin:0;">
+            <label for="search">Business name</label>
+            <input type="search" id="search" class="form-control" placeholder="e.g. Kuja's Nails" autocomplete="off" />
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label for="city">City or suburb</label>
+            <input type="text" id="city" class="form-control" placeholder="e.g. Johannesburg, Pretoria, Soweto" autocomplete="off" />
+          </div>
+          <button type="button" class="btn btn-primary" id="btn-search">Search</button>
+          <button type="button" class="btn btn-outline" id="btn-clear">Clear</button>
+        </div>
         <div class="filter-row" id="cat-filters" role="group" aria-label="Category filters">
           <button type="button" class="filter-chip active" data-cat="all">All</button>
           <button type="button" class="filter-chip" data-cat="nails">Nails</button>
@@ -63,12 +74,13 @@
           <button type="button" class="filter-chip" data-cat="spa">Spa</button>
           <button type="button" class="filter-chip" data-cat="barber">Barbers</button>
         </div>
+        <p class="card-p" style="margin:0;">Location search filters the sample list only. It is not connected to a live business database.</p>
       </div>
 
       <div class="biz-grid" id="biz-grid"></div>
       <div class="empty-state" id="empty" style="display:none;">
-        <p style="margin:0;font-weight:600;color:var(--charcoal);">No businesses listed in this category yet.</p>
-        <p style="margin:0.5rem 0 0;">Check back soon or explore another category.</p>
+        <p style="margin:0;font-weight:600;color:var(--charcoal);">No businesses match your filters.</p>
+        <p style="margin:0.5rem 0 0;">Try another city, clear filters, or explore a different category.</p>
       </div>
     </div>
   </section>
@@ -77,62 +89,18 @@
     <div class="container">
       <a href="index.html">Home</a> ·
       <a href="directory.html">Explore</a> ·
-      <a href="index.html#for-owners">For owners</a> ·
-      <a href="index.html#support">Support</a>
+      <a href="privacy.html">Privacy</a> ·
+      <a href="terms.html">Terms</a>
       <p style="margin-top:0.65rem;">BookEasy SA — demonstration. Stock photos are illustrative only.</p>
     </div>
   </footer>
 
   <script>
     var BUSINESSES = [
-      {
-        id: "kujas",
-        name: "Kuja's Nails",
-        category: "nails",
-        categoryLabel: "Nail technician",
-        location: "Johannesburg",
-        description: "Classic and gel manicures, acrylics, pedicures, and nail art.",
-        href: "kujas-nails.html",
-        image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=280&fit=crop&q=80",
-        demo: true,
-        live: true
-      },
-      {
-        id: "glow",
-        name: "Glow Hair Studio",
-        category: "hair",
-        categoryLabel: "Hair salon",
-        location: "Pretoria",
-        description: "Cuts, colour, and styling — profile not ready yet.",
-        href: null,
-        image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=280&fit=crop&q=80",
-        demo: true,
-        live: false
-      },
-      {
-        id: "lash",
-        name: "Lash & Brow Co.",
-        category: "lashes",
-        categoryLabel: "Lash technician",
-        location: "Cape Town",
-        description: "Lash extensions and brow shaping — coming soon.",
-        href: null,
-        image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&h=280&fit=crop&q=80",
-        demo: true,
-        live: false
-      },
-      {
-        id: "sharp",
-        name: "Sharp Cuts Barbers",
-        category: "barber",
-        categoryLabel: "Barbershop",
-        location: "Durban",
-        description: "Fades, beard trims, and grooming — not live yet.",
-        href: null,
-        image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&h=280&fit=crop&q=80",
-        demo: true,
-        live: false
-      }
+      { id: "kujas", name: "Kuja's Nails", category: "nails", categoryLabel: "Nail technician", city: "Johannesburg", suburb: "", location: "Johannesburg", description: "Classic and gel manicures, acrylics, pedicures, and nail art.", href: "kujas-nails.html", image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&h=280&fit=crop&q=80", demo: true, live: true },
+      { id: "glow", name: "Glow Hair Studio", category: "hair", categoryLabel: "Hair salon", city: "Pretoria", suburb: "Menlo Park", location: "Menlo Park, Pretoria", description: "Cuts, colour, and styling — profile not ready yet.", href: null, image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=280&fit=crop&q=80", demo: true, live: false },
+      { id: "lash", name: "Lash & Brow Co.", category: "lashes", categoryLabel: "Lash technician", city: "Cape Town", suburb: "", location: "Cape Town", description: "Lash extensions and brow shaping — coming soon.", href: null, image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&h=280&fit=crop&q=80", demo: true, live: false },
+      { id: "sharp", name: "Sharp Cuts Barbers", category: "barber", categoryLabel: "Barbershop", city: "Durban", suburb: "", location: "Durban", description: "Fades, beard trims, and grooming — not live yet.", href: null, image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&h=280&fit=crop&q=80", demo: true, live: false }
     ];
 
     var activeCat = "all";
@@ -141,6 +109,7 @@
 
     function render() {
       var q = (document.getElementById("search").value || "").toLowerCase().trim();
+      var cityQ = (document.getElementById("city").value || "").toLowerCase().trim();
       var grid = document.getElementById("biz-grid");
       var empty = document.getElementById("empty");
       grid.innerHTML = "";
@@ -148,6 +117,10 @@
       var filtered = BUSINESSES.filter(function (b) {
         if (activeCat !== "all" && b.category !== activeCat) return false;
         if (q && b.name.toLowerCase().indexOf(q) === -1) return false;
+        if (cityQ) {
+          var hay = (b.city + " " + (b.suburb || "") + " " + b.location).toLowerCase();
+          if (hay.indexOf(cityQ) === -1) return false;
+        }
         return true;
       });
 
@@ -155,34 +128,39 @@
         c.classList.toggle("active", c.dataset.cat === activeCat);
       });
 
-      if (!filtered.length) {
-        empty.style.display = "block";
-        return;
-      }
+      if (!filtered.length) { empty.style.display = "block"; return; }
       empty.style.display = "none";
 
       filtered.forEach(function (b) {
         var el = document.createElement(b.live ? "a" : "div");
         if (b.live) el.href = b.href;
-        el.className = "card business-card biz-card" + (b.live ? "" : "");
+        el.className = "card business-card biz-card";
         if (!b.live) el.style.opacity = "0.75";
         el.innerHTML =
-          '<div class="cover">' +
-            '<img src="' + b.image + '" alt="" width="600" height="140" loading="lazy" onerror="this.style.opacity=0.3" />' +
-          '</div>' +
+          '<div class="cover"><img src="' + b.image + '" alt="" width="600" height="140" loading="lazy" onerror="this.style.opacity=0.3" /></div>' +
           '<div class="card-body">' +
             '<h3>' + b.name + (b.demo ? ' <span class="badge-demo">Demo</span>' : '') + '</h3>' +
             '<p class="meta">' + b.categoryLabel + ' · ' + b.location + '</p>' +
             '<p class="card-p" style="margin-bottom:0.85rem;">' + b.description + '</p>' +
-            (b.live
-              ? '<span class="btn btn-primary btn-sm">View profile &amp; book</span>'
-              : '<span class="btn btn-outline btn-sm" style="pointer-events:none;">Coming soon</span>') +
+            (b.live ? '<span class="btn btn-primary btn-sm">View profile &amp; book</span>'
+                    : '<span class="btn btn-outline btn-sm" style="pointer-events:none;">Coming soon</span>') +
           '</div>';
         grid.appendChild(el);
       });
     }
 
-    document.getElementById("search").addEventListener("input", render);
+    document.getElementById("btn-search").addEventListener("click", render);
+    document.getElementById("search").addEventListener("keydown", function (e) { if (e.key === "Enter") render(); });
+    document.getElementById("city").addEventListener("keydown", function (e) { if (e.key === "Enter") render(); });
+    document.getElementById("btn-clear").addEventListener("click", function () {
+      document.getElementById("search").value = "";
+      document.getElementById("city").value = "";
+      activeCat = "all";
+      var url = new URL(window.location.href);
+      url.searchParams.delete("cat");
+      history.replaceState({}, "", url);
+      render();
+    });
     document.querySelectorAll(".filter-chip").forEach(function (chip) {
       chip.addEventListener("click", function () {
         activeCat = chip.dataset.cat;
