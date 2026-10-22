@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – Kuja’s Nails (Demo)</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-mark">B</span> BookEasy SA
+      </a>
+      <nav class="nav">
+        <a href="../kujas-nails.html">Public booking page</a>
+        <span style="font-size:0.85rem;color:var(--gray-500);">Demo owner view</span>
+      </nav>
+    </div>
+  </header>
+
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <a href="index.html" class="active">Overview</a>
+        <a href="appointments.html">Appointments</a>
+        <a href="services.html">Services & prices</a>
+        <a href="finances.html">Income & expenses</a>
+        <a href="../index.html">← Back to site</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1>Dashboard</h1>
+          <p style="color:var(--gray-500);margin:0;font-size:0.9rem;">Kuja’s Nails · Fictional demo data</p>
+        </div>
+      </div>
+
+      <div class="demo-note">
+        This dashboard is a demonstration only. It is not protected by real login. Changes are stored in your browser and do not affect any real business.
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">Today’s appointments</div>
+          <div class="value" id="stat-today">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Pending requests</div>
+          <div class="value" id="stat-pending">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Confirmed</div>
+          <div class="value" id="stat-confirmed">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Services listed</div>
+          <div class="value" id="stat-services">—</div>
+        </div>
+      </div>
+
+      <h2 style="font-size:1.1rem;margin-bottom:0.85rem;">Recent appointments (demo)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Service</th>
+              <th>When</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="recent-body"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/app.js"></script>
+  <script>
+    const appointments = DemoStore.get("appointments", []);
+    const services = DemoStore.get("services", []);
+    const today = new Date().toISOString().slice(0, 10);
+
+    document.getElementById("stat-today").textContent =
+      appointments.filter(a => a.date === today && a.status !== "cancelled").length;
+    document.getElementById("stat-pending").textContent =
+      appointments.filter(a => a.status === "pending").length;
+    document.getElementById("stat-confirmed").textContent =
+      appointments.filter(a => a.status === "confirmed").length;
+    document.getElementById("stat-services").textContent = services.length;
+
+    const tbody = document.getElementById("recent-body");
+    if (appointments.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--gray-500);">No appointments yet</td></tr>';
+    } else {
+      appointments.slice(0, 6).forEach(a => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${a.customer}</td>
+          <td>${a.service}</td>
+          <td>${a.date} · ${a.time}</td>
+          <td><span class="status status-${a.status}">${a.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
+</body>
+</html>
