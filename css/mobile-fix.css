@@ -1,0 +1,88 @@
+/* BookEasy SA – mobile layout safety net */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+  }
+
+  /* Default: show header action buttons, hide text links */
+  .nav {
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+    max-width: 55%;
+  }
+  .nav .nav-link {
+    display: none !important;
+  }
+  .nav .btn {
+    display: inline-flex !important;
+    font-size: 0.78rem !important;
+    padding: 0.4rem 0.65rem !important;
+    min-height: 36px !important;
+    white-space: nowrap;
+  }
+
+  /* Homepage with hamburger: hide nav, show toggle */
+  .header-inner:has(#nav-toggle) .nav {
+    display: none !important;
+  }
+  .nav-toggle {
+    display: flex !important;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    max-width: none;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .cat-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .cta-band {
+    flex-direction: column !important;
+  }
+  .cta-band .btn {
+    width: 100%;
+  }
+
+  .service-item {
+    flex-wrap: nowrap;
+  }
+
+  .date-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .time-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .form-control {
+    font-size: 16px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav-toggle {
+    display: none !important;
+  }
+  .mobile-nav {
+    display: none !important;
+  }
+}
