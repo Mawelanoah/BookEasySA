@@ -3,37 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BookEasy SA – Your Next Appointment, Made Easy</title>
-  <meta name="description" content="Discover local beauty businesses, book appointments online, and manage your schedule. Built for South African nail technicians, salons, and barbers. Demo only." />
+  <title>BookEasy SA – Your Business. Your Bookings. Simplified.</title>
+  <meta name="description" content="Professional online booking for South African barbers, salons, nail studios, spas, and appointment-based businesses. Demo platform." />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:1rem}
+    .cat-card{display:block;border-radius:14px;overflow:hidden;border:1px solid var(--gray-200);background:#fff;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;text-align:center}
+    .cat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+    .cat-card img{width:100%;height:110px;object-fit:cover;display:block;background:var(--purple-100)}
+    .cat-card span{display:block;padding:.65rem .5rem;font-weight:600;font-size:.9rem;color:var(--charcoal)}
+    .icon-svg{width:40px;height:40px;border-radius:10px;background:var(--purple-100);display:grid;place-items:center;margin-bottom:.85rem;color:var(--purple-700)}
+    .icon-svg svg{width:22px;height:22px}
+    .faq-item{border:1px solid var(--gray-200);border-radius:12px;background:#fff;margin-bottom:.65rem;overflow:hidden}
+    .faq-item summary{padding:.9rem 1.1rem;font-weight:600;cursor:pointer;list-style:none}
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-item[open] summary{border-bottom:1px solid var(--gray-100)}
+    .faq-item p{padding:.85rem 1.1rem 1rem;margin:0;color:var(--gray-500);font-size:.92rem}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;text-align:left;max-width:900px;margin:0 auto 1.25rem}
+    .footer-grid h4{font-size:.85rem;margin-bottom:.55rem;color:var(--charcoal)}
+    .footer-grid a{display:block;font-size:.88rem;color:var(--gray-500);margin-bottom:.35rem}
+    .footer-grid a:hover{color:var(--purple-700)}
+    @media (max-width:480px){.cat-card img{height:90px}}
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo" aria-label="BookEasy SA home">
         <span class="logo-mark" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="10" fill="#7c3aed"/><rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/><rect x="8" y="10" width="24" height="6" rx="2" fill="#6d28d9"/><circle cx="14" cy="13" r="1.2" fill="white"/><circle cx="26" cy="13" r="1.2" fill="white"/><path d="M15 24.5l3.2 3.2 6.8-7" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="#5125A8"/>
+            <rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/>
+            <rect x="8" y="10" width="24" height="6" rx="2" fill="#32145F"/>
+            <path d="M15 24.5l3.2 3.2 6.8-7" stroke="#5125A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </span>
         <span class="logo-text">BookEasy <span>SA</span></span>
       </a>
       <nav class="nav" aria-label="Main">
-        <a href="directory.html" class="nav-link">Explore businesses</a>
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="directory.html" class="nav-link">Explore Businesses</a>
         <a href="#for-owners" class="nav-link">For Business Owners</a>
-        <a href="owner-signin.html" class="nav-link">Sign In</a>
+        <a href="#support" class="nav-link">Support</a>
         <a href="owner-signin.html" class="btn btn-primary btn-sm">Business Owner Sign In</a>
       </nav>
     </div>
   </header>
 
   <section class="hero">
-    <div class="hero-float hero-float-1" aria-hidden="true">📅 Tue 10:00 · Gel Manicure</div>
-    <div class="hero-float hero-float-2" aria-hidden="true">✓ Confirmed</div>
-    <div class="hero-float hero-float-3" aria-hidden="true">💅 Pedicure · R280</div>
     <div class="container">
-      <span class="demo-badge">Frontend demonstration · No real bookings</span>
+      <span class="demo-badge">Platform demonstration</span>
       <h1>Your Business. Your Bookings. Simplified.</h1>
-      <p class="lead">Give your customers an easy way to discover your services and request appointments online. Manage your bookings professionally from one place.</p>
+      <p class="lead">
+        Help customers discover your business, explore your services, and request appointments online.
+        Manage your business professionally with BookEasy SA.
+      </p>
       <div class="hero-actions">
         <a href="directory.html" class="btn btn-primary">Explore Businesses</a>
         <a href="#for-owners" class="btn btn-ghost">For Business Owners</a>
@@ -41,109 +66,142 @@
     </div>
   </section>
 
-  <section class="section" style="padding-bottom:0;">
-    <div class="container" style="text-align:center;">
-      <div class="cat-pills">
-        <span class="cat-pill">💅 Nails</span>
-        <span class="cat-pill">💇 Hair</span>
-        <span class="cat-pill">✨ Lashes &amp; brows</span>
-        <span class="cat-pill">🌿 Spa</span>
-        <span class="cat-pill">💈 Barbers</span>
-      </div>
-    </div>
-  </section>
-
   <section class="section">
     <div class="container">
-      <h2 class="section-title">How customers book</h2>
-      <p class="section-sub">No app download. Open a link, pick a service, request a time.</p>
-      <div class="grid-3">
-        <div class="card"><div class="card-body">
-          <div class="step-num">1</div>
-          <h3 class="card-h">Open the booking page</h3>
-          <p class="card-p">Customer taps the business link from WhatsApp, Instagram, or Facebook.</p>
-        </div></div>
-        <div class="card"><div class="card-body">
-          <div class="step-num">2</div>
-          <h3 class="card-h">Choose service, date &amp; time</h3>
-          <p class="card-p">See prices and durations, then pick an available slot that suits them.</p>
-        </div></div>
-        <div class="card"><div class="card-body">
-          <div class="step-num">3</div>
-          <h3 class="card-h">Send a request</h3>
-          <p class="card-p">They leave their name and WhatsApp number. The owner confirms from the dashboard.</p>
-        </div></div>
+      <h2 class="section-title" style="text-align:center;">Browse by category</h2>
+      <p class="section-sub" style="text-align:center;">Barbers, salons, nail studios, spas, and more.</p>
+      <div class="cat-grid">
+        <a class="cat-card" href="directory.html?cat=nails">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&amp;h=220&amp;fit=crop&amp;q=80" alt="Professional nail design" width="400" height="220" loading="lazy" />
+          <span>Nails</span>
+        </a>
+        <a class="cat-card" href="directory.html?cat=hair">
+          <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&amp;h=220&amp;fit=crop&amp;q=80" alt="Hair salon styling" width="400" height="220" loading="lazy" />
+          <span>Hair</span>
+        </a>
+        <a class="cat-card" href="directory.html?cat=lashes">
+          <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&amp;h=220&amp;fit=crop&amp;q=80" alt="Lash and brow treatment" width="400" height="220" loading="lazy" />
+          <span>Lashes &amp; brows</span>
+        </a>
+        <a class="cat-card" href="directory.html?cat=spa">
+          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&amp;h=220&amp;fit=crop&amp;q=80" alt="Spa and wellness setting" width="400" height="220" loading="lazy" />
+          <span>Spa &amp; wellness</span>
+        </a>
+        <a class="cat-card" href="directory.html?cat=barber">
+          <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&amp;h=220&amp;fit=crop&amp;q=80" alt="Barber haircut and grooming" width="400" height="220" loading="lazy" />
+          <span>Barbers</span>
+        </a>
       </div>
+      <p style="text-align:center;margin-top:0.85rem;font-size:0.8rem;color:var(--gray-500);">
+        Stock photographs for illustration only — not photos of registered BookEasy businesses.
+      </p>
     </div>
   </section>
 
   <section class="section section-alt" id="for-owners">
     <div class="container">
-      <h2 class="section-title">For business owners</h2>
-      <p class="section-sub">Present your services online, share one link, and manage requests in one place.</p>
-
-      <div class="grid-2" style="margin-bottom:2rem;">
+      <h2 class="section-title">Your Business Deserves a Better Booking Experience.</h2>
+      <p class="section-sub">
+        Create your business profile, showcase your services, manage appointment requests,
+        and make it easier for customers to discover and contact you.
+      </p>
+      <div class="grid-2" style="margin-bottom:1.75rem;">
         <div class="card"><div class="card-body">
-          <div class="feature-icon">1️⃣</div>
-          <h3 class="card-h">Create your business page</h3>
-          <p class="card-p">Add your name, logo, description, services, prices, photos, and opening hours. No coding required.</p>
+          <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <h3 class="card-h">Professional profile</h3>
+          <p class="card-p">Present services, prices, hours, and photos in one place customers can open on any phone.</p>
         </div></div>
         <div class="card"><div class="card-body">
-          <div class="feature-icon">2️⃣</div>
-          <h3 class="card-h">Get your booking link</h3>
-          <p class="card-p">Each business will get a unique public URL (example shape: bookeasy.co.za/your-business). Demo only for now.</p>
+          <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+          <h3 class="card-h">Organised requests</h3>
+          <p class="card-p">Receive booking requests and confirm or decline them from your dashboard.</p>
         </div></div>
         <div class="card"><div class="card-body">
-          <div class="feature-icon">3️⃣</div>
-          <h3 class="card-h">Share your link</h3>
-          <p class="card-p">Post it on WhatsApp, Status, Instagram, Facebook, or your existing website so customers can book anytime.</p>
+          <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></div>
+          <h3 class="card-h">Easy to share</h3>
+          <p class="card-p">Share your booking page on WhatsApp, Facebook, Instagram, or copy the link.</p>
         </div></div>
         <div class="card"><div class="card-body">
-          <div class="feature-icon">4️⃣</div>
-          <h3 class="card-h">Manage appointments</h3>
-          <p class="card-p">Review pending requests, confirm or cancel, and keep services up to date from your dashboard.</p>
+          <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3 class="card-h">Built for independence</h3>
+          <p class="card-p">Designed for small and independent businesses across South Africa — not only beauty salons.</p>
         </div></div>
       </div>
-
-      <div class="share-demo card">
-        <div class="card-body">
-          <h3 class="card-h" style="margin-bottom:0.75rem;">How owners share on WhatsApp</h3>
-          <p class="card-p" style="margin-bottom:1rem;">Example message you could send to customers or post on Status (demo text only):</p>
-          <div class="whatsapp-bubble" id="wa-message">
-            Hi everyone! 💅 You can now view our services, check our prices, and request an appointment online. Tap our booking link below to get started!
-            <br /><br />
-            <strong id="demo-link-text">https://mawelanoah.github.io/BookEasySA/kujas-nails.html</strong>
-          </div>
-          <div class="share-actions">
-            <button type="button" class="btn btn-primary btn-sm" id="copy-message-btn">Copy message</button>
-            <button type="button" class="btn btn-outline btn-sm" id="copy-link-btn">Copy link only</button>
-            <a class="btn btn-outline btn-sm" id="wa-share-btn"
-               href="https://wa.me/?text=Hi%20everyone!%20%F0%9F%92%85%20You%20can%20now%20view%20our%20services%20and%20request%20an%20appointment%20online.%20https%3A%2F%2Fmawelanoah.github.io%2FBookEasySA%2Fkujas-nails.html"
-               target="_blank" rel="noopener">Open WhatsApp (demo)</a>
-          </div>
-          <p id="copy-feedback" class="copy-feedback" aria-live="polite"></p>
-          <p class="card-p" style="margin-top:0.75rem;font-size:0.85rem;">
-            This uses the live demo page for Kuja’s Nails. Customers open the link on their phone — no account needed in this prototype.
-          </p>
-        </div>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;">
+        <a href="owner-register.html" class="btn btn-primary">Register Your Business</a>
+        <a href="owner-signin.html" class="btn btn-outline">Business Owner Sign In</a>
+        <a href="dashboard/index.html" class="btn btn-outline">View demo dashboard</a>
       </div>
-
-      <div style="margin-top:1.75rem;text-align:center;">
-        <a href="dashboard/index.html" class="btn btn-primary">Get Started as a Business Owner (demo dashboard)</a>
-        <p class="card-p" style="margin-top:0.65rem;">Opens the demonstration owner dashboard. Real registration and private accounts need a secure backend (not built yet).</p>
-      </div>
+      <p class="card-p" style="text-align:center;margin-top:0.85rem;">
+        Sign-in and registration screens are ready. Real secure accounts require a backend (planned next with Supabase).
+      </p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <h2 class="section-title">Why small businesses need this</h2>
-      <p class="section-sub">Built for operators who currently run everything on WhatsApp.</p>
+      <h2 class="section-title">Why businesses use BookEasy SA</h2>
+      <p class="section-sub">A practical foundation for appointment-based businesses of many kinds.</p>
       <div class="grid-2">
-        <div class="card"><div class="card-body"><div class="feature-icon">📱</div><h3 class="card-h">WhatsApp-friendly</h3><p class="card-p">One clean link customers open on any phone. No app install.</p></div></div>
-        <div class="card"><div class="card-body"><div class="feature-icon">💅</div><h3 class="card-h">Look professional</h3><p class="card-p">Services, prices, and availability on a dedicated page — even without a full website.</p></div></div>
-        <div class="card"><div class="card-body"><div class="feature-icon">📋</div><h3 class="card-h">Organised requests</h3><p class="card-p">Stop hunting through chats. See pending and confirmed bookings in one place.</p></div></div>
-        <div class="card"><div class="card-body"><div class="feature-icon">💰</div><h3 class="card-h">Affordable by design</h3><p class="card-p">Aimed at small South African operators. Pricing plans come after validation.</p></div></div>
+        <div class="card"><div class="card-body">
+          <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <h3 class="card-h">Professional online profile</h3>
+          <p class="card-p">Services, photographs, and transparent pricing customers can review before requesting a time.</p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <h3 class="card-h">Clearer customer experience</h3>
+          <p class="card-p">Customers request appointments online without installing an app or searching through chat history.</p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+          <h3 class="card-h">Organised appointment requests</h3>
+          <p class="card-p">See pending and confirmed requests in one dashboard instead of scattered messages.</p>
+        </div></div>
+        <div class="card"><div class="card-body">
+          <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <h3 class="card-h">Room to grow</h3>
+          <p class="card-p">Architecture planned for private accounts, reporting, and financial tools as the product matures.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="support">
+    <div class="container">
+      <h2 class="section-title">Support</h2>
+      <p class="section-sub">Questions about booking or managing a business on BookEasy SA.</p>
+      <div class="grid-2" style="margin-bottom:2rem;">
+        <div>
+          <h3 class="card-h" style="margin-bottom:0.75rem;">Frequently asked questions</h3>
+          <details class="faq-item"><summary>How do customers request an appointment?</summary>
+            <p>Open a business booking page, choose a service, pick a date and available time, then submit your name and phone or WhatsApp number. No customer account is required in this version.</p>
+          </details>
+          <details class="faq-item"><summary>Are appointments confirmed immediately?</summary>
+            <p>No. Requests start as <strong>pending</strong>. The business owner must confirm the appointment.</p>
+          </details>
+          <details class="faq-item"><summary>How do businesses register?</summary>
+            <p>Use <a href="owner-register.html" style="color:var(--purple-700);font-weight:600;">Register Your Business</a>. Real account creation requires a secure backend (next phase).</p>
+          </details>
+          <details class="faq-item"><summary>How do owners manage services?</summary>
+            <p>From the demo dashboard, open Services to add, edit, or remove services and prices. Demo changes stay in your browser only.</p>
+          </details>
+          <details class="faq-item"><summary>How can I contact support?</summary>
+            <p>Use the support form on this page. A live delivery system is not connected yet.</p>
+          </details>
+        </div>
+        <div class="card"><div class="card-body">
+          <h3 class="card-h" style="margin-bottom:0.5rem;">Contact support</h3>
+          <p class="card-p" style="margin-bottom:1rem;">This form is for layout and validation only. Messages are <strong>not delivered</strong> until a backend is connected.</p>
+          <div class="form-group"><label for="sup-name">Name</label><input type="text" id="sup-name" class="form-control" autocomplete="name" /></div>
+          <div class="form-group"><label for="sup-contact">Email or phone</label><input type="text" id="sup-contact" class="form-control" /></div>
+          <div class="form-group"><label for="sup-reason">Reason</label>
+            <select id="sup-reason" class="form-control"><option value="">Select…</option><option>Booking question</option><option>Business account / services</option><option>Technical problem</option><option>Other</option></select>
+          </div>
+          <div class="form-group"><label for="sup-msg">Message</label><textarea id="sup-msg" class="form-control" rows="4"></textarea></div>
+          <button type="button" class="btn btn-primary" id="sup-send">Send message</button>
+          <p id="sup-feedback" style="margin-top:0.65rem;font-size:0.88rem;color:var(--gray-500);" aria-live="polite"></p>
+        </div></div>
       </div>
     </div>
   </section>
@@ -152,11 +210,11 @@
     <div class="container">
       <div class="cta-band">
         <div>
-          <h3 style="margin-bottom:0.3rem;font-size:1.15rem;">Try the full demo</h3>
-          <p style="color:var(--gray-500);margin:0;font-size:0.95rem;">Book as a customer on Kuja’s Nails, or manage requests in the owner dashboard.</p>
+          <h3 style="margin-bottom:0.3rem;font-size:1.15rem;">Explore the demonstration</h3>
+          <p style="color:var(--gray-500);margin:0;font-size:0.95rem;">Try the Kuja’s Nails booking flow or open the owner dashboard.</p>
         </div>
         <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
-          <a href="kujas-nails.html" class="btn btn-primary">Open Kuja’s Nails</a>
+          <a href="kujas-nails.html" class="btn btn-primary">Open demo booking</a>
           <a href="dashboard/index.html" class="btn btn-outline">Owner dashboard</a>
         </div>
       </div>
@@ -165,44 +223,47 @@
 
   <footer class="site-footer">
     <div class="container">
-      <strong style="color:var(--purple-700);">BookEasy SA</strong> — Front-end demonstration only.<br />
-      No real bookings, payments, or secure accounts yet. Built for South African small beauty businesses.
+      <div class="footer-grid">
+        <div>
+          <h4>BookEasy SA</h4>
+          <p style="font-size:0.88rem;color:var(--gray-500);margin:0;">Appointment booking for South African small businesses. Platform demonstration.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <a href="directory.html">Explore Businesses</a>
+          <a href="kujas-nails.html">Demo booking page</a>
+        </div>
+        <div>
+          <h4>Business owners</h4>
+          <a href="owner-register.html">Register</a>
+          <a href="owner-signin.html">Sign In</a>
+          <a href="dashboard/index.html">Demo dashboard</a>
+        </div>
+        <div>
+          <h4>Help</h4>
+          <a href="#support">Support</a>
+          <a href="#support">FAQ</a>
+        </div>
+      </div>
+      <p style="margin:0;font-size:0.8rem;">BookEasy SA — demonstration only. No real multi-business accounts or guaranteed bookings yet.</p>
     </div>
   </footer>
 
   <script>
-    (function () {
-      var msgEl = document.getElementById("wa-message");
-      var msg = msgEl.innerText.trim();
-      var link = document.getElementById("demo-link-text").textContent.trim();
-      var feedback = document.getElementById("copy-feedback");
-      function showFeedback(text) {
-        feedback.textContent = text;
-        setTimeout(function () { feedback.textContent = ""; }, 2500);
+    document.getElementById("sup-send").addEventListener("click", function () {
+      var name = document.getElementById("sup-name").value.trim();
+      var contact = document.getElementById("sup-contact").value.trim();
+      var reason = document.getElementById("sup-reason").value;
+      var msg = document.getElementById("sup-msg").value.trim();
+      var fb = document.getElementById("sup-feedback");
+      if (!name || !contact || !reason || !msg) {
+        fb.style.color = "#dc2626";
+        fb.textContent = "Please complete all fields.";
+        return;
       }
-      document.getElementById("copy-message-btn").addEventListener("click", function () {
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(msg).then(function () {
-            showFeedback("Message copied — paste it into WhatsApp.");
-          }).catch(function () {
-            showFeedback("Select the message and copy manually.");
-          });
-        } else {
-          showFeedback("Select the message and copy manually.");
-        }
-      });
-      document.getElementById("copy-link-btn").addEventListener("click", function () {
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(link).then(function () {
-            showFeedback("Link copied.");
-          }).catch(function () {
-            showFeedback("Select the link and copy manually.");
-          });
-        } else {
-          showFeedback("Select the link and copy manually.");
-        }
-      });
-    })();
+      fb.style.color = "#6B7280";
+      fb.textContent = "Form validated, but no delivery service is connected yet. Your message was not sent.";
+    });
   </script>
 </body>
 </html>
