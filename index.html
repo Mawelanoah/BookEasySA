@@ -2,29 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
   <title>BookEasy SA – Your Business. Your Bookings. Simplified.</title>
   <meta name="description" content="Professional online booking for South African barbers, salons, nail studios, spas, and appointment-based businesses. Demo platform." />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
-    .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:1rem}
-    .cat-card{display:block;border-radius:14px;overflow:hidden;border:1px solid var(--gray-200);background:#fff;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;text-align:center}
-    .cat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-    .cat-card img{width:100%;height:110px;object-fit:cover;display:block;background:var(--purple-100)}
-    .cat-card span{display:block;padding:.65rem .5rem;font-weight:600;font-size:.9rem;color:var(--charcoal)}
+    .cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+    .cat-card{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--gray-200);background:#fff;box-shadow:var(--shadow);text-align:center;max-width:100%}
+    .cat-card img{width:100%;height:96px;object-fit:cover;display:block;background:var(--purple-100)}
+    .cat-card span{display:block;padding:.55rem .4rem;font-weight:600;font-size:.85rem;color:var(--charcoal)}
     .icon-svg{width:40px;height:40px;border-radius:10px;background:var(--purple-100);display:grid;place-items:center;margin-bottom:.85rem;color:var(--purple-700)}
     .icon-svg svg{width:22px;height:22px}
-    .faq-item{border:1px solid var(--gray-200);border-radius:12px;background:#fff;margin-bottom:.65rem;overflow:hidden}
-    .faq-item summary{padding:.9rem 1.1rem;font-weight:600;cursor:pointer;list-style:none}
-    .faq-item summary::-webkit-details-marker{display:none}
-    .faq-item[open] summary{border-bottom:1px solid var(--gray-100)}
-    .faq-item p{padding:.85rem 1.1rem 1rem;margin:0;color:var(--gray-500);font-size:.92rem}
-    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;text-align:left;max-width:900px;margin:0 auto 1.25rem}
-    .footer-grid h4{font-size:.85rem;margin-bottom:.55rem;color:var(--charcoal)}
-    .footer-grid a{display:block;font-size:.88rem;color:var(--gray-500);margin-bottom:.35rem}
-    .footer-grid a:hover{color:var(--purple-700)}
-    @media (max-width:480px){.cat-card img{height:90px}}
+    @media (min-width:480px){.cat-grid{grid-template-columns:repeat(3,1fr)}.cat-card img{height:100px}}
+    @media (min-width:640px){.cat-grid{grid-template-columns:repeat(5,1fr)}}
   </style>
 </head>
 <body>
@@ -48,6 +39,16 @@
         <a href="#support" class="nav-link">Support</a>
         <a href="owner-signin.html" class="btn btn-primary btn-sm">Business Owner Sign In</a>
       </nav>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="directory.html">Explore Businesses</a>
+      <a href="#for-owners">For Business Owners</a>
+      <a href="#support">Support</a>
+      <a href="owner-signin.html" class="btn btn-primary btn-sm">Business Owner Sign In</a>
     </div>
   </header>
 
@@ -92,19 +93,14 @@
           <span>Barbers</span>
         </a>
       </div>
-      <p style="text-align:center;margin-top:0.85rem;font-size:0.8rem;color:var(--gray-500);">
-        Stock photographs for illustration only — not photos of registered BookEasy businesses.
-      </p>
+      <p style="text-align:center;margin-top:0.85rem;font-size:0.8rem;color:var(--gray-500);">Stock photographs for illustration only.</p>
     </div>
   </section>
 
   <section class="section section-alt" id="for-owners">
     <div class="container">
       <h2 class="section-title">Your Business Deserves a Better Booking Experience.</h2>
-      <p class="section-sub">
-        Create your business profile, showcase your services, manage appointment requests,
-        and make it easier for customers to discover and contact you.
-      </p>
+      <p class="section-sub">Create your business profile, showcase your services, manage appointment requests, and make it easier for customers to discover and contact you.</p>
       <div class="grid-2" style="margin-bottom:1.75rem;">
         <div class="card"><div class="card-body">
           <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
@@ -124,44 +120,42 @@
         <div class="card"><div class="card-body">
           <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <h3 class="card-h">Built for independence</h3>
-          <p class="card-p">Designed for small and independent businesses across South Africa — not only beauty salons.</p>
+          <p class="card-p">Designed for small and independent businesses across South Africa.</p>
         </div></div>
       </div>
-      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;">
+      <div style="display:flex;gap:0.65rem;flex-wrap:wrap;justify-content:center;">
         <a href="owner-register.html" class="btn btn-primary">Register Your Business</a>
         <a href="owner-signin.html" class="btn btn-outline">Business Owner Sign In</a>
         <a href="dashboard/index.html" class="btn btn-outline">View demo dashboard</a>
       </div>
-      <p class="card-p" style="text-align:center;margin-top:0.85rem;">
-        Sign-in and registration screens are ready. Real secure accounts require a backend (planned next with Supabase).
-      </p>
+      <p class="card-p" style="text-align:center;margin-top:0.85rem;">Real secure accounts require a backend (planned next with Supabase).</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <h2 class="section-title">Why businesses use BookEasy SA</h2>
-      <p class="section-sub">A practical foundation for appointment-based businesses of many kinds.</p>
+      <p class="section-sub">A practical foundation for appointment-based businesses.</p>
       <div class="grid-2">
         <div class="card"><div class="card-body">
           <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
           <h3 class="card-h">Professional online profile</h3>
-          <p class="card-p">Services, photographs, and transparent pricing customers can review before requesting a time.</p>
+          <p class="card-p">Services, photographs, and transparent pricing.</p>
         </div></div>
         <div class="card"><div class="card-body">
-          <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
           <h3 class="card-h">Clearer customer experience</h3>
-          <p class="card-p">Customers request appointments online without installing an app or searching through chat history.</p>
+          <p class="card-p">Request appointments online without an app.</p>
         </div></div>
         <div class="card"><div class="card-body">
           <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
           <h3 class="card-h">Organised appointment requests</h3>
-          <p class="card-p">See pending and confirmed requests in one dashboard instead of scattered messages.</p>
+          <p class="card-p">Pending and confirmed requests in one dashboard.</p>
         </div></div>
         <div class="card"><div class="card-body">
           <div class="icon-svg" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
           <h3 class="card-h">Room to grow</h3>
-          <p class="card-p">Architecture planned for private accounts, reporting, and financial tools as the product matures.</p>
+          <p class="card-p">Planned for private accounts and reporting tools.</p>
         </div></div>
       </div>
     </div>
@@ -170,36 +164,33 @@
   <section class="section section-alt" id="support">
     <div class="container">
       <h2 class="section-title">Support</h2>
-      <p class="section-sub">Questions about booking or managing a business on BookEasy SA.</p>
+      <p class="section-sub">Questions about booking or managing a business.</p>
       <div class="grid-2" style="margin-bottom:2rem;">
         <div>
-          <h3 class="card-h" style="margin-bottom:0.75rem;">Frequently asked questions</h3>
+          <h3 class="card-h" style="margin-bottom:0.75rem;">FAQ</h3>
           <details class="faq-item"><summary>How do customers request an appointment?</summary>
-            <p>Open a business booking page, choose a service, pick a date and available time, then submit your name and phone or WhatsApp number. No customer account is required in this version.</p>
+            <p>Open a booking page, choose a service, pick a date and time, submit name and phone. No account needed.</p>
           </details>
           <details class="faq-item"><summary>Are appointments confirmed immediately?</summary>
-            <p>No. Requests start as <strong>pending</strong>. The business owner must confirm the appointment.</p>
+            <p>No. Requests start as <strong>pending</strong> until the business owner confirms.</p>
           </details>
           <details class="faq-item"><summary>How do businesses register?</summary>
-            <p>Use <a href="owner-register.html" style="color:var(--purple-700);font-weight:600;">Register Your Business</a>. Real account creation requires a secure backend (next phase).</p>
-          </details>
-          <details class="faq-item"><summary>How do owners manage services?</summary>
-            <p>From the demo dashboard, open Services to add, edit, or remove services and prices. Demo changes stay in your browser only.</p>
+            <p>Use <a href="owner-register.html" style="color:var(--purple-700);font-weight:600;">Register Your Business</a>. Real accounts need a secure backend next.</p>
           </details>
           <details class="faq-item"><summary>How can I contact support?</summary>
-            <p>Use the support form on this page. A live delivery system is not connected yet.</p>
+            <p>Use the form below. Delivery is not connected yet.</p>
           </details>
         </div>
         <div class="card"><div class="card-body">
           <h3 class="card-h" style="margin-bottom:0.5rem;">Contact support</h3>
-          <p class="card-p" style="margin-bottom:1rem;">This form is for layout and validation only. Messages are <strong>not delivered</strong> until a backend is connected.</p>
+          <p class="card-p" style="margin-bottom:1rem;">Messages are <strong>not delivered</strong> until a backend is connected.</p>
           <div class="form-group"><label for="sup-name">Name</label><input type="text" id="sup-name" class="form-control" autocomplete="name" /></div>
           <div class="form-group"><label for="sup-contact">Email or phone</label><input type="text" id="sup-contact" class="form-control" /></div>
           <div class="form-group"><label for="sup-reason">Reason</label>
-            <select id="sup-reason" class="form-control"><option value="">Select…</option><option>Booking question</option><option>Business account / services</option><option>Technical problem</option><option>Other</option></select>
+            <select id="sup-reason" class="form-control"><option value="">Select…</option><option>Booking question</option><option>Business account</option><option>Technical problem</option><option>Other</option></select>
           </div>
           <div class="form-group"><label for="sup-msg">Message</label><textarea id="sup-msg" class="form-control" rows="4"></textarea></div>
-          <button type="button" class="btn btn-primary" id="sup-send">Send message</button>
+          <button type="button" class="btn btn-primary" id="sup-send" style="width:100%;">Send message</button>
           <p id="sup-feedback" style="margin-top:0.65rem;font-size:0.88rem;color:var(--gray-500);" aria-live="polite"></p>
         </div></div>
       </div>
@@ -210,10 +201,10 @@
     <div class="container">
       <div class="cta-band">
         <div>
-          <h3 style="margin-bottom:0.3rem;font-size:1.15rem;">Explore the demonstration</h3>
-          <p style="color:var(--gray-500);margin:0;font-size:0.95rem;">Try the Kuja’s Nails booking flow or open the owner dashboard.</p>
+          <h3 style="margin-bottom:0.3rem;font-size:1.1rem;">Explore the demonstration</h3>
+          <p style="color:var(--gray-500);margin:0;font-size:0.92rem;">Try the booking flow or owner dashboard.</p>
         </div>
-        <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
+        <div style="display:flex;gap:0.55rem;flex-wrap:wrap;">
           <a href="kujas-nails.html" class="btn btn-primary">Open demo booking</a>
           <a href="dashboard/index.html" class="btn btn-outline">Owner dashboard</a>
         </div>
@@ -226,18 +217,17 @@
       <div class="footer-grid">
         <div>
           <h4>BookEasy SA</h4>
-          <p style="font-size:0.88rem;color:var(--gray-500);margin:0;">Appointment booking for South African small businesses. Platform demonstration.</p>
+          <p style="font-size:0.85rem;color:var(--gray-500);margin:0;">Booking for South African small businesses. Demo.</p>
         </div>
         <div>
           <h4>Explore</h4>
           <a href="directory.html">Explore Businesses</a>
-          <a href="kujas-nails.html">Demo booking page</a>
+          <a href="kujas-nails.html">Demo booking</a>
         </div>
         <div>
-          <h4>Business owners</h4>
+          <h4>Owners</h4>
           <a href="owner-register.html">Register</a>
           <a href="owner-signin.html">Sign In</a>
-          <a href="dashboard/index.html">Demo dashboard</a>
         </div>
         <div>
           <h4>Help</h4>
@@ -245,25 +235,45 @@
           <a href="#support">FAQ</a>
         </div>
       </div>
-      <p style="margin:0;font-size:0.8rem;">BookEasy SA — demonstration only. No real multi-business accounts or guaranteed bookings yet.</p>
+      <p style="margin:0;font-size:0.78rem;">BookEasy SA — demonstration only.</p>
     </div>
   </footer>
 
   <script>
-    document.getElementById("sup-send").addEventListener("click", function () {
-      var name = document.getElementById("sup-name").value.trim();
-      var contact = document.getElementById("sup-contact").value.trim();
-      var reason = document.getElementById("sup-reason").value;
-      var msg = document.getElementById("sup-msg").value.trim();
-      var fb = document.getElementById("sup-feedback");
-      if (!name || !contact || !reason || !msg) {
-        fb.style.color = "#dc2626";
-        fb.textContent = "Please complete all fields.";
-        return;
+    (function () {
+      var btn = document.getElementById("nav-toggle");
+      var panel = document.getElementById("mobile-nav");
+      if (btn && panel) {
+        btn.addEventListener("click", function () {
+          var open = panel.classList.toggle("is-open");
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+          btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        });
+        panel.querySelectorAll("a").forEach(function (a) {
+          a.addEventListener("click", function () {
+            panel.classList.remove("is-open");
+            btn.setAttribute("aria-expanded", "false");
+          });
+        });
       }
-      fb.style.color = "#6B7280";
-      fb.textContent = "Form validated, but no delivery service is connected yet. Your message was not sent.";
-    });
+      var send = document.getElementById("sup-send");
+      if (send) {
+        send.addEventListener("click", function () {
+          var name = document.getElementById("sup-name").value.trim();
+          var contact = document.getElementById("sup-contact").value.trim();
+          var reason = document.getElementById("sup-reason").value;
+          var msg = document.getElementById("sup-msg").value.trim();
+          var fb = document.getElementById("sup-feedback");
+          if (!name || !contact || !reason || !msg) {
+            fb.style.color = "#dc2626";
+            fb.textContent = "Please complete all fields.";
+            return;
+          }
+          fb.style.color = "#6B7280";
+          fb.textContent = "Form validated, but no delivery service is connected yet.";
+        });
+      }
+    })();
   </script>
 </body>
 </html>
