@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Request Received – BookEasy SA Demo</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">B</span> BookEasy SA
+      </a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="confirm-box card">
+      <div class="card-body">
+        <div class="icon">✓</div>
+        <h1 style="font-size:1.4rem;margin-bottom:0.4rem;">Request received (demo)</h1>
+        <p style="color:var(--gray-500);margin-bottom:1.35rem;font-size:0.95rem;">
+          This is a simulated confirmation. No real notification was sent and no appointment was created on a live system.
+        </p>
+        <div id="details" style="text-align:left;background:var(--gray-50);padding:1rem 1.1rem;border-radius:8px;margin-bottom:1.35rem;font-size:0.92rem;"></div>
+        <div style="display:flex;gap:0.65rem;justify-content:center;flex-wrap:wrap;">
+          <a href="kujas-nails.html" class="btn btn-outline">Book another service</a>
+          <a href="dashboard/appointments.html" class="btn btn-primary">View in owner dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("details").innerHTML = `
+      <p style="margin-bottom:0.35rem;"><strong>Service:</strong> ${params.get("service") || "—"}</p>
+      <p style="margin-bottom:0.35rem;"><strong>Date:</strong> ${params.get("date") || "—"}</p>
+      <p style="margin-bottom:0.35rem;"><strong>Time:</strong> ${params.get("time") || "—"}</p>
+      <p style="margin-bottom:0.35rem;"><strong>Price:</strong> R${params.get("price") || "—"}</p>
+      <p style="margin-bottom:0.35rem;"><strong>Name:</strong> ${params.get("name") || "—"}</p>
+      <p style="margin-top:0.7rem;font-size:0.85rem;color:var(--gray-500);">Status: Pending confirmation by the business (demo only)</p>
+    `;
+  </script>
+</body>
+</html>

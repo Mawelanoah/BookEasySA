@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuja’s Nails – BookEasy SA Demo</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">B</span> BookEasy SA
+      </a>
+      <nav class="nav">
+        <a href="directory.html">All examples</a>
+        <a href="dashboard/index.html" class="btn btn-outline btn-sm">Owner view</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="booking-header">
+    <div class="container">
+      <div class="business-info">
+        <div class="business-avatar">💅</div>
+        <div>
+          <h1>Kuja’s Nails</h1>
+          <p class="tagline">Professional nail care · Johannesburg · <strong>Demo business (fictional)</strong></p>
+          <div class="hours-row">
+            <span>Mon–Fri 09:00–17:00</span>
+            <span>Sat 09:00–14:00</span>
+            <span>Sun Closed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container" style="max-width:620px;">
+      <div class="steps" id="steps">
+        <span class="step-pill active" data-step="1">1. Service</span>
+        <span class="step-pill" data-step="2">2. Date &amp; time</span>
+        <span class="step-pill" data-step="3">3. Your details</span>
+      </div>
+
+      <!-- Step 1 -->
+      <div id="step-1">
+        <h2 class="section-title" style="font-size:1.2rem;">Choose a service</h2>
+        <p class="section-sub" style="margin-bottom:1.1rem;">Sample prices in South African Rand. Select one to continue.</p>
+        <div class="service-list" id="service-list"></div>
+        <div style="margin-top:1.4rem;">
+          <button type="button" class="btn btn-primary" id="to-step-2" disabled>Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="step-2" style="display:none;">
+        <h2 class="section-title" style="font-size:1.2rem;">Pick a date</h2>
+        <div class="date-grid" id="date-grid"></div>
+
+        <h2 class="section-title" style="font-size:1.2rem;margin-top:1.25rem;">Available times</h2>
+        <p style="color:var(--gray-500);font-size:0.85rem;margin-bottom:0.7rem;">
+          Times already booked in this demo session appear crossed out.
+        </p>
+        <div class="time-grid" id="time-grid"></div>
+
+        <div style="margin-top:1.4rem;display:flex;gap:0.65rem;">
+          <button type="button" class="btn btn-outline" id="back-to-1">Back</button>
+          <button type="button" class="btn btn-primary" id="to-step-3" disabled>Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="step-3" style="display:none;">
+        <h2 class="section-title" style="font-size:1.2rem;">Your details</h2>
+        <p style="color:var(--gray-500);margin-bottom:1.15rem;font-size:0.92rem;">
+          This is a simulation. Nothing is sent to a real server or WhatsApp.
+        </p>
+
+        <div class="form-group" id="name-group">
+          <label for="name">Full name *</label>
+          <input type="text" id="name" class="form-control" placeholder="e.g. Thandi Molefe" autocomplete="name" />
+          <div class="form-error">Please enter your name.</div>
+        </div>
+        <div class="form-group" id="phone-group">
+          <label for="phone">WhatsApp / Phone *</label>
+          <input type="tel" id="phone" class="form-control" placeholder="e.g. 082 123 4567" autocomplete="tel" />
+          <div class="form-error">Please enter a phone number.</div>
+        </div>
+        <div class="form-group">
+          <label for="notes">Notes (optional)</label>
+          <textarea id="notes" class="form-control" rows="3" placeholder="Any preferences or requests"></textarea>
+        </div>
+
+        <div class="card" style="margin-bottom:1.35rem;background:var(--gray-50);">
+          <div class="card-body" style="padding:1rem;">
+            <strong>Booking summary</strong>
+            <p id="summary" style="margin:0.4rem 0 0;color:var(--gray-700);font-size:0.92rem;"></p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:0.65rem;">
+          <button type="button" class="btn btn-outline" id="back-to-2">Back</button>
+          <button type="button" class="btn btn-primary" id="submit-booking">Request booking</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">Kuja’s Nails is a fictional demo business for BookEasy SA. No real appointments are created.</div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    /* Booking flow state */
+    let selectedService = null;
+    let selectedDate = null;
+    let selectedTime = null;
+
+    const services = DemoStore.get("services", DEFAULT_SERVICES);
+    const allTimes = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
+
+    /* Render services */
+    const listEl = document.getElementById("service-list");
+    services.forEach(s => {
+      const el = document.createElement("div");
+      el.className = "service-item";
+      el.setAttribute("role", "button");
+      el.tabIndex = 0;
+      el.innerHTML = `
+        <div>
+          <div class="name">${s.name}</div>
+          <div class="duration">${s.duration} min</div>
+        </div>
+        <div class="price">${formatZAR(s.price)}</div>
+      `;
+      function select() {
+        document.querySelectorAll(".service-item").forEach(i => i.classList.remove("selected"));
+        el.classList.add("selected");
+        selectedService = s;
+        document.getElementById("to-step-2").disabled = false;
+      }
+      el.addEventListener("click", select);
+      el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(); } });
+      listEl.appendChild(el);
+    });
+
+    /* Dates */
+    const days = getNextDays(7);
+    const dateGrid = document.getElementById("date-grid");
+    days.forEach(d => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "date-btn";
+      btn.innerHTML = `<span class="day">${d.day}</span><span class="weekday">${d.weekday}</span>`;
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".date-btn").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        selectedDate = d;
+        selectedTime = null;
+        document.getElementById("to-step-3").disabled = true;
+        renderTimes();
+      });
+      dateGrid.appendChild(btn);
+    });
+
+    function renderTimes() {
+      const grid = document.getElementById("time-grid");
+      grid.innerHTML = "";
+      const booked = getBookedTimes(selectedDate.iso);
+      allTimes.forEach(t => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "time-btn" + (booked.includes(t) ? " disabled" : "");
+        btn.textContent = t;
+        if (!booked.includes(t)) {
+          btn.addEventListener("click", () => {
+            document.querySelectorAll(".time-btn").forEach(b => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            selectedTime = t;
+            document.getElementById("to-step-3").disabled = false;
+          });
+        }
+        grid.appendChild(btn);
+      });
+    }
+
+    function showStep(n) {
+      [1, 2, 3].forEach(i => {
+        document.getElementById("step-" + i).style.display = i === n ? "block" : "none";
+      });
+      document.querySelectorAll(".step-pill").forEach(p => {
+        const s = Number(p.dataset.step);
+        p.classList.remove("active", "done");
+        if (s === n) p.classList.add("active");
+        else if (s < n) p.classList.add("done");
+      });
+    }
+
+    document.getElementById("to-step-2").addEventListener("click", () => showStep(2));
+    document.getElementById("back-to-1").addEventListener("click", () => showStep(1));
+    document.getElementById("to-step-3").addEventListener("click", () => {
+      document.getElementById("summary").textContent =
+        selectedService.name + " · " + selectedDate.label + " at " + selectedTime + " · " + formatZAR(selectedService.price);
+      showStep(3);
+    });
+    document.getElementById("back-to-2").addEventListener("click", () => showStep(2));
+
+    document.getElementById("submit-booking").addEventListener("click", () => {
+      const nameInput = document.getElementById("name");
+      const phoneInput = document.getElementById("phone");
+      const nameGroup = document.getElementById("name-group");
+      const phoneGroup = document.getElementById("phone-group");
+      let valid = true;
+
+      nameGroup.classList.remove("has-error");
+      phoneGroup.classList.remove("has-error");
+
+      if (!nameInput.value.trim()) {
+        nameGroup.classList.add("has-error");
+        valid = false;
+      }
+      if (!phoneInput.value.trim()) {
+        phoneGroup.classList.add("has-error");
+        valid = false;
+      }
+      if (!valid) return;
+
+      /* Save fictional appointment so dashboard and time slots update */
+      const appointments = DemoStore.get("appointments", []);
+      appointments.unshift({
+        id: "a" + Date.now(),
+        customer: nameInput.value.trim(),
+        service: selectedService.name,
+        date: selectedDate.iso,
+        time: selectedTime,
+        status: "pending",
+        phone: phoneInput.value.trim()
+      });
+      DemoStore.set("appointments", appointments);
+
+      const params = new URLSearchParams({
+        service: selectedService.name,
+        date: selectedDate.label,
+        time: selectedTime,
+        price: selectedService.price,
+        name: nameInput.value.trim()
+      });
+      window.location.href = "confirmation.html?" + params.toString();
+    });
+  </script>
+</body>
+</html>
