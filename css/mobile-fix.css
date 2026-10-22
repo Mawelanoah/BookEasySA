@@ -1,15 +1,133 @@
-/* BookEasy SA – mobile overflow fixes (root causes, not body-only hide) */
+/* BookEasy SA – mobile overflow + header fixes */
 
-/* Contain layout width */
-html {
-  max-width: 100%;
-}
-body {
+html, body {
   max-width: 100%;
   overflow-x: clip;
 }
 
-/* Dashboard root must shrink inside viewport */
+/* ---- Homepage header on phones ---- */
+@media (max-width: 767px) {
+  .site-header .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Logo must not push layout wider */
+  .logo {
+    min-width: 0;
+    flex: 0 1 auto;
+    max-width: calc(100% - 56px);
+  }
+  .logo-text {
+    max-width: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Hide ALL desktop nav items on phones (links + Sign In button) */
+  .nav {
+    display: none !important;
+  }
+
+  /* Hamburger always available on homepage */
+  .nav-toggle {
+    display: flex !important;
+    flex-shrink: 0;
+  }
+
+  /* Mobile menu panel full width under header */
+  .mobile-nav {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .mobile-nav.is-open {
+    display: flex !important;
+  }
+
+  /* Hero: no overflow, readable padding */
+  .hero {
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+  }
+  .hero .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+  }
+  .hero h1 {
+    font-size: clamp(1.45rem, 7vw, 1.9rem);
+    padding-left: 0;
+    padding-right: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .hero p.lead {
+    font-size: 0.95rem;
+    word-wrap: break-word;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .section .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .cat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .cta-band {
+    flex-direction: column !important;
+  }
+  .cta-band .btn {
+    width: 100%;
+  }
+
+  /* Pages without hamburger: keep a compact action button only */
+  body:not(:has(#nav-toggle)) .nav {
+    display: flex !important;
+    max-width: 50%;
+  }
+  body:not(:has(#nav-toggle)) .nav .nav-link {
+    display: none !important;
+  }
+  body:not(:has(#nav-toggle)) .nav .btn {
+    display: inline-flex !important;
+    font-size: 0.78rem !important;
+    padding: 0.4rem 0.65rem !important;
+    min-height: 36px !important;
+  }
+}
+
+/* ---- Dashboard (all phones) ---- */
 .dashboard-layout {
   width: 100%;
   max-width: 100%;
@@ -22,10 +140,8 @@ body {
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  overflow: hidden;
 }
 
-/* Nav: WRAP so tabs are not cut off — no off-screen scroll-only tray */
 .sidebar-nav {
   display: flex;
   flex-wrap: wrap;
@@ -34,13 +150,12 @@ body {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  overflow: visible;
 }
 
 .sidebar-nav a {
   white-space: normal;
-  flex: 1 1 auto;
-  min-width: calc(50% - 0.35rem);
+  flex: 1 1 calc(50% - 0.35rem);
+  min-width: 0;
   max-width: 100%;
   text-align: center;
   justify-content: center;
@@ -77,7 +192,6 @@ body {
   overflow-wrap: anywhere;
 }
 
-/* Forms fill container; never force page wider */
 .form-group {
   max-width: 100%;
   min-width: 0;
@@ -101,7 +215,6 @@ select {
   box-sizing: border-box !important;
 }
 
-/* Native file input can be stubborn on Android */
 input[type="file"] {
   display: block;
   font-size: 0.85rem;
@@ -112,14 +225,12 @@ input[type="file"] {
   box-sizing: border-box;
 }
 
-/* Stats */
 .stats-grid {
   width: 100%;
   max-width: 100%;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-/* Tables: scroll inside wrapper only, not the page */
 .table-wrap {
   width: 100%;
   max-width: 100%;
@@ -132,23 +243,17 @@ table {
   width: 100%;
 }
 
-/* Header inside dashboard */
-.site-header .container {
-  max-width: 100%;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.header-inner {
-  max-width: 100%;
-  min-width: 0;
-}
-
-.logo-text {
-  max-width: 140px;
-}
-
 @media (min-width: 768px) {
+  .nav-toggle {
+    display: none !important;
+  }
+  .mobile-nav {
+    display: none !important;
+  }
+  .nav {
+    display: flex !important;
+  }
+
   .dashboard-layout {
     grid-template-columns: 220px minmax(0, 1fr);
   }
@@ -165,6 +270,7 @@ table {
     white-space: nowrap;
     border-radius: 0;
     padding: 0.65rem 1.25rem;
+    flex: none;
   }
   .main-content {
     padding: 1.5rem 1.25rem;
