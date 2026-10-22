@@ -3,17 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Income & Expenses – Demo</title>
+  <title>Finances – Demo Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/mobile-fix.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="logo">
-        <span class="logo-mark">B</span> BookEasy SA
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#5125A8"/><rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/><rect x="8" y="10" width="24" height="6" rx="2" fill="#32145F"/><path d="M15 24.5l3.2 3.2 6.8-7" stroke="#5125A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="logo-text">BookEasy <span>SA</span></span>
       </a>
       <nav class="nav">
-        <a href="../kujas-nails.html">Public booking page</a>
+        <a href="../kujas-nails.html" class="btn btn-outline btn-sm">Public page</a>
       </nav>
     </div>
   </header>
@@ -23,88 +28,57 @@
       <nav class="sidebar-nav">
         <a href="index.html">Overview</a>
         <a href="appointments.html">Appointments</a>
-        <a href="services.html">Services & prices</a>
-        <a href="finances.html" class="active">Income & expenses</a>
-        <a href="../index.html">← Back to site</a>
+        <a href="services.html">Services</a>
+        <a href="finances.html" class="active">Finances</a>
+        <a href="../index.html">← Site</a>
       </nav>
     </aside>
 
     <main class="main-content">
       <div class="page-header">
-        <h1>Income & expenses</h1>
+        <h1>Income &amp; expenses</h1>
       </div>
 
-      <div class="card" style="margin-bottom:1.35rem;border-color:var(--purple-100);background:var(--purple-50);">
-        <div class="card-body">
-          <strong>Preview only — not real money</strong>
-          <p style="margin:0.3rem 0 0;color:var(--gray-700);font-size:0.92rem;">
-            Real income/expense tracking, reports and downloads will be added in a later stage after the booking workflow is solid.
-            The numbers below are completely fictional demonstration data.
-          </p>
-        </div>
+      <div class="demo-note">
+        Sample figures only — not linked to real bookings or payments. Full reporting comes later.
       </div>
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="label">This month (demo)</div>
+          <div class="label">Sample income (month)</div>
           <div class="value">R4 850</div>
         </div>
         <div class="stat-card">
-          <div class="label">Expenses (demo)</div>
-          <div class="value">R1 240</div>
+          <div class="label">Sample expenses</div>
+          <div class="value">R1 200</div>
         </div>
         <div class="stat-card">
-          <div class="label">Net (demo)</div>
-          <div class="value">R3 610</div>
+          <div class="label">Sample net</div>
+          <div class="value">R3 650</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Confirmed bookings</div>
+          <div class="value" id="fin-confirmed">—</div>
         </div>
       </div>
 
-      <h2 style="font-size:1.1rem;margin-bottom:0.85rem;">Sample transactions (fictional)</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Description</th>
-              <th>Type</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2026-10-20</td>
-              <td>Gel Manicure – Thandi M.</td>
-              <td>Income</td>
-              <td>R350</td>
-            </tr>
-            <tr>
-              <td>2026-10-19</td>
-              <td>Nail supplies</td>
-              <td>Expense</td>
-              <td style="color:var(--danger);">-R420</td>
-            </tr>
-            <tr>
-              <td>2026-10-18</td>
-              <td>Acrylic Full Set – Lerato K.</td>
-              <td>Income</td>
-              <td>R450</td>
-            </tr>
-            <tr>
-              <td>2026-10-15</td>
-              <td>Rent contribution</td>
-              <td>Expense</td>
-              <td style="color:var(--danger);">-R800</td>
-            </tr>
-            <tr>
-              <td>2026-10-12</td>
-              <td>Classic Manicure – Nomsa D.</td>
-              <td>Income</td>
-              <td>R250</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card">
+        <div class="card-body">
+          <h2 style="font-size:1.05rem;margin-bottom:0.5rem;">Coming later</h2>
+          <p class="card-p">
+            Owners will record income and expenses, filter by date, and download CSV reports.
+            A booking is not treated as paid just because it is confirmed.
+          </p>
+        </div>
       </div>
     </main>
   </div>
+
+  <script src="../js/app.js"></script>
+  <script>
+    var appointments = DemoStore.get("appointments", []);
+    document.getElementById("fin-confirmed").textContent =
+      appointments.filter(function (a) { return a.status === "confirmed"; }).length;
+  </script>
 </body>
 </html>

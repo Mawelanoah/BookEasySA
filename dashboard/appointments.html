@@ -4,16 +4,55 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Appointments – Demo Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/mobile-fix.css" />
+  <style>
+    .appt-cards { display: flex; flex-direction: column; gap: 0.75rem; }
+    .appt-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+    .appt-card .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .appt-card .name { font-weight: 700; font-size: 1rem; word-break: break-word; flex: 1; min-width: 0; }
+    .appt-card .meta { font-size: 0.88rem; color: var(--gray-500); line-height: 1.45; word-break: break-word; }
+    .appt-card .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.85rem;
+    }
+    .appt-card .actions .btn {
+      flex: 1 1 calc(50% - 0.25rem);
+      min-width: 120px;
+    }
+    .desk-table { display: none; }
+    @media (min-width: 768px) {
+      .appt-cards { display: none; }
+      .desk-table { display: block; }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="logo">
-        <span class="logo-mark">B</span> BookEasy SA
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#5125A8"/><rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/><rect x="8" y="10" width="24" height="6" rx="2" fill="#32145F"/><path d="M15 24.5l3.2 3.2 6.8-7" stroke="#5125A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="logo-text">BookEasy <span>SA</span></span>
       </a>
       <nav class="nav">
-        <a href="../kujas-nails.html">Public booking page</a>
+        <a href="../kujas-nails.html" class="btn btn-outline btn-sm">Public page</a>
       </nav>
     </div>
   </header>
@@ -23,9 +62,9 @@
       <nav class="sidebar-nav">
         <a href="index.html">Overview</a>
         <a href="appointments.html" class="active">Appointments</a>
-        <a href="services.html">Services & prices</a>
-        <a href="finances.html">Income & expenses</a>
-        <a href="../index.html">← Back to site</a>
+        <a href="services.html">Services</a>
+        <a href="finances.html">Finances</a>
+        <a href="../index.html">← Site</a>
       </nav>
     </aside>
 
@@ -35,16 +74,20 @@
       </div>
 
       <div class="demo-note">
-        All entries are fictional or created during this browser session. Status changes are saved only in localStorage.
+        Demo data only. Confirm / cancel updates this browser’s storage.
       </div>
 
-      <div class="table-wrap">
+      <!-- Mobile: full info cards (nothing cut off) -->
+      <div class="appt-cards" id="appt-cards"></div>
+
+      <!-- Desktop table -->
+      <div class="table-wrap desk-table">
         <table>
           <thead>
             <tr>
               <th>Customer</th>
               <th>Service</th>
-              <th>Date & time</th>
+              <th>Date &amp; time</th>
               <th>Phone</th>
               <th>Status</th>
               <th>Actions</th>
@@ -59,35 +102,57 @@
   <script src="../js/app.js"></script>
   <script>
     function render() {
-      const appointments = DemoStore.get("appointments", []);
-      const tbody = document.getElementById("appt-body");
+      var appointments = DemoStore.get("appointments", []);
+      var cards = document.getElementById("appt-cards");
+      var tbody = document.getElementById("appt-body");
+      cards.innerHTML = "";
       tbody.innerHTML = "";
 
       if (appointments.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:2rem;">No appointments yet. Try the public booking page.</td></tr>';
+        cards.innerHTML = '<div class="appt-card"><p class="meta">No appointments yet. Try the public booking page.</p></div>';
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:1.5rem;">No appointments yet.</td></tr>';
         return;
       }
 
-      appointments.forEach((a, idx) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${a.customer}</td>
-          <td>${a.service}</td>
-          <td>${a.date} · ${a.time}</td>
-          <td>${a.phone || "—"}</td>
-          <td><span class="status status-${a.status}">${a.status}</span></td>
-          <td style="display:flex;gap:0.3rem;flex-wrap:wrap;">
-            ${a.status === "pending" ? `<button type="button" class="btn btn-success btn-sm" data-action="confirm" data-idx="${idx}">Confirm</button>` : ""}
-            ${a.status !== "cancelled" ? `<button type="button" class="btn btn-danger btn-sm" data-action="cancel" data-idx="${idx}">Cancel</button>` : ""}
-          </td>
-        `;
+      appointments.forEach(function (a, idx) {
+        var card = document.createElement("div");
+        card.className = "appt-card";
+        var actions = "";
+        if (a.status === "pending") {
+          actions += '<button type="button" class="btn btn-success btn-sm" data-action="confirm" data-idx="' + idx + '">Confirm</button>';
+        }
+        if (a.status !== "cancelled") {
+          actions += '<button type="button" class="btn btn-danger btn-sm" data-action="cancel" data-idx="' + idx + '">Cancel</button>';
+        }
+        card.innerHTML =
+          '<div class="row">' +
+            '<span class="name">' + a.customer + '</span>' +
+            '<span class="status status-' + a.status + '">' + a.status + '</span>' +
+          '</div>' +
+          '<div class="meta"><strong>Service:</strong> ' + a.service + '</div>' +
+          '<div class="meta"><strong>When:</strong> ' + a.date + ' · ' + a.time + '</div>' +
+          '<div class="meta"><strong>Phone:</strong> ' + (a.phone || "—") + '</div>' +
+          (actions ? '<div class="actions">' + actions + '</div>' : '');
+        cards.appendChild(card);
+
+        var tr = document.createElement("tr");
+        tr.innerHTML =
+          '<td>' + a.customer + '</td>' +
+          '<td>' + a.service + '</td>' +
+          '<td>' + a.date + ' · ' + a.time + '</td>' +
+          '<td>' + (a.phone || "—") + '</td>' +
+          '<td><span class="status status-' + a.status + '">' + a.status + '</span></td>' +
+          '<td style="display:flex;gap:0.3rem;flex-wrap:wrap;">' +
+            (a.status === "pending" ? '<button type="button" class="btn btn-success btn-sm" data-action="confirm" data-idx="' + idx + '">Confirm</button>' : '') +
+            (a.status !== "cancelled" ? '<button type="button" class="btn btn-danger btn-sm" data-action="cancel" data-idx="' + idx + '">Cancel</button>' : '') +
+          '</td>';
         tbody.appendChild(tr);
       });
 
-      tbody.querySelectorAll("button").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const list = DemoStore.get("appointments", []);
-          const i = Number(btn.dataset.idx);
+      document.querySelectorAll("[data-action]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var list = DemoStore.get("appointments", []);
+          var i = Number(btn.dataset.idx);
           if (btn.dataset.action === "confirm") list[i].status = "confirmed";
           if (btn.dataset.action === "cancel") list[i].status = "cancelled";
           DemoStore.set("appointments", list);

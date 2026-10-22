@@ -4,16 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Services – Demo Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/mobile-fix.css" />
+  <style>
+    .svc-cards { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .svc-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+    .svc-card .top {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+    .svc-card .name { font-weight: 700; word-break: break-word; }
+    .svc-card .price { font-weight: 700; color: var(--purple-600); flex-shrink: 0; }
+    .svc-card .meta { font-size: 0.88rem; color: var(--gray-500); margin-top: 0.25rem; }
+    .svc-card .actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+    .svc-card .actions .btn { flex: 1 1 auto; }
+    .add-form {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .add-form h2 { font-size: 1.05rem; margin-bottom: 0.85rem; }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="logo">
-        <span class="logo-mark">B</span> BookEasy SA
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#5125A8"/><rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/><rect x="8" y="10" width="24" height="6" rx="2" fill="#32145F"/><path d="M15 24.5l3.2 3.2 6.8-7" stroke="#5125A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="logo-text">BookEasy <span>SA</span></span>
       </a>
       <nav class="nav">
-        <a href="../kujas-nails.html">Public booking page</a>
+        <a href="../kujas-nails.html" class="btn btn-outline btn-sm">Public page</a>
       </nav>
     </div>
   </header>
@@ -23,100 +57,110 @@
       <nav class="sidebar-nav">
         <a href="index.html">Overview</a>
         <a href="appointments.html">Appointments</a>
-        <a href="services.html" class="active">Services & prices</a>
-        <a href="finances.html">Income & expenses</a>
-        <a href="../index.html">← Back to site</a>
+        <a href="services.html" class="active">Services</a>
+        <a href="finances.html">Finances</a>
+        <a href="../index.html">← Site</a>
       </nav>
     </aside>
 
     <main class="main-content">
       <div class="page-header">
-        <h1>Services & prices</h1>
-        <button type="button" class="btn btn-primary btn-sm" id="add-btn">Add service</button>
+        <h1>Services &amp; prices</h1>
       </div>
 
       <div class="demo-note">
-        Changes are saved only in this browser (localStorage). The public booking page will reflect the updated list after a refresh.
+        Changes appear on the public booking page in this browser. Demo only.
       </div>
 
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Service</th>
-              <th>Duration</th>
-              <th>Price</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="services-body"></tbody>
-        </table>
+      <div class="add-form">
+        <h2>Add a service</h2>
+        <div class="form-group">
+          <label for="svc-name">Name</label>
+          <input type="text" id="svc-name" class="form-control" placeholder="e.g. Gel Manicure" />
+        </div>
+        <div class="form-group">
+          <label for="svc-duration">Duration (minutes)</label>
+          <input type="number" id="svc-duration" class="form-control" min="5" step="5" value="45" />
+        </div>
+        <div class="form-group">
+          <label for="svc-price">Price (R)</label>
+          <input type="number" id="svc-price" class="form-control" min="0" step="10" value="250" />
+        </div>
+        <button type="button" class="btn btn-primary" id="add-svc" style="width:100%;">Add service</button>
+        <p id="svc-msg" style="margin-top:0.5rem;font-size:0.85rem;color:var(--gray-500);"></p>
       </div>
+
+      <div class="svc-cards" id="svc-list"></div>
     </main>
   </div>
 
   <script src="../js/app.js"></script>
   <script>
     function render() {
-      const services = DemoStore.get("services", []);
-      const tbody = document.getElementById("services-body");
-      tbody.innerHTML = "";
-
-      if (services.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--gray-500);padding:1.5rem;">No services yet. Add one above.</td></tr>';
+      var services = DemoStore.get("services", DEFAULT_SERVICES);
+      var list = document.getElementById("svc-list");
+      list.innerHTML = "";
+      if (!services.length) {
+        list.innerHTML = '<div class="svc-card"><p class="meta">No services yet.</p></div>';
         return;
       }
-
-      services.forEach((s, idx) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${s.name}</td>
-          <td>${s.duration} min</td>
-          <td>${formatZAR(s.price)}</td>
-          <td style="display:flex;gap:0.3rem;flex-wrap:wrap;">
-            <button type="button" class="btn btn-outline btn-sm" data-action="edit" data-idx="${idx}">Edit price</button>
-            <button type="button" class="btn btn-danger btn-sm" data-action="remove" data-idx="${idx}">Remove</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
+      services.forEach(function (s, idx) {
+        var card = document.createElement("div");
+        card.className = "svc-card";
+        card.innerHTML =
+          '<div class="top">' +
+            '<span class="name">' + s.name + '</span>' +
+            '<span class="price">' + formatZAR(s.price) + '</span>' +
+          '</div>' +
+          '<div class="meta">' + s.duration + ' minutes</div>' +
+          '<div class="actions">' +
+            '<button type="button" class="btn btn-outline btn-sm" data-edit="' + idx + '">Edit price</button>' +
+            '<button type="button" class="btn btn-danger btn-sm" data-del="' + idx + '">Remove</button>' +
+          '</div>';
+        list.appendChild(card);
       });
 
-      tbody.querySelectorAll("button").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const list = DemoStore.get("services", []);
-          const i = Number(btn.dataset.idx);
-          if (btn.dataset.action === "remove") {
-            if (confirm("Remove this service from the demo list?")) {
-              list.splice(i, 1);
-              DemoStore.set("services", list);
-              render();
-            }
-          }
-          if (btn.dataset.action === "edit") {
-            const newPrice = prompt("New price in Rand:", list[i].price);
-            if (newPrice !== null && !isNaN(Number(newPrice))) {
-              list[i].price = Number(newPrice);
-              DemoStore.set("services", list);
-              render();
-            }
-          }
+      list.querySelectorAll("[data-edit]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var services = DemoStore.get("services", []);
+          var i = Number(btn.dataset.edit);
+          var next = prompt("New price in Rand for " + services[i].name + ":", services[i].price);
+          if (next === null) return;
+          var n = Number(next);
+          if (isNaN(n) || n < 0) { alert("Enter a valid number."); return; }
+          services[i].price = n;
+          DemoStore.set("services", services);
+          render();
+        });
+      });
+
+      list.querySelectorAll("[data-del]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          if (!confirm("Remove this service?")) return;
+          var services = DemoStore.get("services", []);
+          services.splice(Number(btn.dataset.del), 1);
+          DemoStore.set("services", services);
+          render();
         });
       });
     }
 
-    document.getElementById("add-btn").addEventListener("click", () => {
-      const name = prompt("Service name:");
-      if (!name || !name.trim()) return;
-      const duration = prompt("Duration in minutes:", "60");
-      const price = prompt("Price in Rand:", "300");
-      const list = DemoStore.get("services", []);
-      list.push({
-        id: "s" + Date.now(),
-        name: name.trim(),
-        duration: Number(duration) || 60,
-        price: Number(price) || 0
-      });
-      DemoStore.set("services", list);
+    document.getElementById("add-svc").addEventListener("click", function () {
+      var name = document.getElementById("svc-name").value.trim();
+      var duration = Number(document.getElementById("svc-duration").value);
+      var price = Number(document.getElementById("svc-price").value);
+      var msg = document.getElementById("svc-msg");
+      if (!name || !duration || isNaN(price)) {
+        msg.style.color = "#dc2626";
+        msg.textContent = "Please fill name, duration and price.";
+        return;
+      }
+      var services = DemoStore.get("services", DEFAULT_SERVICES);
+      services.push({ id: "s" + Date.now(), name: name, duration: duration, price: price });
+      DemoStore.set("services", services);
+      document.getElementById("svc-name").value = "";
+      msg.style.color = "#059669";
+      msg.textContent = "Service added.";
       render();
     });
 
