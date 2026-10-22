@@ -6,26 +6,20 @@
   <title>Kuja’s Nails – BookEasy SA Demo</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/mobile-fix.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo">
         <span class="logo-mark" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="10" fill="#7c3aed"/>
-            <rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/>
-            <rect x="8" y="10" width="24" height="6" rx="2" fill="#6d28d9"/>
-            <circle cx="14" cy="13" r="1.2" fill="white"/>
-            <circle cx="26" cy="13" r="1.2" fill="white"/>
-            <path d="M15 24.5l3.2 3.2 6.8-7" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#5125A8"/><rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/><rect x="8" y="10" width="24" height="6" rx="2" fill="#32145F"/><path d="M15 24.5l3.2 3.2 6.8-7" stroke="#5125A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
         <span class="logo-text">BookEasy <span>SA</span></span>
       </a>
       <nav class="nav">
-        <a href="directory.html">All examples</a>
-        <a href="dashboard/index.html" class="btn btn-outline btn-sm">For business owners</a>
+        <a href="directory.html" class="nav-link">Explore</a>
+        <a href="dashboard/index.html" class="btn btn-outline btn-sm">Owner demo</a>
       </nav>
     </div>
   </header>
@@ -42,7 +36,24 @@
             <span>Sat 09:00–14:00</span>
             <span>Sun Closed</span>
           </div>
+          <p style="margin:0.35rem 0 0;font-size:0.85rem;color:var(--gray-500);">Not yet rated</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="max-width:620px;padding-top:1rem;">
+    <div class="card">
+      <div class="card-body" style="padding:1rem;">
+        <p style="margin:0 0 0.65rem;font-weight:600;font-size:0.9rem;">Share this booking page</p>
+        <div class="share-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="share-copy">Copy link</button>
+          <a class="btn btn-outline btn-sm" id="share-wa" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btn-outline btn-sm" id="share-fb" target="_blank" rel="noopener">Facebook</a>
+          <button type="button" class="btn btn-outline btn-sm" id="share-native">Share…</button>
+        </div>
+        <p id="share-feedback" class="copy-feedback" aria-live="polite"></p>
+        <p class="card-p" style="margin-top:0.5rem;font-size:0.8rem;">Instagram / TikTok: copy the link and paste into your post or bio.</p>
       </div>
     </div>
   </div>
@@ -55,63 +66,51 @@
         <span class="step-pill" data-step="3">3. Your details</span>
       </div>
 
-      <!-- Step 1 -->
       <div id="step-1">
         <h2 class="section-title" style="font-size:1.2rem;">Choose a service</h2>
-        <p class="section-sub" style="margin-bottom:1.1rem;">Sample prices in South African Rand. Select one to continue.</p>
+        <p class="section-sub" style="margin-bottom:1.1rem;">Sample prices in Rand. Demo booking only.</p>
         <div class="service-list" id="service-list"></div>
         <div style="margin-top:1.4rem;">
           <button type="button" class="btn btn-primary" id="to-step-2" disabled>Continue</button>
         </div>
       </div>
 
-      <!-- Step 2 -->
       <div id="step-2" style="display:none;">
         <h2 class="section-title" style="font-size:1.2rem;">Pick a date</h2>
         <div class="date-grid" id="date-grid"></div>
-
         <h2 class="section-title" style="font-size:1.2rem;margin-top:1.25rem;">Available times</h2>
-        <p style="color:var(--gray-500);font-size:0.85rem;margin-bottom:0.7rem;">
-          Times already booked in this demo session appear crossed out.
-        </p>
+        <p style="color:var(--gray-500);font-size:0.85rem;margin-bottom:0.7rem;">Booked times show as BOOKED and cannot be selected.</p>
         <div class="time-grid" id="time-grid"></div>
-
-        <div style="margin-top:1.4rem;display:flex;gap:0.65rem;">
+        <div style="margin-top:1.4rem;display:flex;gap:0.65rem;flex-wrap:wrap;">
           <button type="button" class="btn btn-outline" id="back-to-1">Back</button>
           <button type="button" class="btn btn-primary" id="to-step-3" disabled>Continue</button>
         </div>
       </div>
 
-      <!-- Step 3 -->
       <div id="step-3" style="display:none;">
         <h2 class="section-title" style="font-size:1.2rem;">Your details</h2>
-        <p style="color:var(--gray-500);margin-bottom:1.15rem;font-size:0.92rem;">
-          This is a simulation. Nothing is sent to a real server or WhatsApp.
-        </p>
-
+        <p style="color:var(--gray-500);margin-bottom:1.15rem;font-size:0.92rem;">Simulation only — nothing is sent to a real server.</p>
         <div class="form-group" id="name-group">
           <label for="name">Full name *</label>
-          <input type="text" id="name" class="form-control" placeholder="e.g. Thandi Molefe" autocomplete="name" />
+          <input type="text" id="name" class="form-control" autocomplete="name" />
           <div class="form-error">Please enter your name.</div>
         </div>
         <div class="form-group" id="phone-group">
           <label for="phone">WhatsApp / Phone *</label>
-          <input type="tel" id="phone" class="form-control" placeholder="e.g. 082 123 4567" autocomplete="tel" />
+          <input type="tel" id="phone" class="form-control" autocomplete="tel" />
           <div class="form-error">Please enter a phone number.</div>
         </div>
         <div class="form-group">
           <label for="notes">Notes (optional)</label>
-          <textarea id="notes" class="form-control" rows="3" placeholder="Any preferences or requests"></textarea>
+          <textarea id="notes" class="form-control" rows="3"></textarea>
         </div>
-
         <div class="card" style="margin-bottom:1.35rem;background:var(--gray-50);">
           <div class="card-body" style="padding:1rem;">
             <strong>Booking summary</strong>
             <p id="summary" style="margin:0.4rem 0 0;color:var(--gray-700);font-size:0.92rem;"></p>
           </div>
         </div>
-
-        <div style="display:flex;gap:0.65rem;">
+        <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
           <button type="button" class="btn btn-outline" id="back-to-2">Back</button>
           <button type="button" class="btn btn-primary" id="submit-booking">Request booking</button>
         </div>
@@ -120,104 +119,91 @@
   </section>
 
   <footer class="site-footer">
-    <div class="container">Kuja’s Nails is a fictional demo business for BookEasy SA. No real appointments are created.</div>
+    <div class="container">Kuja’s Nails is a fictional demo. No real appointments are created.</div>
   </footer>
 
   <script src="js/app.js"></script>
   <script>
-    /* Booking flow state */
-    let selectedService = null;
-    let selectedDate = null;
-    let selectedTime = null;
+    (function () {
+      var url = window.location.href.split("#")[0];
+      var text = "Book an appointment at Kuja's Nails (BookEasy SA demo): " + url;
+      var fb = document.getElementById("share-feedback");
+      function tip(m) { if (fb) { fb.textContent = m; setTimeout(function () { fb.textContent = ""; }, 2500); } }
+      document.getElementById("share-wa").href = "https://wa.me/?text=" + encodeURIComponent(text);
+      document.getElementById("share-fb").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url);
+      document.getElementById("share-copy").addEventListener("click", function () {
+        if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { tip("Link copied."); }).catch(function () { tip("Copy manually from the address bar."); });
+        else tip("Copy manually from the address bar.");
+      });
+      document.getElementById("share-native").addEventListener("click", function () {
+        if (navigator.share) navigator.share({ title: "Kuja's Nails", text: text, url: url }).catch(function () {});
+        else tip("Use Copy link on this device.");
+      });
+    })();
 
-    const services = DemoStore.get("services", DEFAULT_SERVICES);
-
-    const SERVICE_PHOTOS = {
-      "s1": "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=120&h=120&fit=crop&q=80",
-      "s2": "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=120&h=120&fit=crop&q=80",
-      "s3": "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=120&h=120&fit=crop&q=80",
-      "s4": "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=120&h=120&fit=crop&q=80",
-      "s5": "https://images.unsplash.com/photo-1607779097040-26dd4c5bce2c?w=120&h=120&fit=crop&q=80"
+    var selectedService = null, selectedDate = null, selectedTime = null;
+    var services = DemoStore.get("services", DEFAULT_SERVICES);
+    var SERVICE_PHOTOS = {
+      s1: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=120&h=120&fit=crop&q=80",
+      s2: "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=120&h=120&fit=crop&q=80",
+      s3: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=120&h=120&fit=crop&q=80",
+      s4: "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=120&h=120&fit=crop&q=80",
+      s5: "https://images.unsplash.com/photo-1607779097040-26dd4c5bce2c?w=120&h=120&fit=crop&q=80"
     };
+    var allTimes = ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00"];
 
-    const allTimes = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
-
-    /* Render services */
-    const listEl = document.getElementById("service-list");
-    services.forEach(s => {
-      const el = document.createElement("div");
-      el.className = "service-item";
-      el.setAttribute("role", "button");
-      el.tabIndex = 0;
-      const photo = SERVICE_PHOTOS[s.id] || "";
-      el.innerHTML = `
-        <div class="svc-left">
-          ${photo ? `<img class="svc-photo" src="${photo}" alt="" width="52" height="52" loading="lazy" onerror="this.style.display='none'" />` : ""}
-          <div>
-            <div class="name">${s.name}</div>
-            <div class="duration">${s.duration} min</div>
-          </div>
-        </div>
-        <div class="price">${formatZAR(s.price)}</div>
-      `;
+    var listEl = document.getElementById("service-list");
+    services.forEach(function (s) {
+      var el = document.createElement("div");
+      el.className = "service-item"; el.setAttribute("role", "button"); el.tabIndex = 0;
+      var photo = SERVICE_PHOTOS[s.id] || s.photo || "";
+      el.innerHTML = '<div class="svc-left">' +
+        (photo ? '<img class="svc-photo" src="' + photo + '" alt="" width="52" height="52" loading="lazy" onerror="this.style.display=\'none\'" />' : '') +
+        '<div><div class="name">' + s.name + '</div><div class="duration">' + s.duration + ' min</div></div></div>' +
+        '<div class="price">' + formatZAR(s.price) + '</div>';
       function select() {
-        document.querySelectorAll(".service-item").forEach(i => i.classList.remove("selected"));
-        el.classList.add("selected");
-        selectedService = s;
+        document.querySelectorAll(".service-item").forEach(function (i) { i.classList.remove("selected"); });
+        el.classList.add("selected"); selectedService = s;
         document.getElementById("to-step-2").disabled = false;
       }
       el.addEventListener("click", select);
-      el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(); } });
+      el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(); } });
       listEl.appendChild(el);
     });
 
-    /* Dates */
-    const days = getNextDays(7);
-    const dateGrid = document.getElementById("date-grid");
-    days.forEach(d => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "date-btn";
-      btn.innerHTML = `<span class="day">${d.day}</span><span class="weekday">${d.weekday}</span>`;
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".date-btn").forEach(b => b.classList.remove("selected"));
-        btn.classList.add("selected");
-        selectedDate = d;
-        selectedTime = null;
-        document.getElementById("to-step-3").disabled = true;
-        renderTimes();
+    var days = getNextDays(7);
+    var dateGrid = document.getElementById("date-grid");
+    days.forEach(function (d) {
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "date-btn";
+      btn.innerHTML = '<span class="day">' + d.day + '</span><span class="weekday">' + d.weekday + '</span>';
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".date-btn").forEach(function (b) { b.classList.remove("selected"); });
+        btn.classList.add("selected"); selectedDate = d; selectedTime = null;
+        document.getElementById("to-step-3").disabled = true; renderTimes();
       });
       dateGrid.appendChild(btn);
     });
 
     function renderTimes() {
-      const grid = document.getElementById("time-grid");
-      grid.innerHTML = "";
-      const booked = getBookedTimes(selectedDate.iso);
+      var grid = document.getElementById("time-grid"); grid.innerHTML = "";
+      var booked = getBookedTimes(selectedDate.iso);
       allTimes.forEach(function (t) {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        const isBooked = booked.indexOf(t) !== -1;
-        const isPast = isSlotInPast(selectedDate.iso, t);
+        var btn = document.createElement("button"); btn.type = "button";
+        var isBooked = booked.indexOf(t) !== -1;
+        var isPast = isSlotInPast(selectedDate.iso, t);
         if (isBooked) {
           btn.className = "time-btn booked";
           btn.innerHTML = t + '<span class="booked-label">BOOKED</span>';
           btn.setAttribute("aria-disabled", "true");
-          btn.setAttribute("aria-label", t + " booked");
         } else if (isPast) {
-          btn.className = "time-btn past disabled";
-          btn.textContent = t;
+          btn.className = "time-btn past disabled"; btn.textContent = t;
           btn.setAttribute("aria-disabled", "true");
-          btn.setAttribute("aria-label", t + " unavailable");
         } else {
-          btn.className = "time-btn";
-          btn.textContent = t;
+          btn.className = "time-btn"; btn.textContent = t;
           btn.addEventListener("click", function () {
-            document.querySelectorAll(".time-btn").forEach(function (b) {
-              b.classList.remove("selected");
-            });
-            btn.classList.add("selected");
-            selectedTime = t;
+            document.querySelectorAll(".time-btn").forEach(function (b) { b.classList.remove("selected"); });
+            btn.classList.add("selected"); selectedTime = t;
             document.getElementById("to-step-3").disabled = false;
           });
         }
@@ -226,67 +212,46 @@
     }
 
     function showStep(n) {
-      [1, 2, 3].forEach(i => {
+      [1,2,3].forEach(function (i) {
         document.getElementById("step-" + i).style.display = i === n ? "block" : "none";
       });
-      document.querySelectorAll(".step-pill").forEach(p => {
-        const s = Number(p.dataset.step);
+      document.querySelectorAll(".step-pill").forEach(function (p) {
+        var s = Number(p.dataset.step);
         p.classList.remove("active", "done");
         if (s === n) p.classList.add("active");
         else if (s < n) p.classList.add("done");
       });
     }
 
-    document.getElementById("to-step-2").addEventListener("click", () => showStep(2));
-    document.getElementById("back-to-1").addEventListener("click", () => showStep(1));
-    document.getElementById("to-step-3").addEventListener("click", () => {
+    document.getElementById("to-step-2").addEventListener("click", function () { showStep(2); });
+    document.getElementById("back-to-1").addEventListener("click", function () { showStep(1); });
+    document.getElementById("to-step-3").addEventListener("click", function () {
       document.getElementById("summary").textContent =
         selectedService.name + " · " + selectedDate.label + " at " + selectedTime + " · " + formatZAR(selectedService.price);
       showStep(3);
     });
-    document.getElementById("back-to-2").addEventListener("click", () => showStep(2));
+    document.getElementById("back-to-2").addEventListener("click", function () { showStep(2); });
 
-    document.getElementById("submit-booking").addEventListener("click", () => {
-      const nameInput = document.getElementById("name");
-      const phoneInput = document.getElementById("phone");
-      const nameGroup = document.getElementById("name-group");
-      const phoneGroup = document.getElementById("phone-group");
-      let valid = true;
-
-      nameGroup.classList.remove("has-error");
-      phoneGroup.classList.remove("has-error");
-
-      if (!nameInput.value.trim()) {
-        nameGroup.classList.add("has-error");
-        valid = false;
-      }
-      if (!phoneInput.value.trim()) {
-        phoneGroup.classList.add("has-error");
-        valid = false;
-      }
+    document.getElementById("submit-booking").addEventListener("click", function () {
+      var nameInput = document.getElementById("name");
+      var phoneInput = document.getElementById("phone");
+      var nameGroup = document.getElementById("name-group");
+      var phoneGroup = document.getElementById("phone-group");
+      var valid = true;
+      nameGroup.classList.remove("has-error"); phoneGroup.classList.remove("has-error");
+      if (!nameInput.value.trim()) { nameGroup.classList.add("has-error"); valid = false; }
+      if (!phoneInput.value.trim()) { phoneGroup.classList.add("has-error"); valid = false; }
       if (!valid) return;
-
-      /* Save fictional appointment so dashboard and time slots update */
-      const appointments = DemoStore.get("appointments", []);
+      var appointments = DemoStore.get("appointments", []);
       appointments.unshift({
-        id: "a" + Date.now(),
-        customer: nameInput.value.trim(),
-        service: selectedService.name,
-        date: selectedDate.iso,
-        time: selectedTime,
-        status: "pending",
-        phone: phoneInput.value.trim()
+        id: "a" + Date.now(), customer: nameInput.value.trim(), service: selectedService.name,
+        date: selectedDate.iso, time: selectedTime, status: "pending", phone: phoneInput.value.trim()
       });
       DemoStore.set("appointments", appointments);
-
-      const ref = generateRef();
-      const params = new URLSearchParams({
-        ref: ref,
-        service: selectedService.name,
-        date: selectedDate.label,
-        time: selectedTime,
-        price: selectedService.price,
-        name: nameInput.value.trim()
+      var ref = generateRef();
+      var params = new URLSearchParams({
+        ref: ref, service: selectedService.name, date: selectedDate.label,
+        time: selectedTime, price: String(selectedService.price), name: nameInput.value.trim()
       });
       window.location.href = "confirmation.html?" + params.toString();
     });
