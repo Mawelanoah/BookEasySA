@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register Your Business – BookEasy SA</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#5125A8"/><rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/><rect x="8" y="10" width="24" height="6" rx="2" fill="#32145F"/><path d="M15 24.5l3.2 3.2 6.8-7" stroke="#5125A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="logo-text">BookEasy <span>SA</span></span>
+      </a>
+      <nav class="nav">
+        <a href="owner-signin.html" class="btn btn-outline btn-sm">Sign in</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container" style="max-width:480px;">
+      <div class="demo-note">
+        <strong>Registration is not live.</strong> This screen shows the fields we will collect.
+        Real accounts need Supabase Auth (or similar) so passwords are hashed and each business only sees its own data.
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h1 style="font-size:1.35rem;margin-bottom:0.35rem;">Register your business</h1>
+          <p class="card-p" style="margin-bottom:1.25rem;">Are you a business owner? Create a professional booking page for your salon or studio.</p>
+
+          <div class="form-group">
+            <label for="owner-name">Your full name</label>
+            <input type="text" id="owner-name" class="form-control" autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" class="form-control" autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" autocomplete="new-password" />
+          </div>
+          <div class="form-group">
+            <label for="biz-name">Business name</label>
+            <input type="text" id="biz-name" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="category">Business category</label>
+            <select id="category" class="form-control">
+              <option value="">Select…</option>
+              <option>Nail technician / nail salon</option>
+              <option>Hair salon</option>
+              <option>Lash &amp; brow</option>
+              <option>Barber</option>
+              <option>Spa / wellness</option>
+              <option>Other beauty service</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="phone">Contact number (WhatsApp)</label>
+            <input type="tel" id="phone" class="form-control" autocomplete="tel" />
+          </div>
+          <button type="button" class="btn btn-primary" style="width:100%;" id="reg-btn">Create account (demo)</button>
+          <p id="msg" style="margin-top:0.85rem;font-size:0.9rem;color:var(--gray-500);"></p>
+          <p style="margin-top:1rem;font-size:0.9rem;">
+            Already registered? <a href="owner-signin.html" style="color:var(--purple-700);font-weight:600;">Sign in</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("reg-btn").addEventListener("click", function () {
+      var msg = document.getElementById("msg");
+      var required = ["owner-name", "email", "password", "biz-name", "category", "phone"];
+      var ok = required.every(function (id) {
+        var el = document.getElementById(id);
+        return el && el.value.trim();
+      });
+      if (!ok) {
+        msg.style.color = "#dc2626";
+        msg.textContent = "Please complete all fields.";
+        return;
+      }
+      msg.style.color = "#6B7280";
+      msg.textContent = "Accounts are not created yet. Next step: connect Supabase Auth so registration is real and secure (Phase 2).";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Owner Sign In – BookEasy SA</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#5125A8"/><rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/><rect x="8" y="10" width="24" height="6" rx="2" fill="#32145F"/><path d="M15 24.5l3.2 3.2 6.8-7" stroke="#5125A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="logo-text">BookEasy <span>SA</span></span>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="owner-register.html" class="btn btn-outline btn-sm">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container" style="max-width:440px;">
+      <div class="demo-note">
+        <strong>Interface prototype only.</strong> This form does not log you in securely.
+        Real authentication requires a backend (e.g. Supabase). Passwords must never be stored in the browser.
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h1 style="font-size:1.35rem;margin-bottom:0.35rem;">Business Owner Sign In</h1>
+          <p class="card-p" style="margin-bottom:1.25rem;">Manage your business and appointments with BookEasy SA.</p>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" class="form-control" placeholder="you@business.co.za" autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="••••••••" autocomplete="current-password" />
+          </div>
+          <button type="button" class="btn btn-primary" style="width:100%;" id="signin-btn">Sign in (demo)</button>
+          <p id="msg" style="margin-top:0.85rem;font-size:0.9rem;color:var(--gray-500);"></p>
+          <p style="margin-top:1rem;font-size:0.9rem;">
+            No account yet? <a href="owner-register.html" style="color:var(--purple-700);font-weight:600;">Register your business</a>
+          </p>
+          <hr style="margin:1.25rem 0;border:none;border-top:1px solid var(--gray-200);" />
+          <p class="card-p" style="font-size:0.85rem;">
+            Want to explore the demo dashboard without login?
+            <a href="dashboard/index.html" style="color:var(--purple-700);font-weight:600;">Open demo dashboard →</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("signin-btn").addEventListener("click", function () {
+      var email = document.getElementById("email").value.trim();
+      var pass = document.getElementById("password").value;
+      var msg = document.getElementById("msg");
+      if (!email || !pass) {
+        msg.style.color = "#dc2626";
+        msg.textContent = "Please enter email and password.";
+        return;
+      }
+      msg.style.color = "#6B7280";
+      msg.textContent = "Secure sign-in is not connected yet. Use “Open demo dashboard” to explore the prototype, or set up Supabase (Phase 2).";
+    });
+  </script>
+</body>
+</html>

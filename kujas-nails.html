@@ -194,14 +194,28 @@
       const grid = document.getElementById("time-grid");
       grid.innerHTML = "";
       const booked = getBookedTimes(selectedDate.iso);
-      allTimes.forEach(t => {
+      allTimes.forEach(function (t) {
         const btn = document.createElement("button");
         btn.type = "button";
-        btn.className = "time-btn" + (booked.includes(t) ? " disabled" : "");
-        btn.textContent = t;
-        if (!booked.includes(t)) {
-          btn.addEventListener("click", () => {
-            document.querySelectorAll(".time-btn").forEach(b => b.classList.remove("selected"));
+        const isBooked = booked.indexOf(t) !== -1;
+        const isPast = isSlotInPast(selectedDate.iso, t);
+        if (isBooked) {
+          btn.className = "time-btn booked";
+          btn.innerHTML = t + '<span class="booked-label">BOOKED</span>';
+          btn.setAttribute("aria-disabled", "true");
+          btn.setAttribute("aria-label", t + " booked");
+        } else if (isPast) {
+          btn.className = "time-btn past disabled";
+          btn.textContent = t;
+          btn.setAttribute("aria-disabled", "true");
+          btn.setAttribute("aria-label", t + " unavailable");
+        } else {
+          btn.className = "time-btn";
+          btn.textContent = t;
+          btn.addEventListener("click", function () {
+            document.querySelectorAll(".time-btn").forEach(function (b) {
+              b.classList.remove("selected");
+            });
             btn.classList.add("selected");
             selectedTime = t;
             document.getElementById("to-step-3").disabled = false;
@@ -265,7 +279,9 @@
       });
       DemoStore.set("appointments", appointments);
 
+      const ref = generateRef();
       const params = new URLSearchParams({
+        ref: ref,
         service: selectedService.name,
         date: selectedDate.label,
         time: selectedTime,

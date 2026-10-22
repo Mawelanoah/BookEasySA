@@ -32,7 +32,7 @@
         <div class="icon">✓</div>
         <h1 style="font-size:1.4rem;margin-bottom:0.4rem;">Request received (demo)</h1>
         <p style="color:var(--gray-500);margin-bottom:1.35rem;font-size:0.95rem;">
-          This is a simulated confirmation. No real notification was sent and no appointment was created on a live system.
+          Your appointment request has been received. The business owner must approve your request before it is confirmed. This is a demonstration — nothing was sent to a real business system.
         </p>
         <div id="details" style="text-align:left;background:var(--gray-50);padding:1rem 1.1rem;border-radius:8px;margin-bottom:1.35rem;font-size:0.92rem;"></div>
         <div style="display:flex;gap:0.65rem;justify-content:center;flex-wrap:wrap;">
@@ -46,12 +46,13 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     document.getElementById("details").innerHTML = `
+      <p style="margin-bottom:0.35rem;"><strong>Reference:</strong> ${params.get("ref") || "—"}</p>
       <p style="margin-bottom:0.35rem;"><strong>Service:</strong> ${params.get("service") || "—"}</p>
       <p style="margin-bottom:0.35rem;"><strong>Date:</strong> ${params.get("date") || "—"}</p>
       <p style="margin-bottom:0.35rem;"><strong>Time:</strong> ${params.get("time") || "—"}</p>
       <p style="margin-bottom:0.35rem;"><strong>Price:</strong> R${params.get("price") || "—"}</p>
       <p style="margin-bottom:0.35rem;"><strong>Name:</strong> ${params.get("name") || "—"}</p>
-      <p style="margin-top:0.7rem;font-size:0.85rem;color:var(--gray-500);">Status: Pending confirmation by the business (demo only)</p>
+      <p style="margin-top:0.7rem;font-size:0.85rem;color:var(--gray-500);">Status: Pending approval by the business (demo only)</p>
     `;
   </script>
 </body>

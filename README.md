@@ -1,46 +1,47 @@
-# BookEasy SA — Professional Demo (v2)
+# BookEasy SA — Phase 1 (Honest scope)
 
-Polished static prototype for South African beauty-business booking.
+Professional static demo + calendar rules. **Not** multi-tenant production yet.
 
-## Highlights
+## Working now (Phase 1)
 
-- Premium purple brand + SVG logo & favicon
-- Hero: “Your Next Appointment, Made Easy.”
-- **For Business Owners** section (4 steps)
-- WhatsApp share demo with **Copy message** / **Copy link** / Open WhatsApp
-- Directory with stock service photos (Unsplash; illustrative only)
-- Kuja’s Nails booking with service thumbnails — same prices & flow
-- Owner dashboard (confirm/cancel, services, finances preview)
-- Mobile-first: no horizontal page scroll
+- Brand colours (#5125A8, #32145F, #F4F0FF, #202033)
+- Hero: “Your Business. Your Bookings. Simplified.”
+- Navigation + For Business Owners section
+- WhatsApp share demo (copy message / link)
+- Kuja’s Nails booking with:
+  - Africa/Johannesburg time
+  - Past dates/times blocked
+  - BOOKED label + strikethrough on taken slots
+  - Availability per date (Monday 15:00 ≠ Tuesday 15:00)
+  - Pending requests; owner must approve
+  - Reference number on confirmation
+- Demo dashboard (localStorage)
+- Owner Sign In / Register **UI prototypes** (clearly not secure)
 
-## Prices preserved (Kuja’s Nails demo)
+## Not working yet (requires Phase 2+)
 
-| Service | Duration | Price |
-|---------|----------|-------|
-| Classic Manicure | 45 min | R250 |
-| Gel Manicure | 60 min | R350 |
-| Acrylic Full Set | 90 min | R450 |
-| Pedicure | 50 min | R280 |
-| Nail Art (per nail) | 15 min | R40 |
+- Real registration / login
+- Private per-business data
+- Server-side double-booking prevention
+- Password hashing
+- Email/WhatsApp notifications
+- Genuine ratings after completed appointments
+
+## Phase 2 (next) — Supabase
+
+1. Create free project at supabase.com  
+2. Enable Email Auth  
+3. Tables: `profiles`, `businesses`, `services`, `appointments`  
+4. Row Level Security so `auth.uid()` only sees own business  
+5. Use **anon** key only in public JS — never service role key  
+6. Replace localStorage booking with Supabase inserts + RPC for slot checks  
 
 ## Deploy
 
-1. Upload entire folder contents to `Mawelanoah/BookEasySA` (overwrite).
-2. **Settings → Pages →** branch `main`, folder `/ (root)` → Save.
-3. Site: https://mawelanoah.github.io/BookEasySA/
+Upload all files to `Mawelanoah/BookEasySA`.  
+Settings → Pages → main → / (root) → Save.  
+URL: https://mawelanoah.github.io/BookEasySA/
 
-If the homepage 404s but `/kujas-nails.html` works, Pages is not enabled for the root — re-save the Pages setting.
+## Prices (unchanged)
 
-## Test
-
-- Homepage → Explore Businesses / For Business Owners / copy WhatsApp message
-- Book on Kuja’s Nails → see confirmation → appear in dashboard
-- Confirm appointment → status updates after refresh
-- Phone: no sideways scroll
-
-## Honest limitations
-
-- No real registration or auth
-- localStorage demo data only
-- Stock images are not real business photos
-- No production notifications or payments
+Classic Manicure R250 · Gel R350 · Acrylic R450 · Pedicure R280 · Nail art R40/nail
