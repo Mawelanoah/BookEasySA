@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20261123e" />
+  <link rel="stylesheet" href="css/styles.css?v=20261123f" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 10C50 10 30 30 30 50C30 65 38.75 75 50 80C61.25 75 70 65 70 50C70 30 50 10 50 10Z' fill='%237C3AED'/></svg>" />
 </head>
 <body>
@@ -214,23 +214,36 @@
     <div class="ai-panel-body"><p class="ai-preview-note">Preview — AI assistant coming soon. Connect a backend + AI API to enable real conversations about services, prices and availability.</p></div>
   </div>
 
-  <script src="js/app.js"></script>
   <script>
-    document.getElementById('searchBtn')?.addEventListener('click', () => {
-      const q = document.getElementById('searchInput')?.value || '';
-      location.href = 'explore.html' + (q ? '?q=' + encodeURIComponent(q) : '');
-    });
-    document.getElementById('searchInput')?.addEventListener('keypress', e => {
-      if (e.key === 'Enter') document.getElementById('searchBtn')?.click();
-    });
-    document.getElementById('locationBtn')?.addEventListener('click', () => {
-      const loc = prompt('Enter your city or area:', 'Pretoria, Gauteng');
-      if (loc) document.getElementById('locationText').textContent = loc;
-    });
-    const fab = document.getElementById('aiFab');
-    const panel = document.getElementById('aiPanel');
-    fab?.addEventListener('click', () => { panel.hidden = !panel.hidden; });
-    document.getElementById('aiClose')?.addEventListener('click', () => { panel.hidden = true; });
+    (function () {
+      function goSearch() {
+        var input = document.getElementById('searchInput');
+        var q = (input && input.value) ? input.value.trim() : '';
+        window.location.href = 'explore.html' + (q ? '?q=' + encodeURIComponent(q) : '');
+      }
+      var searchBtn = document.getElementById('searchBtn');
+      if (searchBtn) searchBtn.addEventListener('click', goSearch);
+      var searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('keypress', function (e) {
+          if (e.key === 'Enter') goSearch();
+        });
+      }
+      var locBtn = document.getElementById('locationBtn');
+      if (locBtn) {
+        locBtn.addEventListener('click', function () {
+          var loc = prompt('Enter your city or area:', document.getElementById('locationText').textContent || 'Pretoria, Gauteng');
+          if (loc) document.getElementById('locationText').textContent = loc;
+        });
+      }
+      var fab = document.getElementById('aiFab');
+      var panel = document.getElementById('aiPanel');
+      if (fab && panel) {
+        fab.addEventListener('click', function () { panel.hidden = !panel.hidden; });
+        var closeBtn = document.getElementById('aiClose');
+        if (closeBtn) closeBtn.addEventListener('click', function () { panel.hidden = true; });
+      }
+    })();
   </script>
 </body>
 </html>
