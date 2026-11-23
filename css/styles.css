@@ -1,4 +1,4 @@
-/* BeautyBook – Premium Mobile-First Styles v3e */
+/* BeautyBook – Mobile-First Styles v3f – visible hero photo */
 :root {
   --primary: #7C3AED;
   --primary-dark: #6D28D9;
@@ -88,34 +88,72 @@ ul { list-style: none; }
 
 .main-content { width: 100%; max-width: 100%; overflow-x: hidden; }
 
+/* Hero – photo fully visible, light dark gradient only for text */
 .hero {
-  background: linear-gradient(160deg, #7C3AED 0%, #5B21B6 55%, #4C1D95 100%);
+  background: #1f1f2e;
   color: white; padding: 28px 16px 36px; border-radius: 0 0 24px 24px; position: relative; overflow: hidden;
 }
 .hero-photo {
   background-image: url('../assets/beautybook-hero.png.png');
-  background-size: cover; background-position: center; min-height: 280px; padding: 32px 16px 40px;
+  background-size: cover;
+  background-position: center;
+  min-height: 320px;
+  padding: 40px 16px 44px;
 }
 .hero-photo .hero-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(160deg, rgba(91,33,182,0.82) 0%, rgba(76,29,149,0.78) 100%);
-  border-radius: 0 0 24px 24px; pointer-events: none;
+  position: absolute;
+  inset: 0;
+  /* Very light overlay – photo stays visible; only slight dark at bottom for text */
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15) 0%,
+    rgba(0,0,0,0.25) 45%,
+    rgba(0,0,0,0.55) 100%
+  );
+  border-radius: 0 0 24px 24px;
+  pointer-events: none;
 }
 .hero-content { position: relative; z-index: 1; max-width: 520px; margin: 0 auto; }
-.hero h1 { font-size: clamp(1.45rem, 5.5vw, 1.9rem); font-weight: 800; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.02em; }
-.hero-photo h1 { text-shadow: 0 1px 8px rgba(0,0,0,0.2); }
-.hero .tagline { font-size: 0.92rem; opacity: 0.92; margin-bottom: 22px; line-height: 1.45; max-width: 360px; }
+.hero h1 {
+  font-size: clamp(1.5rem, 5.5vw, 2rem);
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+.hero .tagline {
+  font-size: 0.95rem;
+  opacity: 0.95;
+  margin-bottom: 22px;
+  line-height: 1.45;
+  max-width: 360px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
 
 .location-selector {
-  display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.25); border-radius: var(--radius-full); padding: 11px 16px; margin-bottom: 12px;
-  color: white; font-size: 0.9rem; font-weight: 500; cursor: pointer; width: 100%; max-width: 280px;
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.92);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 11px 16px;
+  margin-bottom: 12px;
+  color: var(--gray-800);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  max-width: 280px;
+  box-shadow: var(--shadow);
 }
 .search-bar {
   display: flex; align-items: center; background: white; border-radius: var(--radius-full);
   padding: 4px 4px 4px 14px; box-shadow: var(--shadow-md); gap: 4px;
 }
-.search-bar input { flex: 1; border: none; outline: none; padding: 12px 6px; font-size: 0.95rem; color: var(--gray-800); background: transparent; min-width: 0; }
+.search-bar input {
+  flex: 1; border: none; outline: none; padding: 12px 6px; font-size: 0.95rem;
+  color: var(--gray-800); background: transparent; min-width: 0;
+}
 .search-bar input::placeholder { color: var(--gray-400); }
 .search-bar button {
   background: var(--primary); color: white; border: none; border-radius: var(--radius-full);
