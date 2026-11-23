@@ -1,4 +1,4 @@
-/* BeautyBook – Premium Mobile-First Styles v3d */
+/* BeautyBook – Premium Mobile-First Styles v3e */
 :root {
   --primary: #7C3AED;
   --primary-dark: #6D28D9;
@@ -93,7 +93,7 @@ ul { list-style: none; }
   color: white; padding: 28px 16px 36px; border-radius: 0 0 24px 24px; position: relative; overflow: hidden;
 }
 .hero-photo {
-  background-image: url('../assets/beautybook-hero.png');
+  background-image: url('../assets/beautybook-hero.png.png');
   background-size: cover; background-position: center; min-height: 280px; padding: 32px 16px 40px;
 }
 .hero-photo .hero-overlay {
