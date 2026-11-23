@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#7C3AED" />
+  <title>Glow Beauty Studio | BeautyBook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <main class="main-content" style="padding-bottom: 90px;">
+    <!-- Cover -->
+    <div class="profile-hero">
+      <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80" alt="Glow Beauty Studio cover" />
+      <button class="back-btn" onclick="history.back()" aria-label="Back">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+    </div>
+
+    <div class="profile-info">
+      <img class="profile-logo" src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=200&q=80" alt="Logo" />
+      <h1>Glow Beauty Studio <span class="verified">✓</span></h1>
+      <div class="profile-meta">
+        <span>📍 Pretoria CBD · 1.2 km</span>
+        <span class="rating"><span class="stars">★</span> 4.9 (245 reviews)</span>
+        <span>🕒 Open until 18:00</span>
+      </div>
+
+      <div class="profile-actions">
+        <a href="booking.html?salon=glow" class="btn btn-primary">Book Now →</a>
+        <a href="https://wa.me/27821234567" class="btn btn-outline" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="services">Services</button>
+        <button class="tab" data-tab="gallery">Gallery</button>
+        <button class="tab" data-tab="reviews">Reviews</button>
+        <button class="tab" data-tab="about">About</button>
+      </div>
+
+      <!-- Services Tab -->
+      <div id="tab-services" class="tab-panel">
+        <div class="service-item">
+          <div>
+            <h4>Classic Manicure</h4>
+            <p>45 min · Nail care & polish</p>
+          </div>
+          <div class="service-price">R180</div>
+        </div>
+        <div class="service-item">
+          <div>
+            <h4>Gel Overlay</h4>
+            <p>60 min · Long-lasting gel</p>
+          </div>
+          <div class="service-price">R280</div>
+        </div>
+        <div class="service-item">
+          <div>
+            <h4>Full Set Acrylics</h4>
+            <p>90 min · Extensions + design</p>
+          </div>
+          <div class="service-price">R450</div>
+        </div>
+        <div class="service-item">
+          <div>
+            <h4>Lash Extensions (Classic)</h4>
+            <p>75 min · Natural look</p>
+          </div>
+          <div class="service-price">R350</div>
+        </div>
+        <div class="service-item">
+          <div>
+            <h4>Facial Glow Treatment</h4>
+            <p>60 min · Deep cleanse & mask</p>
+          </div>
+          <div class="service-price">R420</div>
+        </div>
+        <div class="service-item">
+          <div>
+            <h4>Makeup Application</h4>
+            <p>45 min · Event or everyday</p>
+          </div>
+          <div class="service-price">R380</div>
+        </div>
+      </div>
+
+      <!-- Gallery (hidden by default) -->
+      <div id="tab-gallery" class="tab-panel" style="display:none;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80" alt="Work" style="border-radius:12px;height:140px;object-fit:cover;" />
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&q=80" alt="Work" style="border-radius:12px;height:140px;object-fit:cover;" />
+          <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=80" alt="Work" style="border-radius:12px;height:140px;object-fit:cover;" />
+          <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&q=80" alt="Work" style="border-radius:12px;height:140px;object-fit:cover;" />
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div id="tab-reviews" class="tab-panel" style="display:none;">
+        <div style="margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <strong>Thandi M.</strong>
+            <span class="stars" style="color:#F59E0B;">★★★★★</span>
+          </div>
+          <p style="font-size:0.9rem;color:var(--gray-600);">Absolutely loved my gel nails! The studio is clean and the staff are so friendly. Will be back.</p>
+          <p style="font-size:0.75rem;color:var(--gray-400);margin-top:4px;">2 weeks ago</p>
+        </div>
+        <div style="margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <strong>Lerato K.</strong>
+            <span class="stars" style="color:#F59E0B;">★★★★★</span>
+          </div>
+          <p style="font-size:0.9rem;color:var(--gray-600);">Best lash extensions in Pretoria. Natural looking and lasted 3 weeks perfectly.</p>
+          <p style="font-size:0.75rem;color:var(--gray-400);margin-top:4px;">1 month ago</p>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <strong>Nomsa P.</strong>
+            <span class="stars" style="color:#F59E0B;">★★★★☆</span>
+          </div>
+          <p style="font-size:0.9rem;color:var(--gray-600);">Great service, slightly pricey but worth it for the quality.</p>
+          <p style="font-size:0.75rem;color:var(--gray-400);margin-top:4px;">3 weeks ago</p>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div id="tab-about" class="tab-panel" style="display:none;">
+        <p style="font-size:0.95rem;color:var(--gray-600);margin-bottom:16px;">
+          Glow Beauty Studio is a premium beauty destination in the heart of Pretoria. We specialise in nails, lashes, facials and makeup with a focus on quality products and exceptional client care.
+        </p>
+        <p style="font-size:0.9rem;margin-bottom:8px;"><strong>Address:</strong> 45 Church Street, Pretoria CBD</p>
+        <p style="font-size:0.9rem;margin-bottom:8px;"><strong>Hours:</strong> Mon–Sat 09:00–18:00 · Sun Closed</p>
+        <p style="font-size:0.9rem;margin-bottom:16px;"><strong>Phone:</strong> 012 555 0199</p>
+        <button class="btn btn-outline" style="width:100%;" onclick="alert('Share link copied!\nhttps://beautybook.co.za/s/glow\n\nQR code available in owner dashboard.')">
+          🔗 Share Salon / QR Code
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Sticky Book button on mobile -->
+  <div style="position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:white;border-top:1px solid var(--gray-100);z-index:50;box-shadow:0 -4px 12px rgba(0,0,0,0.06);">
+    <a href="booking.html?salon=glow" class="btn btn-primary" style="width:100%;">Book Appointment →</a>
+  </div>
+
+  <script>
+    // Simple tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+        tab.classList.add('active');
+        document.getElementById('tab-' + tab.dataset.tab).style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>

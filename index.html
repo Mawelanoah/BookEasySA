@@ -2,229 +2,263 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
-  <title>BookEasy SA – Your Business. Your Bookings. Simplified.</title>
-  <meta name="description" content="Professional online booking for South African barbers, salons, nail studios, spas, and appointment-based businesses. Demo platform." />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="stylesheet" href="css/styles.css?v=4" />
-  <link rel="stylesheet" href="css/mobile-fix.css?v=4" />
-  <style>
-    .cat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
-    .cat-card{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--gray-200);background:#fff;box-shadow:var(--shadow);text-align:center;max-width:100%}
-    .cat-card img{width:100%;height:96px;object-fit:cover;display:block;background:var(--purple-100)}
-    .cat-card span{display:block;padding:.55rem .4rem;font-weight:600;font-size:.85rem;color:var(--charcoal)}
-    .price-grid{display:grid;grid-template-columns:1fr;gap:1rem}
-    @media (min-width:640px){.price-grid{grid-template-columns:1fr 1fr}.cat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.cat-card img{height:100px}}
-    @media (min-width:900px){.cat-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
-    .price-card{background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:1.35rem;box-shadow:var(--shadow);height:100%;box-sizing:border-box}
-    .price-card h3{font-size:1.1rem;margin-bottom:.35rem}
-    .price-tag{font-size:1.35rem;font-weight:800;color:var(--purple-700);margin:.5rem 0 .75rem}
-    .price-card ul{margin:0;padding-left:1.1rem;color:var(--gray-700);font-size:.92rem;line-height:1.55}
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#7C3AED" />
+  <meta name="description" content="BeautyBook – Discover, compare and book beauty services near you. Salons, nails, hair, lashes, makeup, facials, massage, tattoo & wellness." />
+  <title>BeautyBook | Find Beauty Services Near You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪷</text></svg>" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo" aria-label="BookEasy SA home">
-        <span class="logo-mark" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="10" fill="#5125A8"/>
-            <rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/>
-            <rect x="8" y="10" width="24" height="6" rx="2" fill="#32145F"/>
-            <path d="M15 24.5l3.2 3.2 6.8-7" stroke="#5125A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="logo-text">BookEasy <span>SA</span></span>
-      </a>
-      <nav class="nav" aria-label="Main">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="directory.html" class="nav-link">Explore Businesses</a>
-        <a href="#for-owners" class="nav-link">For Business Owners</a>
-        <a href="#pricing" class="nav-link">Pricing</a>
-        <a href="#support" class="nav-link">Support</a>
-        <a href="owner-signin.html" class="btn btn-primary btn-sm">Business Owner Sign In</a>
-      </nav>
-      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
-    </div>
-    <div class="mobile-nav" id="mobile-nav">
-      <a href="index.html">Home</a>
-      <a href="directory.html">Explore Businesses</a>
-      <a href="#for-owners">For Business Owners</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#support">Support</a>
-      <a href="owner-signin.html" class="btn btn-primary btn-sm">Business Owner Sign In</a>
+  <!-- Header -->
+  <header class="app-header">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4C20 4 12 12 12 20C12 26 15.5 30 20 32C24.5 30 28 26 28 20C28 12 20 4 20 4Z" fill="#7C3AED"/>
+        <path d="M20 8C20 8 15 14 15 20C15 24 17.2 26.8 20 28C22.8 26.8 25 24 25 20C25 14 20 8 20 8Z" fill="#A78BFA"/>
+        <circle cx="20" cy="20" r="4" fill="white"/>
+      </svg>
+      BeautyBook
+    </a>
+    <nav class="desktop-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="explore.html">Explore</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="dashboard.html">For Business</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Notifications" onclick="alert('Notifications: 2 new messages')">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="badge">2</span>
+      </button>
+      <button class="icon-btn" aria-label="Menu" id="menuBtn">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="container">
-      <span class="demo-badge">Platform demonstration</span>
-      <h1>Your Business. Your Bookings. Simplified.</h1>
-      <p class="lead">Help customers discover your business, explore your services, and request appointments online. Manage your business professionally with BookEasy SA.</p>
-      <div class="hero-actions">
-        <a href="directory.html" class="btn btn-primary">Explore Businesses</a>
-        <a href="#for-owners" class="btn btn-ghost">For Business Owners</a>
-      </div>
-    </div>
-  </section>
+  <main class="main-content">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Find Beauty<br>Services Near You</h1>
+        <p class="tagline">Discover. Compare. Book.</p>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title" style="text-align:center;">Browse by category</h2>
-      <p class="section-sub" style="text-align:center;">Barbers, salons, nail studios, spas, and more. Photos are stock images for illustration.</p>
-      <div class="cat-grid">
-        <a class="cat-card" href="directory.html?cat=nails"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&amp;h=220&amp;fit=crop&amp;q=80" alt="Nail design work" width="400" height="220" loading="lazy" /><span>Nails</span></a>
-        <a class="cat-card" href="directory.html?cat=hair"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&amp;h=220&amp;fit=crop&amp;q=80" alt="Hair salon styling" width="400" height="220" loading="lazy" /><span>Hair</span></a>
-        <a class="cat-card" href="directory.html?cat=lashes"><img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&amp;h=220&amp;fit=crop&amp;q=80" alt="Lash and brow treatment" width="400" height="220" loading="lazy" /><span>Lashes &amp; brows</span></a>
-        <a class="cat-card" href="directory.html?cat=spa"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&amp;h=220&amp;fit=crop&amp;q=80" alt="Spa wellness setting" width="400" height="220" loading="lazy" /><span>Spa &amp; beauty</span></a>
-        <a class="cat-card" href="directory.html?cat=barber"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&amp;h=220&amp;fit=crop&amp;q=80" alt="Barber haircut" width="400" height="220" loading="lazy" /><span>Barbers</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="for-owners">
-    <div class="container">
-      <h2 class="section-title">For business owners</h2>
-      <p class="section-sub">BookEasy SA is built for independent operators who still manage appointments on WhatsApp.</p>
-      <div class="grid-2" style="margin-bottom:1.5rem;">
-        <div class="card"><div class="card-body"><h3 class="card-h">Showcase services &amp; prices</h3><p class="card-p">List what you offer in Rand, with duration and optional photos.</p></div></div>
-        <div class="card"><div class="card-body"><h3 class="card-h">One link to share</h3><p class="card-p">Customers open your booking page from WhatsApp, Facebook, or Instagram.</p></div></div>
-        <div class="card"><div class="card-body"><h3 class="card-h">Organised requests</h3><p class="card-p">Review pending requests and confirm or decline from a dashboard.</p></div></div>
-        <div class="card"><div class="card-body"><h3 class="card-h">Easier to discover</h3><p class="card-p">Appear in Explore by category and location when onboarding opens.</p></div></div>
-      </div>
-      <div class="demo-note">Secure owner accounts are <strong>not available yet</strong>. Sign-in and registration pages are prototypes until the database is connected.</div>
-      <div style="display:flex;gap:0.55rem;flex-wrap:wrap;justify-content:center;">
-        <a href="owner-register.html" class="btn btn-primary">Register interest (prototype)</a>
-        <a href="dashboard/index.html" class="btn btn-outline">View demo dashboard</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="pricing">
-    <div class="container">
-      <h2 class="section-title" style="text-align:center;">Pricing</h2>
-      <p class="section-sub" style="text-align:center;">Honest early-access plan — no payment processing on this site.</p>
-      <div class="price-grid">
-        <div class="price-card">
-          <h3>Early Access</h3>
-          <div class="price-tag">Free during testing</div>
-          <ul>
-            <li>Create a business profile when onboarding opens</li>
-            <li>Showcase services, prices, and photographs</li>
-            <li>Help test the platform and share feedback</li>
-            <li>No payment required during the testing period</li>
-          </ul>
+        <div class="location-selector" onclick="alert('Location: Pretoria, Gauteng')">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          Pretoria, Gauteng
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" style="margin-left:auto"><path d="M7 10l5 5 5-5z"/></svg>
         </div>
-        <div class="price-card">
-          <h3>Future plans</h3>
-          <div class="price-tag" style="font-size:1.1rem;">To be announced</div>
-          <ul>
-            <li>Paid plans may be introduced after testing</li>
-            <li>Pricing and features will be confirmed before launch</li>
-            <li>No unlimited or premium claims until built</li>
-            <li>You will not be charged from this demo website</li>
-          </ul>
+
+        <div class="search-bar">
+          <svg width="18" height="18" fill="none" stroke="#9CA3AF" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="search" placeholder="Search for salons, services..." id="searchInput" />
+          <button type="button" onclick="window.location.href='explore.html'">Find Salons →</button>
         </div>
       </div>
+    </section>
+
+    <!-- Categories -->
+    <div class="categories">
+      <div class="categories-track">
+        <a href="explore.html?cat=nails" class="category-item">
+          <div class="category-icon">💅</div>
+          <span>Nails</span>
+        </a>
+        <a href="explore.html?cat=hair" class="category-item">
+          <div class="category-icon">✂️</div>
+          <span>Hair</span>
+        </a>
+        <a href="explore.html?cat=lashes" class="category-item">
+          <div class="category-icon">👁️</div>
+          <span>Lashes</span>
+        </a>
+        <a href="explore.html?cat=makeup" class="category-item">
+          <div class="category-icon">💄</div>
+          <span>Makeup</span>
+        </a>
+        <a href="explore.html?cat=facials" class="category-item">
+          <div class="category-icon">✨</div>
+          <span>Facials</span>
+        </a>
+        <a href="explore.html?cat=massage" class="category-item">
+          <div class="category-icon">💆</div>
+          <span>Massage</span>
+        </a>
+        <a href="explore.html?cat=tattoo" class="category-item">
+          <div class="category-icon">🖋️</div>
+          <span>Tattoo</span>
+        </a>
+        <a href="explore.html?cat=wellness" class="category-item">
+          <div class="category-icon">❤️</div>
+          <span>Wellness</span>
+        </a>
+      </div>
     </div>
-  </section>
 
-  <section class="section section-alt" id="support">
-    <div class="container">
-      <h2 class="section-title">FAQ &amp; Support</h2>
-      <p class="section-sub">Straight answers about the current demonstration. You can also use the chat button (bottom right).</p>
-      <details class="faq-item"><summary>What is BookEasy SA?</summary><p>A booking and profile platform for South African appointment-based businesses. This public site is still a frontend demonstration.</p></details>
-      <details class="faq-item"><summary>Who can use it?</summary><p>Nail technicians, hair salons, lash and brow artists, spas, barbers, and similar businesses — plus their customers.</p></details>
-      <details class="faq-item"><summary>How does a customer request an appointment?</summary><p>Open a business booking page, choose a service, pick a date and time, enter name and phone, then submit a request.</p></details>
-      <details class="faq-item"><summary>When is a booking considered confirmed?</summary><p>Only after the business owner accepts it. A submitted request starts as <strong>pending</strong>, not confirmed.</p></details>
-      <details class="faq-item"><summary>Is BookEasy SA free during testing?</summary><p>Yes. Early access is free during testing. Future paid plans will be announced before any charges apply.</p></details>
-      <details class="faq-item"><summary>Can a business change services and prices?</summary><p>Yes — in the demo dashboard you can edit services in this browser. Permanent changes need the database stage.</p></details>
-      <details class="faq-item"><summary>How can a business express interest in joining?</summary><p>Use the support form below or the registration prototype. Messages are not delivered until a backend is connected.</p></details>
-      <details class="faq-item"><summary>How will customer information be protected?</summary><p>See our draft <a href="privacy.html" style="color:var(--purple-700);font-weight:600;">Privacy Policy</a>. Real accounts will follow POPIA-minded practices; the demo mostly keeps data in your browser.</p></details>
-
-      <div class="card" style="margin-top:1.25rem;"><div class="card-body">
-        <h3 class="card-h" style="margin-bottom:0.35rem;">Contact support</h3>
-        <p class="card-p" style="margin-bottom:1rem;">This form is a <strong>frontend demo</strong>. Messages are not delivered and no success claim means a real inbox received them.</p>
-        <div class="form-group"><label for="sup-name">Name</label><input id="sup-name" class="form-control" autocomplete="name" /></div>
-        <div class="form-group"><label for="sup-contact">Email or phone</label><input id="sup-contact" class="form-control" /></div>
-        <div class="form-group"><label for="sup-reason">Reason</label>
-          <select id="sup-reason" class="form-control">
-            <option value="">Select…</option>
-            <option>Booking question</option>
-            <option>Business interest</option>
-            <option>Technical problem</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-group"><label for="sup-msg">Message</label><textarea id="sup-msg" class="form-control" rows="3"></textarea></div>
-        <button type="button" class="btn btn-primary" id="sup-send" style="width:100%;">Send message</button>
-        <p id="sup-feedback" style="margin-top:0.5rem;font-size:0.85rem;color:var(--gray-500);" aria-live="polite"></p>
-      </div></div>
+    <!-- Map Teaser -->
+    <div class="map-teaser">
+      <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80" alt="Map of nearby salons" loading="lazy" />
+      <a href="explore.html" class="map-btn">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+        View Map →
+      </a>
     </div>
-  </section>
 
-  <section class="section" style="padding-top:0;">
-    <div class="container">
-      <div class="cta-band">
-        <div>
-          <h3 style="font-size:1.05rem;margin-bottom:0.25rem;">Try the demonstration</h3>
-          <p style="color:var(--gray-500);margin:0;font-size:0.9rem;">Book as a customer or open the owner dashboard.</p>
+    <!-- Popular Near You -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Popular Near You</h2>
+        <a href="explore.html" class="view-all">View All →</a>
+      </div>
+      <div class="salon-grid">
+        <!-- Card 1 -->
+        <article class="salon-card">
+          <div class="salon-card-img">
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80" alt="Glow Beauty Studio" loading="lazy" />
+            <button class="fav" aria-label="Favourite">♡</button>
+          </div>
+          <div class="salon-card-body">
+            <h3>Glow Beauty Studio <span class="verified" title="Verified">✓</span></h3>
+            <div class="salon-meta">
+              <span class="rating"><span class="stars">★</span> 4.9 (245)</span>
+              <span>•</span>
+              <span>1.2 km</span>
+            </div>
+            <div class="price">From R250</div>
+            <a href="salon.html?id=glow" class="btn btn-primary btn-sm">Book Now →</a>
+          </div>
+        </article>
+        <!-- Card 2 -->
+        <article class="salon-card">
+          <div class="salon-card-img">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Royal Hair Studio" loading="lazy" />
+            <button class="fav" aria-label="Favourite">♡</button>
+          </div>
+          <div class="salon-card-body">
+            <h3>Royal Hair Studio <span class="verified">✓</span></h3>
+            <div class="salon-meta">
+              <span class="rating"><span class="stars">★</span> 4.8 (189)</span>
+              <span>•</span>
+              <span>2.4 km</span>
+            </div>
+            <div class="price">From R320</div>
+            <a href="salon.html?id=royal" class="btn btn-primary btn-sm">Book Now →</a>
+          </div>
+        </article>
+        <!-- Card 3 -->
+        <article class="salon-card">
+          <div class="salon-card-img">
+            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&q=80" alt="Luxe Nails & Spa" loading="lazy" />
+            <button class="fav" aria-label="Favourite">♡</button>
+          </div>
+          <div class="salon-card-body">
+            <h3>Luxe Nails & Spa <span class="verified">✓</span></h3>
+            <div class="salon-meta">
+              <span class="rating"><span class="stars">★</span> 4.9 (312)</span>
+              <span>•</span>
+              <span>0.8 km</span>
+            </div>
+            <div class="price">From R180</div>
+            <a href="salon.html?id=luxe" class="btn btn-primary btn-sm">Book Now →</a>
+          </div>
+        </article>
+        <!-- Card 4 -->
+        <article class="salon-card">
+          <div class="salon-card-img">
+            <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80" alt="Bliss Wellness" loading="lazy" />
+            <button class="fav" aria-label="Favourite">♡</button>
+          </div>
+          <div class="salon-card-body">
+            <h3>Bliss Wellness</h3>
+            <div class="salon-meta">
+              <span class="rating"><span class="stars">★</span> 4.7 (97)</span>
+              <span>•</span>
+              <span>3.1 km</span>
+            </div>
+            <div class="price">From R450</div>
+            <a href="salon.html?id=bliss" class="btn btn-primary btn-sm">Book Now →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <div class="how-it-works">
+      <h2>How BeautyBook Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <h4>Discover</h4>
+            <p>Browse salons and beauty services near you by category or location.</p>
+          </div>
         </div>
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-          <a href="kujas-nails.html" class="btn btn-primary">Demo booking</a>
-          <a href="dashboard/index.html" class="btn btn-outline">Owner dashboard</a>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <h4>Compare</h4>
+            <p>View photos, prices, real reviews and availability side by side.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <h4>Book</h4>
+            <p>Choose a time, pay a deposit securely with Yoco, and you’re done.</p>
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p style="margin:0 0 0.65rem;">
-        <a href="index.html">Home</a> ·
-        <a href="directory.html">Explore</a> ·
-        <a href="#for-owners">For owners</a> ·
-        <a href="#pricing">Pricing</a> ·
-        <a href="#support">Support</a> ·
-        <a href="privacy.html">Privacy</a> ·
-        <a href="terms.html">Terms</a>
-      </p>
-      <p style="margin:0;font-size:0.78rem;">BookEasy SA — demonstration only. Not a live multi-business booking service yet.</p>
+    <!-- Business Promo -->
+    <div class="biz-promo">
+      <h3>Own a Beauty Business?</h3>
+      <p>List your salon on BeautyBook. Get more clients, manage bookings and grow with powerful tools.</p>
+      <a href="dashboard.html" class="btn">Register Your Business →</a>
     </div>
-  </footer>
 
-  <script>
-    (function () {
-      var btn = document.getElementById("nav-toggle");
-      var panel = document.getElementById("mobile-nav");
-      if (btn && panel) {
-        btn.addEventListener("click", function () {
-          var open = panel.classList.toggle("is-open");
-          btn.setAttribute("aria-expanded", open ? "true" : "false");
-        });
-        panel.querySelectorAll("a").forEach(function (a) {
-          a.addEventListener("click", function () { panel.classList.remove("is-open"); });
-        });
-      }
-      var send = document.getElementById("sup-send");
-      if (send) {
-        send.addEventListener("click", function () {
-          var fb = document.getElementById("sup-feedback");
-          var n = document.getElementById("sup-name").value.trim();
-          var c = document.getElementById("sup-contact").value.trim();
-          var r = document.getElementById("sup-reason").value;
-          var m = document.getElementById("sup-msg").value.trim();
-          if (!n || !c || !r || !m) {
-            fb.style.color = "#dc2626";
-            fb.textContent = "Please complete all fields.";
-            return;
-          }
-          fb.style.color = "#6B7280";
-          fb.textContent = "Form checked — message was not delivered. No support inbox is connected yet.";
-        });
-      }
-    })();
-  </script>
-  <script src="js/assistant.js"></script>
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 40 40" fill="none"><path d="M20 4C20 4 12 12 12 20C12 26 15.5 30 20 32C24.5 30 28 26 28 20C28 12 20 4 20 4Z" fill="#A78BFA"/><circle cx="20" cy="20" r="4" fill="white"/></svg>
+        BeautyBook
+      </div>
+      <p>Discover beauty. Compare. Book.</p>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Help</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="dashboard.html">For Business</a>
+      </div>
+      <p style="margin-top:16px;opacity:0.7">© 2025 BeautyBook · Made in South Africa 💜</p>
+    </footer>
+  </main>
+
+  <!-- Bottom Navigation (Mobile) -->
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="index.html" class="active">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      Home
+    </a>
+    <a href="explore.html">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      Explore
+    </a>
+    <a href="bookings.html">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Bookings
+    </a>
+    <a href="profile.html">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Profile
+    </a>
+  </nav>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
