@@ -3,57 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Booking Request Received – BookEasy SA Demo</title>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <title>Request sent | BeautyBook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=20261124a" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo">
-        <span class="logo-mark" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="10" fill="#7c3aed"/>
-            <rect x="8" y="10" width="24" height="20" rx="3" fill="white" fill-opacity="0.95"/>
-            <rect x="8" y="10" width="24" height="6" rx="2" fill="#6d28d9"/>
-            <circle cx="14" cy="13" r="1.2" fill="white"/>
-            <circle cx="26" cy="13" r="1.2" fill="white"/>
-            <path d="M15 24.5l3.2 3.2 6.8-7" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="logo-text">BookEasy <span>SA</span></span>
-      </a>
-    </div>
-  </header>
-
-  <div class="container">
-    <div class="confirm-box card">
-      <div class="card-body">
-        <div class="icon">✓</div>
-        <h1 style="font-size:1.4rem;margin-bottom:0.4rem;">Request received (demo)</h1>
-        <p style="color:var(--gray-500);margin-bottom:1.35rem;font-size:0.95rem;">
-          Your appointment request has been received. The business owner must approve your request before it is confirmed. This is a demonstration — nothing was sent to a real business system.
-        </p>
-        <div id="details" style="text-align:left;background:var(--gray-50);padding:1rem 1.1rem;border-radius:8px;margin-bottom:1.35rem;font-size:0.92rem;"></div>
-        <div style="display:flex;gap:0.65rem;justify-content:center;flex-wrap:wrap;">
-          <a href="kujas-nails.html" class="btn btn-outline">Book another service</a>
-          <a href="dashboard/appointments.html" class="btn btn-primary">View in owner dashboard</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <main class="main-content" style="padding:40px 20px;text-align:center;max-width:420px;margin:0 auto;">
+    <div style="width:64px;height:64px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;">OK</div>
+    <h1 style="font-size:1.4rem;margin-bottom:8px;">Booking request submitted</h1>
+    <p style="color:var(--gray-600);margin-bottom:12px;">This is a <strong>demo request</strong> stored on your device only. No real salon was notified and no payment was taken.</p>
+    <p id="salonLine" style="font-size:0.9rem;color:var(--gray-500);margin-bottom:24px;"></p>
+    <a href="bookings.html" class="btn btn-primary" style="margin-bottom:10px;">View my bookings</a>
+    <a href="explore.html" class="btn btn-outline">Browse more</a>
+  </main>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById("details").innerHTML = `
-      <p style="margin-bottom:0.35rem;"><strong>Reference:</strong> ${params.get("ref") || "—"}</p>
-      <p style="margin-bottom:0.35rem;"><strong>Service:</strong> ${params.get("service") || "—"}</p>
-      <p style="margin-bottom:0.35rem;"><strong>Date:</strong> ${params.get("date") || "—"}</p>
-      <p style="margin-bottom:0.35rem;"><strong>Time:</strong> ${params.get("time") || "—"}</p>
-      <p style="margin-bottom:0.35rem;"><strong>Price:</strong> R${params.get("price") || "—"}</p>
-      <p style="margin-bottom:0.35rem;"><strong>Name:</strong> ${params.get("name") || "—"}</p>
-      <p style="margin-top:0.7rem;font-size:0.85rem;color:var(--gray-500);">Status: Pending approval by the business (demo only)</p>
-    `;
+    var p = new URLSearchParams(location.search);
+    var s = p.get("salon");
+    if (s) document.getElementById("salonLine").textContent = "Salon: " + s;
   </script>
 </body>
 </html>
