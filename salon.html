@@ -4,157 +4,131 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#7C3AED" />
-  <title>Glow Beauty Studio | BeautyBook</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <title>Business Profile | BeautyBook</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=20261124a" />
+  <style>
+    .profile-hero { position: relative; height: 200px; background: var(--gray-200); }
+    .profile-hero img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-hero .back-btn {
+      position: absolute; top: 14px; left: 14px; width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,0.95); border: none; display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow); cursor: pointer; z-index: 5; text-decoration: none; color: var(--gray-800);
+    }
+    .profile-info {
+      background: var(--white); border-radius: 22px 22px 0 0; margin-top: -22px; position: relative;
+      padding: 18px 16px 100px; box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+    }
+    .profile-info h1 { font-size: 1.3rem; font-weight: 800; margin: 0 0 6px; word-break: break-word; }
+    .profile-meta { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 12px; }
+    .profile-actions { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+    .profile-actions .btn { flex: 1; min-width: 120px; }
+    .tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--gray-200); margin-bottom: 14px; overflow-x: auto; }
+    .tab { padding: 11px 14px; font-weight: 600; font-size: 0.88rem; color: var(--gray-500); border: none; background: none; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+    .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .service-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--gray-100); gap: 10px; }
+    .service-item h4 { font-size: 0.92rem; font-weight: 600; }
+    .service-item p { font-size: 0.78rem; color: var(--gray-500); margin: 0; }
+    .service-price { font-weight: 700; color: var(--primary); flex-shrink: 0; }
+    .sticky-book {
+      position: fixed; bottom: calc(var(--bottom-nav-h, 64px) + env(safe-area-inset-bottom, 0px)); left: 0; right: 0;
+      padding: 12px 16px; background: white; border-top: 1px solid var(--gray-100); z-index: 100;
+    }
+    @media (min-width: 768px) { .sticky-book { bottom: 0; } }
+    .not-found { padding: 48px 20px; text-align: center; }
+  </style>
 </head>
 <body>
-  <main class="main-content" style="padding-bottom: 90px;">
-    <!-- Cover -->
-    <div class="profile-hero">
-      <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80" alt="Glow Beauty Studio cover" />
-      <button class="back-btn" onclick="history.back()" aria-label="Back">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
+  <div id="app">
+    <div class="not-found" id="notFound" hidden>
+      <h2>Business not found</h2>
+      <p style="color:var(--gray-500);margin:8px 0 16px;">This listing may have been removed or the link is incorrect.</p>
+      <a href="explore.html" class="btn btn-primary" style="max-width:200px;margin:0 auto;">Browse businesses</a>
     </div>
-
-    <div class="profile-info">
-      <img class="profile-logo" src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=200&q=80" alt="Logo" />
-      <h1>Glow Beauty Studio <span class="verified">✓</span></h1>
-      <div class="profile-meta">
-        <span>📍 Pretoria CBD · 1.2 km</span>
-        <span class="rating"><span class="stars">★</span> 4.9 (245 reviews)</span>
-        <span>🕒 Open until 18:00</span>
+    <div id="profile" hidden>
+      <div class="profile-hero">
+        <img id="coverImg" src="" alt="" />
+        <a href="explore.html" class="back-btn" aria-label="Back">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
       </div>
-
-      <div class="profile-actions">
-        <a href="booking.html?salon=glow" class="btn btn-primary">Book Now →</a>
-        <a href="https://wa.me/27821234567" class="btn btn-outline" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-
-      <!-- Tabs -->
-      <div class="tabs" role="tablist">
-        <button class="tab active" data-tab="services">Services</button>
-        <button class="tab" data-tab="gallery">Gallery</button>
-        <button class="tab" data-tab="reviews">Reviews</button>
-        <button class="tab" data-tab="about">About</button>
-      </div>
-
-      <!-- Services Tab -->
-      <div id="tab-services" class="tab-panel">
-        <div class="service-item">
-          <div>
-            <h4>Classic Manicure</h4>
-            <p>45 min · Nail care & polish</p>
-          </div>
-          <div class="service-price">R180</div>
+      <div class="profile-info">
+        <p class="demo-note" id="demoBadge" hidden>Demonstration listing</p>
+        <h1 id="bizName"></h1>
+        <div class="profile-meta" id="bizMeta"></div>
+        <p id="bizDesc" style="font-size:0.9rem;color:var(--gray-600);margin-bottom:14px;line-height:1.45;"></p>
+        <div class="profile-actions">
+          <a id="bookTop" href="#" class="btn btn-primary btn-sm">Book Now</a>
+          <a id="mapsLink" href="#" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Directions</a>
         </div>
-        <div class="service-item">
-          <div>
-            <h4>Gel Overlay</h4>
-            <p>60 min · Long-lasting gel</p>
-          </div>
-          <div class="service-price">R280</div>
+        <div class="tabs">
+          <button type="button" class="tab active" data-tab="services">Services</button>
+          <button type="button" class="tab" data-tab="about">About</button>
         </div>
-        <div class="service-item">
-          <div>
-            <h4>Full Set Acrylics</h4>
-            <p>90 min · Extensions + design</p>
-          </div>
-          <div class="service-price">R450</div>
-        </div>
-        <div class="service-item">
-          <div>
-            <h4>Lash Extensions (Classic)</h4>
-            <p>75 min · Natural look</p>
-          </div>
-          <div class="service-price">R350</div>
-        </div>
-        <div class="service-item">
-          <div>
-            <h4>Facial Glow Treatment</h4>
-            <p>60 min · Deep cleanse & mask</p>
-          </div>
-          <div class="service-price">R420</div>
-        </div>
-        <div class="service-item">
-          <div>
-            <h4>Makeup Application</h4>
-            <p>45 min · Event or everyday</p>
-          </div>
-          <div class="service-price">R380</div>
+        <div id="tab-services"></div>
+        <div id="tab-about" hidden>
+          <p id="aboutHours" style="font-size:0.9rem;margin-bottom:8px;"></p>
+          <p id="aboutLoc" style="font-size:0.9rem;color:var(--gray-600);"></p>
         </div>
       </div>
-
-      <!-- Gallery (hidden by default) -->
-      <div id="tab-gallery" class="tab-panel" style="display:none;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80" alt="Work" style="border-radius:12px;height:140px;object-fit:cover;" />
-          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&q=80" alt="Work" style="border-radius:12px;height:140px;object-fit:cover;" />
-          <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=80" alt="Work" style="border-radius:12px;height:140px;object-fit:cover;" />
-          <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&q=80" alt="Work" style="border-radius:12px;height:140px;object-fit:cover;" />
-        </div>
-      </div>
-
-      <!-- Reviews -->
-      <div id="tab-reviews" class="tab-panel" style="display:none;">
-        <div style="margin-bottom:16px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-            <strong>Thandi M.</strong>
-            <span class="stars" style="color:#F59E0B;">★★★★★</span>
-          </div>
-          <p style="font-size:0.9rem;color:var(--gray-600);">Absolutely loved my gel nails! The studio is clean and the staff are so friendly. Will be back.</p>
-          <p style="font-size:0.75rem;color:var(--gray-400);margin-top:4px;">2 weeks ago</p>
-        </div>
-        <div style="margin-bottom:16px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-            <strong>Lerato K.</strong>
-            <span class="stars" style="color:#F59E0B;">★★★★★</span>
-          </div>
-          <p style="font-size:0.9rem;color:var(--gray-600);">Best lash extensions in Pretoria. Natural looking and lasted 3 weeks perfectly.</p>
-          <p style="font-size:0.75rem;color:var(--gray-400);margin-top:4px;">1 month ago</p>
-        </div>
-        <div>
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-            <strong>Nomsa P.</strong>
-            <span class="stars" style="color:#F59E0B;">★★★★☆</span>
-          </div>
-          <p style="font-size:0.9rem;color:var(--gray-600);">Great service, slightly pricey but worth it for the quality.</p>
-          <p style="font-size:0.75rem;color:var(--gray-400);margin-top:4px;">3 weeks ago</p>
-        </div>
-      </div>
-
-      <!-- About -->
-      <div id="tab-about" class="tab-panel" style="display:none;">
-        <p style="font-size:0.95rem;color:var(--gray-600);margin-bottom:16px;">
-          Glow Beauty Studio is a premium beauty destination in the heart of Pretoria. We specialise in nails, lashes, facials and makeup with a focus on quality products and exceptional client care.
-        </p>
-        <p style="font-size:0.9rem;margin-bottom:8px;"><strong>Address:</strong> 45 Church Street, Pretoria CBD</p>
-        <p style="font-size:0.9rem;margin-bottom:8px;"><strong>Hours:</strong> Mon–Sat 09:00–18:00 · Sun Closed</p>
-        <p style="font-size:0.9rem;margin-bottom:16px;"><strong>Phone:</strong> 012 555 0199</p>
-        <button class="btn btn-outline" style="width:100%;" onclick="alert('Share link copied!\nhttps://beautybook.co.za/s/glow\n\nQR code available in owner dashboard.')">
-          🔗 Share Salon / QR Code
-        </button>
+      <div class="sticky-book">
+        <a id="bookBottom" href="#" class="btn btn-primary">Book an appointment</a>
       </div>
     </div>
-  </main>
-
-  <!-- Sticky Book button on mobile -->
-  <div style="position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:white;border-top:1px solid var(--gray-100);z-index:50;box-shadow:0 -4px 12px rgba(0,0,0,0.06);">
-    <a href="booking.html?salon=glow" class="btn btn-primary" style="width:100%;">Book Appointment →</a>
   </div>
 
+  <nav class="bottom-nav" aria-label="Main">
+    <a href="index.html"><svg fill="currentColor" viewBox="0 0 24 24" width="22" height="22"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</a>
+    <a href="explore.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="22" height="22"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Explore</a>
+    <a href="bookings.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="22" height="22"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Bookings</a>
+    <a href="profile.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="22" height="22"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</a>
+  </nav>
+
+  <script src="js/data.js"></script>
   <script>
-    // Simple tab switching
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
-        tab.classList.add('active');
-        document.getElementById('tab-' + tab.dataset.tab).style.display = 'block';
+    (function () {
+      var id = BB.parseQuery().id;
+      var b = BB.getById(id);
+      if (!b) {
+        document.getElementById("notFound").hidden = false;
+        return;
+      }
+      document.getElementById("profile").hidden = false;
+      document.title = b.name + " | BeautyBook";
+      document.getElementById("coverImg").src = b.image;
+      document.getElementById("coverImg").alt = b.name;
+      document.getElementById("bizName").textContent = b.name;
+      document.getElementById("bizMeta").textContent = b.categoryLabel + " · " + b.location;
+      document.getElementById("bizDesc").textContent = b.description || "";
+      if (b.sample) document.getElementById("demoBadge").hidden = false;
+      var bookUrl = "booking.html?salon=" + encodeURIComponent(b.id);
+      document.getElementById("bookTop").href = bookUrl;
+      document.getElementById("bookBottom").href = bookUrl;
+      var maps = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(b.name + " " + b.location);
+      document.getElementById("mapsLink").href = maps;
+      document.getElementById("aboutHours").textContent = "Hours: " + (b.hours || "Not listed");
+      document.getElementById("aboutLoc").textContent = b.location;
+
+      var svcEl = document.getElementById("tab-services");
+      if (b.services && b.services.length) {
+        svcEl.innerHTML = b.services.map(function (s) {
+          return '<div class="service-item"><div><h4>' + s.name + '</h4><p>' + s.duration + ' min</p></div>' +
+            '<div class="service-price">' + (s.price ? "R" + s.price : "Quote") + '</div></div>';
+        }).join("");
+      } else {
+        svcEl.innerHTML = "<p style='color:var(--gray-500);'>No services listed yet.</p>";
+      }
+
+      document.querySelectorAll(".tab").forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          document.querySelectorAll(".tab").forEach(function (t) { t.classList.remove("active"); });
+          tab.classList.add("active");
+          var name = tab.getAttribute("data-tab");
+          document.getElementById("tab-services").hidden = name !== "services";
+          document.getElementById("tab-about").hidden = name !== "about";
+        });
       });
-    });
+    })();
   </script>
 </body>
 </html>
