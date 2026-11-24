@@ -4,126 +4,167 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#7C3AED" />
-  <title>Explore Salons | BeautyBook</title>
+  <title>Explore | BeautyBook</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=20261124a" />
+  <style>
+    .filter-bar { padding: 12px 16px; background: var(--white); border-bottom: 1px solid var(--gray-100); }
+    .filter-chips { display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 4px 0 8px; scrollbar-width: none; }
+    .filter-chips::-webkit-scrollbar { display: none; }
+    .chip { flex-shrink: 0; padding: 8px 14px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; border: none; cursor: pointer; background: var(--gray-100); color: var(--gray-600); }
+    .chip.active { background: var(--primary-soft); color: var(--primary); }
+    .results-meta { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 12px; }
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--gray-500); }
+    .empty-state h3 { color: var(--gray-800); margin-bottom: 8px; }
+    .loc-row { display: flex; gap: 8px; margin-top: 8px; }
+    .loc-row input { flex: 1; min-width: 0; padding: 10px 12px; border: 1.5px solid var(--gray-200); border-radius: 12px; font-size: 0.9rem; }
+    .loc-row button { padding: 10px 14px; border-radius: 12px; border: none; background: var(--gray-100); font-weight: 600; font-size: 0.82rem; cursor: pointer; white-space: nowrap; }
+  </style>
 </head>
 <body>
   <header class="app-header">
     <a href="index.html" class="logo">
-      <svg viewBox="0 0 40 40" fill="none" width="28" height="28"><path d="M20 4C20 4 12 12 12 20C12 26 15.5 30 20 32C24.5 30 28 26 28 20C28 12 20 4 20 4Z" fill="#7C3AED"/><circle cx="20" cy="20" r="4" fill="white"/></svg>
-      BeautyBook
+      <svg viewBox="0 0 40 40" fill="none" width="26" height="26"><path d="M20 4C20 4 12 12 12 20C12 26 15.5 30 20 32C24.5 30 28 26 28 20C28 12 20 4 20 4Z" fill="#7C3AED"/><circle cx="20" cy="20" r="4" fill="white"/></svg>
+      <span>BeautyBook</span>
     </a>
     <div class="header-actions">
-      <button class="icon-btn" aria-label="Filter">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
-      </button>
+      <a href="index.html" class="icon-btn" aria-label="Home">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-4 0v-4a1 1 0 011-1h2a1 1 0 011 1v4"/></svg>
+      </a>
     </div>
   </header>
 
   <main class="main-content">
-    <div style="padding:16px;">
-      <div class="search-bar" style="margin-bottom:12px;">
-        <svg width="18" height="18" fill="none" stroke="#9CA3AF" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input type="search" placeholder="Search salons or services..." />
-        <button type="button">Search</button>
+    <div class="filter-bar">
+      <div class="search-bar">
+        <svg width="17" height="17" fill="none" stroke="#9CA3AF" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="search" id="qInput" placeholder="Search name, service or category" autocomplete="off" />
+        <button type="button" id="searchBtn">Search</button>
       </div>
-      <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch;">
-        <span class="chip">All</span>
-        <span class="chip" style="background:var(--gray-100);color:var(--gray-600);">Nails</span>
-        <span class="chip" style="background:var(--gray-100);color:var(--gray-600);">Hair</span>
-        <span class="chip" style="background:var(--gray-100);color:var(--gray-600);">Lashes</span>
-        <span class="chip" style="background:var(--gray-100);color:var(--gray-600);">Makeup</span>
-        <span class="chip" style="background:var(--gray-100);color:var(--gray-600);">Facials</span>
+      <div class="loc-row">
+        <input type="text" id="locInput" placeholder="Suburb or city (e.g. Pretoria)" />
+        <button type="button" id="clearBtn">Clear</button>
       </div>
+      <div class="filter-chips" id="catChips"></div>
+      <p class="demo-note" style="margin:4px 0 0;">Demonstration listings for preview.</p>
     </div>
 
-    <section class="section" style="padding-top:0;">
-      <div class="section-header">
-        <h2>12 Salons Near You</h2>
-      </div>
-      <div class="salon-grid">
-        <article class="salon-card">
-          <div class="salon-card-img">
-            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80" alt="Glow Beauty Studio" loading="lazy" />
-            <button class="fav">♡</button>
-          </div>
-          <div class="salon-card-body">
-            <h3>Glow Beauty Studio <span class="verified">✓</span></h3>
-            <div class="salon-meta"><span class="rating"><span class="stars">★</span> 4.9 (245)</span> · 1.2 km</div>
-            <div class="price">From R250</div>
-            <a href="salon.html?id=glow" class="btn btn-primary btn-sm">View Profile →</a>
-          </div>
-        </article>
-        <article class="salon-card">
-          <div class="salon-card-img">
-            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Royal Hair Studio" loading="lazy" />
-            <button class="fav">♡</button>
-          </div>
-          <div class="salon-card-body">
-            <h3>Royal Hair Studio <span class="verified">✓</span></h3>
-            <div class="salon-meta"><span class="rating"><span class="stars">★</span> 4.8 (189)</span> · 2.4 km</div>
-            <div class="price">From R320</div>
-            <a href="salon.html?id=royal" class="btn btn-primary btn-sm">View Profile →</a>
-          </div>
-        </article>
-        <article class="salon-card">
-          <div class="salon-card-img">
-            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&q=80" alt="Luxe Nails" loading="lazy" />
-            <button class="fav">♡</button>
-          </div>
-          <div class="salon-card-body">
-            <h3>Luxe Nails & Spa <span class="verified">✓</span></h3>
-            <div class="salon-meta"><span class="rating"><span class="stars">★</span> 4.9 (312)</span> · 0.8 km</div>
-            <div class="price">From R180</div>
-            <a href="salon.html?id=luxe" class="btn btn-primary btn-sm">View Profile →</a>
-          </div>
-        </article>
-        <article class="salon-card">
-          <div class="salon-card-img">
-            <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80" alt="Bliss Wellness" loading="lazy" />
-            <button class="fav">♡</button>
-          </div>
-          <div class="salon-card-body">
-            <h3>Bliss Wellness</h3>
-            <div class="salon-meta"><span class="rating"><span class="stars">★</span> 4.7 (97)</span> · 3.1 km</div>
-            <div class="price">From R450</div>
-            <a href="salon.html?id=bliss" class="btn btn-primary btn-sm">View Profile →</a>
-          </div>
-        </article>
-        <article class="salon-card">
-          <div class="salon-card-img">
-            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="Nail Artistry" loading="lazy" />
-            <button class="fav">♡</button>
-          </div>
-          <div class="salon-card-body">
-            <h3>Nail Artistry PT <span class="verified">✓</span></h3>
-            <div class="salon-meta"><span class="rating"><span class="stars">★</span> 4.6 (156)</span> · 1.8 km</div>
-            <div class="price">From R220</div>
-            <a href="salon.html" class="btn btn-primary btn-sm">View Profile →</a>
-          </div>
-        </article>
-        <article class="salon-card">
-          <div class="salon-card-img">
-            <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=600&q=80" alt="Silk Lashes" loading="lazy" />
-            <button class="fav">♡</button>
-          </div>
-          <div class="salon-card-body">
-            <h3>Silk Lashes Studio</h3>
-            <div class="salon-meta"><span class="rating"><span class="stars">★</span> 4.9 (203)</span> · 2.0 km</div>
-            <div class="price">From R300</div>
-            <a href="salon.html" class="btn btn-primary btn-sm">View Profile →</a>
-          </div>
-        </article>
+    <section class="section">
+      <div class="results-meta" id="resultsMeta">Loading…</div>
+      <div class="salon-grid" id="results"></div>
+      <div class="empty-state" id="empty" hidden>
+        <h3>No results found</h3>
+        <p>Try another service, category or location — for example “nails Pretoria” or “barber Centurion”.</p>
+        <button type="button" class="btn btn-primary btn-sm" id="resetBtn" style="max-width:200px;margin:16px auto 0;">Show all</button>
       </div>
     </section>
   </main>
 
-  <nav class="bottom-nav">
-    <a href="index.html"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</a>
-    <a href="explore.html" class="active"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Explore</a>
-    <a href="bookings.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Bookings</a>
-    <a href="profile.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</a>
+  <nav class="bottom-nav" aria-label="Main">
+    <a href="index.html"><svg fill="currentColor" viewBox="0 0 24 24" width="22" height="22"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</a>
+    <a href="explore.html" class="active"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="22" height="22"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Explore</a>
+    <a href="bookings.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="22" height="22"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Bookings</a>
+    <a href="profile.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="22" height="22"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</a>
   </nav>
+
+  <script src="js/data.js"></script>
+  <script>
+    (function () {
+      var state = { q: "", cat: "", loc: "" };
+      var params = BB.parseQuery();
+      state.q = params.q;
+      state.cat = params.cat;
+      state.loc = params.loc;
+
+      var qInput = document.getElementById("qInput");
+      var locInput = document.getElementById("locInput");
+      var resultsEl = document.getElementById("results");
+      var metaEl = document.getElementById("resultsMeta");
+      var emptyEl = document.getElementById("empty");
+      var chipsEl = document.getElementById("catChips");
+
+      qInput.value = state.q;
+      locInput.value = state.loc;
+
+      function renderChips() {
+        var cats = [{ id: "all", name: "All" }].concat(BB_DATA.categories.map(function (c) {
+          return { id: c.id, name: c.name.split(" ")[0] };
+        }));
+        chipsEl.innerHTML = cats.map(function (c) {
+          var active = (state.cat || "all") === c.id || (!state.cat && c.id === "all");
+          return '<button type="button" class="chip' + (active ? " active" : "") + '" data-cat="' + c.id + '">' + c.name + "</button>";
+        }).join("");
+        chipsEl.querySelectorAll(".chip").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            state.cat = btn.getAttribute("data-cat") === "all" ? "" : btn.getAttribute("data-cat");
+            run();
+            history.replaceState(null, "", buildUrl());
+          });
+        });
+      }
+
+      function cardHtml(b) {
+        return (
+          '<article class="salon-card">' +
+          '<div class="salon-card-img"><img src="' + b.image + '" alt="' + b.name + '" loading="lazy" /></div>' +
+          '<div class="salon-card-body">' +
+          "<h3>" + b.name + "</h3>" +
+          '<div class="salon-meta">' + b.categoryLabel + " · " + b.location + "</div>" +
+          (b.description ? '<p style="font-size:0.8rem;color:var(--gray-500);margin:0 0 8px;line-height:1.35;">' + b.description + "</p>" : "") +
+          '<div class="price">From R' + b.priceFrom + "</div>" +
+          '<div class="card-actions">' +
+          '<a href="salon.html?id=' + b.id + '" class="btn btn-outline btn-sm">View Profile</a>' +
+          '<a href="booking.html?salon=' + b.id + '" class="btn btn-primary btn-sm">Book Now</a>' +
+          "</div></div></article>"
+        );
+      }
+
+      function run() {
+        var list = BB.search(state.q, state.cat, state.loc);
+        renderChips();
+        if (!list.length) {
+          resultsEl.innerHTML = "";
+          emptyEl.hidden = false;
+          metaEl.textContent = "0 results";
+          return;
+        }
+        emptyEl.hidden = true;
+        metaEl.textContent = list.length + " business" + (list.length === 1 ? "" : "es") +
+          (state.q || state.cat || state.loc ? " matching your search" : " (demonstration)");
+        resultsEl.innerHTML = list.map(cardHtml).join("");
+      }
+
+      function buildUrl() {
+        var p = new URLSearchParams();
+        if (state.q) p.set("q", state.q);
+        if (state.cat) p.set("cat", state.cat);
+        if (state.loc) p.set("loc", state.loc);
+        var s = p.toString();
+        return "explore.html" + (s ? "?" + s : "");
+      }
+
+      function doSearch() {
+        state.q = qInput.value.trim();
+        state.loc = locInput.value.trim();
+        run();
+        history.replaceState(null, "", buildUrl());
+      }
+
+      document.getElementById("searchBtn").addEventListener("click", doSearch);
+      qInput.addEventListener("keypress", function (e) { if (e.key === "Enter") doSearch(); });
+      locInput.addEventListener("keypress", function (e) { if (e.key === "Enter") doSearch(); });
+      document.getElementById("clearBtn").addEventListener("click", function () {
+        state.q = ""; state.cat = ""; state.loc = "";
+        qInput.value = ""; locInput.value = "";
+        run();
+        history.replaceState(null, "", "explore.html");
+      });
+      document.getElementById("resetBtn").addEventListener("click", function () {
+        document.getElementById("clearBtn").click();
+      });
+
+      run();
+    })();
+  </script>
 </body>
 </html>
