@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Sign in | BeautyBook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=20261124b" />
+</head>
+<body>
+  <header class="app-header">
+    <a href="profile.html" class="icon-btn" aria-label="Back">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </a>
+    <span style="font-weight:700;margin-left:8px;" id="title">Sign in</span>
+  </header>
+  <main class="main-content" style="padding:24px 16px;max-width:420px;margin:0 auto;">
+    <p class="demo-note" style="margin-bottom:16px;">Demo only — no password security. Data stays on this device.</p>
+    <form id="form">
+      <div class="form-group"><label>Full name</label><input type="text" id="name" class="form-control" required placeholder="Your name" /></div>
+      <div class="form-group"><label>Email or phone</label><input type="text" id="contact" class="form-control" required placeholder="email@example.com or 08…" /></div>
+      <button type="submit" class="btn btn-primary" id="submitBtn">Continue</button>
+    </form>
+    <p style="margin-top:16px;font-size:0.85rem;color:var(--gray-500);text-align:center;">Business owner? <a href="owner-register.html" style="color:var(--primary);font-weight:600;">Register your salon</a></p>
+  </main>
+  <script src="js/data.js"></script>
+  <script>
+    var mode = new URLSearchParams(location.search).get("mode");
+    if (mode === "register") document.getElementById("title").textContent = "Create account";
+    document.getElementById("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = document.getElementById("name").value.trim();
+      var contact = document.getElementById("contact").value.trim();
+      if (!name || !contact) return;
+      BB.setUser({ name: name, email: contact.indexOf("@") >= 0 ? contact : "", phone: contact.indexOf("@") < 0 ? contact : "", demo: true });
+      location.href = "profile.html";
+    });
+  </script>
+</body>
+</html>
