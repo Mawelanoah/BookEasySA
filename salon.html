@@ -6,14 +6,14 @@
   <meta name="theme-color" content="#7C3AED" />
   <title>Business Profile | BeautyBook</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20261124a" />
+  <link rel="stylesheet" href="css/styles.css?v=20261124b" />
   <style>
     .profile-hero { position: relative; height: 200px; background: var(--gray-200); }
     .profile-hero img { width: 100%; height: 100%; object-fit: cover; }
     .profile-hero .back-btn {
       position: absolute; top: 14px; left: 14px; width: 38px; height: 38px; border-radius: 50%;
       background: rgba(255,255,255,0.95); border: none; display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--shadow); cursor: pointer; z-index: 5; text-decoration: none; color: var(--gray-800);
+      box-shadow: var(--shadow); z-index: 5; text-decoration: none; color: var(--gray-800);
     }
     .profile-info {
       background: var(--white); border-radius: 22px 22px 0 0; margin-top: -22px; position: relative;
@@ -22,7 +22,7 @@
     .profile-info h1 { font-size: 1.3rem; font-weight: 800; margin: 0 0 6px; word-break: break-word; }
     .profile-meta { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 12px; }
     .profile-actions { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
-    .profile-actions .btn { flex: 1; min-width: 120px; }
+    .profile-actions .btn { flex: 1; min-width: 100px; }
     .tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--gray-200); margin-bottom: 14px; overflow-x: auto; }
     .tab { padding: 11px 14px; font-weight: 600; font-size: 0.88rem; color: var(--gray-500); border: none; background: none; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; }
     .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
@@ -31,7 +31,7 @@
     .service-item p { font-size: 0.78rem; color: var(--gray-500); margin: 0; }
     .service-price { font-weight: 700; color: var(--primary); flex-shrink: 0; }
     .sticky-book {
-      position: fixed; bottom: calc(var(--bottom-nav-h, 64px) + env(safe-area-inset-bottom, 0px)); left: 0; right: 0;
+      position: fixed; bottom: calc(64px + env(safe-area-inset-bottom, 0px)); left: 0; right: 0;
       padding: 12px 16px; background: white; border-top: 1px solid var(--gray-100); z-index: 100;
     }
     @media (min-width: 768px) { .sticky-book { bottom: 0; } }
@@ -39,60 +39,54 @@
   </style>
 </head>
 <body>
-  <div id="app">
-    <div class="not-found" id="notFound" hidden>
-      <h2>Business not found</h2>
-      <p style="color:var(--gray-500);margin:8px 0 16px;">This listing may have been removed or the link is incorrect.</p>
-      <a href="explore.html" class="btn btn-primary" style="max-width:200px;margin:0 auto;">Browse businesses</a>
+  <div id="notFound" class="not-found" hidden>
+    <h2>Business not found</h2>
+    <p style="color:var(--gray-500);margin:8px 0 16px;">This listing may have been removed or the link is incorrect.</p>
+    <a href="explore.html" class="btn btn-primary" style="max-width:200px;margin:0 auto;">Browse businesses</a>
+  </div>
+  <div id="profile" hidden>
+    <div class="profile-hero">
+      <img id="coverImg" src="" alt="" />
+      <a href="explore.html" class="back-btn" aria-label="Back">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
     </div>
-    <div id="profile" hidden>
-      <div class="profile-hero">
-        <img id="coverImg" src="" alt="" />
-        <a href="explore.html" class="back-btn" aria-label="Back">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        </a>
+    <div class="profile-info">
+      <p class="demo-note" id="demoBadge" hidden>Demonstration listing</p>
+      <h1 id="bizName"></h1>
+      <div class="profile-meta" id="bizMeta"></div>
+      <p id="bizDesc" style="font-size:0.9rem;color:var(--gray-600);margin-bottom:14px;line-height:1.45;"></p>
+      <div class="profile-actions">
+        <a id="bookTop" href="#" class="btn btn-primary btn-sm">Book Now</a>
+        <button type="button" id="favBtn" class="btn btn-outline btn-sm">Save</button>
+        <a id="mapsLink" href="#" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Directions</a>
       </div>
-      <div class="profile-info">
-        <p class="demo-note" id="demoBadge" hidden>Demonstration listing</p>
-        <h1 id="bizName"></h1>
-        <div class="profile-meta" id="bizMeta"></div>
-        <p id="bizDesc" style="font-size:0.9rem;color:var(--gray-600);margin-bottom:14px;line-height:1.45;"></p>
-        <div class="profile-actions">
-          <a id="bookTop" href="#" class="btn btn-primary btn-sm">Book Now</a>
-          <a id="mapsLink" href="#" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Directions</a>
-        </div>
-        <div class="tabs">
-          <button type="button" class="tab active" data-tab="services">Services</button>
-          <button type="button" class="tab" data-tab="about">About</button>
-        </div>
-        <div id="tab-services"></div>
-        <div id="tab-about" hidden>
-          <p id="aboutHours" style="font-size:0.9rem;margin-bottom:8px;"></p>
-          <p id="aboutLoc" style="font-size:0.9rem;color:var(--gray-600);"></p>
-        </div>
+      <div class="tabs">
+        <button type="button" class="tab active" data-tab="services">Services</button>
+        <button type="button" class="tab" data-tab="about">About</button>
       </div>
-      <div class="sticky-book">
-        <a id="bookBottom" href="#" class="btn btn-primary">Book an appointment</a>
+      <div id="tab-services"></div>
+      <div id="tab-about" hidden>
+        <p id="aboutHours" style="font-size:0.9rem;margin-bottom:8px;"></p>
+        <p id="aboutLoc" style="font-size:0.9rem;color:var(--gray-600);"></p>
       </div>
+    </div>
+    <div class="sticky-book">
+      <a id="bookBottom" href="#" class="btn btn-primary">Book an appointment</a>
     </div>
   </div>
-
-  <nav class="bottom-nav" aria-label="Main">
+  <nav class="bottom-nav">
     <a href="index.html"><svg fill="currentColor" viewBox="0 0 24 24" width="22" height="22"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</a>
     <a href="explore.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="22" height="22"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Explore</a>
     <a href="bookings.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="22" height="22"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Bookings</a>
     <a href="profile.html"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="22" height="22"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</a>
   </nav>
-
   <script src="js/data.js"></script>
   <script>
     (function () {
       var id = BB.parseQuery().id;
       var b = BB.getById(id);
-      if (!b) {
-        document.getElementById("notFound").hidden = false;
-        return;
-      }
+      if (!b) { document.getElementById("notFound").hidden = false; return; }
       document.getElementById("profile").hidden = false;
       document.title = b.name + " | BeautyBook";
       document.getElementById("coverImg").src = b.image;
@@ -104,21 +98,21 @@
       var bookUrl = "booking.html?salon=" + encodeURIComponent(b.id);
       document.getElementById("bookTop").href = bookUrl;
       document.getElementById("bookBottom").href = bookUrl;
-      var maps = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(b.name + " " + b.location);
-      document.getElementById("mapsLink").href = maps;
+      document.getElementById("mapsLink").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(b.name + " " + b.location);
       document.getElementById("aboutHours").textContent = "Hours: " + (b.hours || "Not listed");
       document.getElementById("aboutLoc").textContent = b.location;
-
       var svcEl = document.getElementById("tab-services");
       if (b.services && b.services.length) {
         svcEl.innerHTML = b.services.map(function (s) {
-          return '<div class="service-item"><div><h4>' + s.name + '</h4><p>' + s.duration + ' min</p></div>' +
-            '<div class="service-price">' + (s.price ? "R" + s.price : "Quote") + '</div></div>';
+          return '<div class="service-item"><div><h4>' + s.name + '</h4><p>' + s.duration + ' min</p></div><div class="service-price">' + (s.price ? "R" + s.price : "Quote") + '</div></div>';
         }).join("");
       } else {
         svcEl.innerHTML = "<p style='color:var(--gray-500);'>No services listed yet.</p>";
       }
-
+      var favBtn = document.getElementById("favBtn");
+      function refreshFav() { favBtn.textContent = BB.isFav(b.id) ? "Saved" : "Save"; }
+      refreshFav();
+      favBtn.addEventListener("click", function () { BB.toggleFav(b.id); refreshFav(); });
       document.querySelectorAll(".tab").forEach(function (tab) {
         tab.addEventListener("click", function () {
           document.querySelectorAll(".tab").forEach(function (t) { t.classList.remove("active"); });
